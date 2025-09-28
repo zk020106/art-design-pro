@@ -5,7 +5,7 @@
  * https://cz-git.qbb.sh/zh/guide/
  */
 
-module.exports = {
+export default {
   // 继承的规则
   extends: ['@commitlint/config-conventional'],
   // 自定义规则
