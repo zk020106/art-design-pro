@@ -7,6 +7,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { fileURLToPath } from 'url'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import tailwindcss from '@tailwindcss/vite'
 // import { visualizer } from 'rollup-plugin-visualizer'
 
 export default ({ mode }: { mode: string }) => {
@@ -67,6 +68,8 @@ export default ({ mode }: { mode: string }) => {
     },
     plugins: [
       vue(),
+      // Tailwind CSS v4
+      tailwindcss(),
       // 自动导入 components 目录下的组件
       Components({
         deep: true,
@@ -114,7 +117,7 @@ export default ({ mode }: { mode: string }) => {
         scss: {
           api: 'modern-compiler',
           additionalData: `
-            @use "@styles/variables.scss" as *; 
+            @use "@styles/variables.scss" as *;
             @use "@styles/mixin.scss" as *;
           `
         }
