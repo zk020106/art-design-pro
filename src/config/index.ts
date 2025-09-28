@@ -15,7 +15,7 @@ const appConfig: SystemConfig = {
   },
   // Element Plus 主题
   elementPlusTheme: {
-    primary: '#5D87FF'
+    primary: '#165DFF'
   },
   // 系统主题
   systemThemeStyles: {
@@ -117,15 +117,15 @@ const appConfig: SystemConfig = {
       rightLineColor: '#EDEEF0'
     }
   ],
-  // 系统主色
+  // 系统主色（主色系+配套色）
   systemMainColor: [
-    '#5D87FF',
-    '#B48DF3',
-    '#1D84FF',
-    '#60C041',
-    '#38C0FC',
-    '#F9901F',
-    '#FF80C8'
+    '#165DFF', // 主色 蓝
+    '#4080FF', // 次级蓝
+    '#6AA1FF', // hover 蓝
+    '#94BFFF', // 浅蓝
+    '#0E42D2', // 深蓝
+    '#072CA6', // 激活蓝
+    '#031A79' // 暗蓝
   ] as const,
   // 系统其他项默认配置
   systemSetting: {

@@ -34,6 +34,7 @@ export default ({ mode }: { mode: string }) => {
       },
       host: true
     },
+
     // 路径别名
     resolve: {
       alias: {
