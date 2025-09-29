@@ -9,6 +9,8 @@ import { setPageTitle } from '@/router/utils/utils'
 import { resetRouterState } from '@/router/guards/beforeEach'
 import { RoutesAlias } from '@/router/routesAlias'
 import { useMenuStore } from './menu'
+import { useAuthStore } from './auth'
+import type { UserInfo } from '@/apis/auth/type'
 
 /**
  * 用户状态管理
@@ -26,7 +28,7 @@ export const useUserStore = defineStore(
     // 锁屏密码
     const lockPassword = ref('')
     // 用户信息
-    const info = ref<Partial<Api.Auth.UserInfo>>({})
+    const info = ref<Partial<UserInfo>>({})
     // 搜索历史记录
     const searchHistory = ref<AppRouteRecord[]>([])
     // 访问令牌
@@ -45,7 +47,7 @@ export const useUserStore = defineStore(
      * 设置用户信息
      * @param newInfo 新的用户信息
      */
-    const setUserInfo = (newInfo: Api.Auth.UserInfo) => {
+    const setUserInfo = (newInfo: UserInfo) => {
       info.value = newInfo
     }
 
@@ -106,7 +108,23 @@ export const useUserStore = defineStore(
      * 退出登录
      * 清空所有用户相关状态并跳转到登录页
      */
-    const logOut = () => {
+    const logOut = async () => {
+      const authStore = useAuthStore()
+
+      try {
+        // 使用 auth store 退出登录
+        await authStore.logoutUser()
+      } catch (error) {
+        console.error('[UserStore] Logout error:', error)
+        // 即使退出失败，也要清理本地状态
+        cleanupState()
+      }
+    }
+
+    /**
+     * 清理用户状态
+     */
+    const cleanupState = () => {
       // 清空用户信息
       info.value = {}
       // 重置登录状态
@@ -150,7 +168,8 @@ export const useUserStore = defineStore(
       setLockStatus,
       setLockPassword,
       setToken,
-      logOut
+      logOut,
+      cleanupState
     }
   },
   {

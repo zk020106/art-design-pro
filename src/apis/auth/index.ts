@@ -6,7 +6,8 @@ export type * from './type'
 const BASE_URL = '/auth'
 
 const login = (req: T.AccountLoginReq | T.PhoneLoginReq | T.EmailLoginReq, tenantCode?: string) => {
-  const headers = {}
+  const headers: Record<string, string> = {}
+  // 只有当tenantCode存在且不为空时才设置请求头
   if (tenantCode) {
     headers['X-Tenant-Code'] = tenantCode
   }
@@ -35,14 +36,17 @@ export function socialLogin(req: any) {
   return http.post<T.LoginResp>(`${BASE_URL}/login`, req)
 }
 
-/** @desc 三方账号登录授权 */
-export function socialAuth(source: string) {
-  return http.get<T.SocialAuthAuthorizeResp>(`${BASE_URL}/${source}`)
-}
-
 /** @desc 退出登录 */
 export function logout() {
-  return http.post(`${BASE_URL}/logout`)
+  // 退出登录接口不需要处理401错误，避免循环调用
+  return http.post(
+    `${BASE_URL}/logout`,
+    {},
+    {
+      showErrorMessage: false,
+      skipUnauthorizedHandler: true // 跳过401处理
+    }
+  )
 }
 
 /** @desc 获取用户信息 */

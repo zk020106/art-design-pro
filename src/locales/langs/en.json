@@ -12,7 +12,8 @@
     "requestCancelled": "Request cancelled",
     "networkError": "Network connection error, please check your connection",
     "requestFailed": "Request failed",
-    "requestConfigError": "Request configuration error"
+    "requestConfigError": "Request configuration error",
+    "badRequest": ""
   },
   "topBar": {
     "search": {
@@ -126,19 +127,40 @@
       "subTitle": "A sleek and practical interface for a great user experience"
     },
     "title": "Welcome back",
-    "subTitle": "Please enter your account and password to login",
-    "roles": {
-      "super": "Super Admin",
-      "admin": "Admin",
-      "user": "User"
+    "subTitle": "Please select login method",
+    "account": {
+      "title": "Account Login",
+      "placeholder": [
+        "Please enter your account",
+        "Please enter your password",
+        "Please enter verification code"
+      ],
+      "loginError": "Incorrect account or password"
     },
-    "placeholder": [
-      "Please enter your account",
-      "Please enter your password",
-      "Please slide to verify"
-    ],
-    "sliderText": "Please slide to verify",
-    "sliderSuccessText": "Verification successful",
+    "phone": {
+      "title": "Phone Login",
+      "placeholder": ["Please enter your phone number", "Please enter verification code"],
+      "invalid": "Invalid phone number format",
+      "sendCaptcha": "Send Code",
+      "captchaSent": "Verification code sent",
+      "captchaFailed": "Failed to send verification code",
+      "loginError": "Incorrect phone number or verification code"
+    },
+    "email": {
+      "title": "Email Login",
+      "placeholder": ["Please enter your email", "Please enter verification code"],
+      "invalid": "Invalid email format",
+      "sendCaptcha": "Send Code",
+      "captchaSent": "Verification code sent",
+      "captchaFailed": "Failed to send verification code",
+      "loginError": "Incorrect email or verification code"
+    },
+    "otherLogin": "Other Login Methods",
+    "switchToMain": "Account/Phone Login",
+    "captcha": {
+      "fetchError": "Failed to fetch captcha",
+      "expired": "Verification code expired"
+    },
     "rememberPwd": "Remember password",
     "forgetPwd": "Forgot password",
     "btnText": "Login",
@@ -147,6 +169,9 @@
     "success": {
       "title": "Login successful",
       "message": "Welcome back"
+    },
+    "tenantCode": {
+      "placeholder": "Please enter the tenant code (default tenant if not entered)"
     }
   },
   "forgetPassword": {

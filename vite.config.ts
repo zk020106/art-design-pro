@@ -8,6 +8,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { fileURLToPath } from 'url'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 // import { visualizer } from 'rollup-plugin-visualizer'
 
 export default ({ mode }: { mode: string }) => {
@@ -85,6 +86,14 @@ export default ({ mode }: { mode: string }) => {
       vue(),
       // Tailwind CSS v4
       tailwindcss(),
+      // SVG Icons插件 - 支持多个图标目录
+      createSvgIconsPlugin({
+        iconDirs: [
+          path.resolve(process.cwd(), 'src/assets/icons'),
+          path.resolve(process.cwd(), 'src/assets/svg')
+        ],
+        symbolId: 'icon-[dir]-[name]'
+      }),
       // 自动导入 components 目录下的组件
       Components({
         deep: true,
