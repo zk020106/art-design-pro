@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { useUserStore } from '@/store/modules/user'
 import { ApiStatus } from './status'
-import { HttpError, handleError, showError, showSuccess } from './error'
+import { HttpError, showError, showSuccess } from './error'
 import { $t } from '@/locales'
 
 /** 请求配置常量 */
@@ -22,6 +22,43 @@ interface ExtendedAxiosRequestConfig extends AxiosRequestConfig {
 }
 
 const { VITE_API_URL, VITE_WITH_CREDENTIALS } = import.meta.env
+
+/** 响应拦截器配置 */
+interface ResponseInterceptorConfig {
+  /** 响应数据中代表访问结果的字段名 */
+  codeField: string
+  /** 响应数据中装载实际数据的字段名，或者提供一个函数从响应数据中解析需要返回的数据 */
+  dataField: ((response: any) => any) | string
+  /** 当codeField所指定的字段值与successCode相同时，代表接口访问成功。如果提供一个函数，则返回true代表接口访问成功 */
+  successCode: ((code: any) => boolean) | number | string
+  /** 响应数据中代表错误信息的字段名 */
+  messageField: string
+  /** 是否启用自动错误处理 */
+  enableErrorHandle: boolean
+  /** 是否启用成功消息显示 */
+  enableSuccessMessage: boolean
+}
+
+/** 默认响应拦截器配置 */
+const DEFAULT_RESPONSE_CONFIG: ResponseInterceptorConfig = {
+  codeField: 'code',
+  dataField: 'data',
+  successCode: '0',
+  messageField: 'msg',
+  enableErrorHandle: true,
+  enableSuccessMessage: false
+}
+
+/** 当前响应拦截器配置 */
+let currentResponseConfig: ResponseInterceptorConfig = DEFAULT_RESPONSE_CONFIG
+
+/** 设置响应拦截器配置 */
+const setResponseConfig = (config: Partial<ResponseInterceptorConfig>) => {
+  currentResponseConfig = { ...DEFAULT_RESPONSE_CONFIG, ...config }
+}
+
+/** 获取响应拦截器配置 */
+const getResponseConfig = () => currentResponseConfig
 
 /** Axios实例 */
 const axiosInstance = axios.create({
@@ -63,19 +100,127 @@ axiosInstance.interceptors.request.use(
   }
 )
 
-/** 响应拦截器 */
-axiosInstance.interceptors.response.use(
-  (response: AxiosResponse<Http.BaseResponse>) => {
-    const { code, msg } = response.data
-    if (code === ApiStatus.success) return response
-    if (code === ApiStatus.unauthorized) handleUnauthorizedError(msg)
-    throw createHttpError(msg || $t('httpMsg.requestFailed'), code)
-  },
-  (error) => {
-    if (error.response?.status === ApiStatus.unauthorized) handleUnauthorizedError()
-    return Promise.reject(handleError(error))
+/** 默认响应拦截器 */
+const defaultResponseInterceptor = (): any => {
+  return {
+    fulfilled: (response: AxiosResponse<any>) => {
+      const { config, data: responseData, status } = response
+      const { codeField, dataField, successCode, messageField, enableSuccessMessage } =
+        currentResponseConfig
+
+      // 如果请求配置了返回原始响应
+      if ((config as any).responseReturn === 'raw') {
+        return response
+      }
+
+      // HTTP状态码检查
+      if (status >= 200 && status < 400) {
+        // 如果请求配置了返回响应体
+        if ((config as any).responseReturn === 'body') {
+          return responseData
+        }
+
+        // 检查业务状态码
+        const isSuccess =
+          typeof successCode === 'function'
+            ? successCode(responseData[codeField])
+            : responseData[codeField] === successCode
+
+        if (isSuccess) {
+          // 显示成功消息
+          if (enableSuccessMessage && responseData[messageField]) {
+            showSuccess(responseData[messageField])
+          }
+
+          // 返回数据
+          return typeof dataField === 'function' ? dataField(responseData) : responseData[dataField]
+        }
+      }
+
+      // 抛出错误
+      throw Object.assign({}, response, { response })
+    }
   }
-)
+}
+
+/** 认证响应拦截器 */
+const authenticateResponseInterceptor = (): any => {
+  return {
+    rejected: async (error: any) => {
+      const { response } = error
+
+      // 如果不是 401 错误，直接抛出异常
+      if (response?.status !== ApiStatus.unauthorized) {
+        throw error
+      }
+
+      // 处理未授权错误
+      handleUnauthorizedError(response?.data?.[currentResponseConfig.messageField])
+      throw error
+    }
+  }
+}
+
+/** 错误消息响应拦截器 */
+const errorMessageResponseInterceptor = (): any => {
+  return {
+    rejected: (error: any) => {
+      if (axios.isCancel(error)) {
+        return Promise.reject(error)
+      }
+
+      const err: string = error?.toString?.() ?? ''
+      let errMsg = ''
+
+      if (err?.includes('Network Error')) {
+        errMsg = $t('httpMsg.networkError')
+      } else if (error?.message?.includes?.('timeout')) {
+        errMsg = $t('httpMsg.requestTimeout')
+      }
+
+      if (errMsg) {
+        showError(createHttpError(errMsg, ApiStatus.error), true)
+        return Promise.reject(error)
+      }
+
+      let errorMessage = ''
+      const status = error?.response?.status
+
+      switch (status) {
+        case 400:
+          errorMessage = $t('httpMsg.badRequest')
+          break
+        case 401:
+          errorMessage = $t('httpMsg.unauthorized')
+          break
+        case 403:
+          errorMessage = $t('httpMsg.forbidden')
+          break
+        case 404:
+          errorMessage = $t('httpMsg.notFound')
+          break
+        case 408:
+          errorMessage = $t('httpMsg.requestTimeout')
+          break
+        default:
+          errorMessage = $t('httpMsg.internalServerError')
+      }
+
+      showError(createHttpError(errorMessage, status || ApiStatus.error), true)
+      return Promise.reject(error)
+    }
+  }
+}
+
+/** 应用响应拦截器 */
+axiosInstance.interceptors.response.use(defaultResponseInterceptor().fulfilled, async (error) => {
+  // 先处理认证错误
+  const authError = await authenticateResponseInterceptor().rejected(error)
+  if (authError) return authError
+
+  // 再处理错误消息
+  return errorMessageResponseInterceptor().rejected(error)
+})
 
 /** 统一创建HttpError */
 function createHttpError(message: string, code: number) {
@@ -249,7 +394,10 @@ const http = {
   request,
   requestNative,
   download,
-  upload
+  upload,
+  // 响应拦截器配置相关方法
+  setResponseConfig,
+  getResponseConfig
 }
 
 export default http
