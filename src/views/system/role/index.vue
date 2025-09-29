@@ -59,7 +59,6 @@
   import { ButtonMoreItem } from '@/components/core/forms/art-button-more/index.vue'
   import { Setting, Edit, Delete } from '@element-plus/icons-vue'
   import { useTable } from '@/composables/useTable'
-  import { fetchGetRoleList } from '@/api/system-manage'
   import ArtButtonMore from '@/components/core/forms/art-button-more/index.vue'
   import RoleSearch from './modules/role-search.vue'
   import RoleEditDialog from './modules/role-edit-dialog.vue'
@@ -99,7 +98,7 @@
   } = useTable({
     // 核心配置
     core: {
-      apiFn: fetchGetRoleList,
+      apiFn: Promise.resolve,
       apiParams: {
         current: 1,
         size: 20

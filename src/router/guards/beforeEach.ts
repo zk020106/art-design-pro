@@ -6,7 +6,6 @@ import { useUserStore } from '@/store/modules/user'
 import { useMenuStore } from '@/store/modules/menu'
 import { setWorktab } from '@/utils/navigation'
 import { setPageTitle, setSystemTheme } from '../utils/utils'
-import { fetchGetMenuList } from '@/api/system-manage'
 import { registerDynamicRoutes } from '../utils/registerRoutes'
 import { AppRouteRecord } from '@/types/router'
 import { RoutesAlias } from '../routesAlias'
@@ -15,7 +14,6 @@ import { asyncRoutes } from '../routes/asyncRoutes'
 import { loadingService } from '@/utils/ui'
 import { useCommon } from '@/composables/useCommon'
 import { useWorktabStore } from '@/store/modules/worktab'
-import { fetchGetUserInfo } from '@/api/auth'
 
 // 前端权限模式 loading 关闭延时，提升用户体验
 const LOADING_DELAY = 50
@@ -159,7 +157,7 @@ async function handleDynamicRoutes(
     const isRefresh = from.path === '/'
     if (isRefresh || !userStore.info || Object.keys(userStore.info).length === 0) {
       try {
-        const data = await fetchGetUserInfo()
+        const data = {}
         userStore.setUserInfo(data)
       } catch (error) {
         console.error('获取用户信息失败', error)
@@ -225,7 +223,7 @@ async function processFrontendMenu(router: Router): Promise<void> {
  * 处理后端控制模式的菜单逻辑
  */
 async function processBackendMenu(router: Router): Promise<void> {
-  const { menuList } = await fetchGetMenuList()
+  const { menuList } = { menuList: [] }
   await registerAndStoreMenu(router, menuList)
 }
 

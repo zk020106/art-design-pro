@@ -12,6 +12,7 @@
 
   import { setThemeTransitionClass } from './utils/theme/animation'
   import { checkStorageCompatibility } from './utils/storage'
+  import { getImageCaptcha } from './apis/common/captcha'
 
   const userStore = useUserStore()
   const { language } = storeToRefs(userStore)
@@ -23,6 +24,7 @@
 
   onBeforeMount(() => {
     setThemeTransitionClass(true)
+    getImageCaptcha()
   })
 
   onMounted(() => {

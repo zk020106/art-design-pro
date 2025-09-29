@@ -133,7 +133,7 @@
   import { useI18n } from 'vue-i18n'
   import { HttpError } from '@/utils/http/error'
   import { themeAnimation } from '@/utils/theme/animation'
-  import { fetchLogin, fetchGetUserInfo } from '@/api/auth'
+  import { accountLogin, getUserInfo } from '@/apis/auth'
   import { useHeaderBar } from '@/composables/useHeaderBar'
 
   defineOptions({ name: 'Login' })
@@ -236,9 +236,11 @@
       // 登录请求
       const { username, password } = formData
 
-      const { token, refreshToken } = await fetchLogin({
-        userName: username,
-        password
+      const { token } = await accountLogin({
+        username,
+        password,
+        captcha: '', // 如果需要验证码，可以在这里添加
+        uuid: '' // 如果需要UUID，可以在这里添加
       })
 
       // 验证token
@@ -247,8 +249,8 @@
       }
 
       // 存储token和用户信息
-      userStore.setToken(token, refreshToken)
-      const userInfo = await fetchGetUserInfo()
+      userStore.setToken(token)
+      const userInfo = await getUserInfo()
       userStore.setUserInfo(userInfo)
       userStore.setLoginStatus(true)
 

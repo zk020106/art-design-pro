@@ -17,6 +17,26 @@ export default ({ mode }: { mode: string }) => {
 
   console.log(`🚀 API_URL = ${VITE_API_URL}`)
   console.log(`🚀 VERSION = ${VITE_VERSION}`)
+  if (VITE_API_PROXY_URL) {
+    console.log(`🚀 PROXY_URL = ${VITE_API_PROXY_URL}`)
+  }
+
+  // 构建代理配置（仅开发环境）
+  const createProxy = () => {
+    const proxy: Record<string, any> = {}
+
+    // 只在开发环境且配置了代理URL时启用代理
+    if (mode === 'development' && VITE_API_PROXY_URL) {
+      proxy[VITE_API_URL] = {
+        target: VITE_API_PROXY_URL,
+        changeOrigin: true,
+        ws: true,
+        rewrite: (path: string) => path.replace(new RegExp(`^${VITE_API_URL}`, 'g'), '')
+      }
+    }
+
+    return proxy
+  }
 
   return defineConfig({
     define: {
@@ -25,13 +45,7 @@ export default ({ mode }: { mode: string }) => {
     base: VITE_BASE_URL,
     server: {
       port: Number(VITE_PORT),
-      proxy: {
-        '/api': {
-          target: VITE_API_PROXY_URL,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, '')
-        }
-      },
+      proxy: createProxy(),
       host: true
     },
 

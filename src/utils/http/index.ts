@@ -130,7 +130,7 @@ async function retryRequest<T>(
   retries: number = MAX_RETRIES
 ): Promise<T> {
   try {
-    return await request<T>(config)
+    return await internalRequest<T>(config)
   } catch (error) {
     if (retries > 0 && error instanceof HttpError && shouldRetry(error.code)) {
       await delay(RETRY_DELAY)
@@ -145,8 +145,8 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-/** 请求函数 */
-async function request<T = any>(config: ExtendedAxiosRequestConfig): Promise<T> {
+/** 内部请求函数 */
+async function internalRequest<T = any>(config: ExtendedAxiosRequestConfig): Promise<T> {
   // POST | PUT 参数自动填充
   if (
     ['POST', 'PUT'].includes(config.method?.toUpperCase() || '') &&
@@ -175,23 +175,81 @@ async function request<T = any>(config: ExtendedAxiosRequestConfig): Promise<T> 
   }
 }
 
-/** API方法集合 */
-const api = {
-  get<T>(config: ExtendedAxiosRequestConfig) {
-    return retryRequest<T>({ ...config, method: 'GET' })
-  },
-  post<T>(config: ExtendedAxiosRequestConfig) {
-    return retryRequest<T>({ ...config, method: 'POST' })
-  },
-  put<T>(config: ExtendedAxiosRequestConfig) {
-    return retryRequest<T>({ ...config, method: 'PUT' })
-  },
-  del<T>(config: ExtendedAxiosRequestConfig) {
-    return retryRequest<T>({ ...config, method: 'DELETE' })
-  },
-  request<T>(config: ExtendedAxiosRequestConfig) {
-    return retryRequest<T>(config)
+/** 基础请求函数 */
+const request = async <T = unknown>(config: ExtendedAxiosRequestConfig): Promise<T> => {
+  return retryRequest<T>(config)
+}
+
+/** 原生请求函数（返回完整响应） */
+const requestNative = async <T = unknown>(
+  config: ExtendedAxiosRequestConfig
+): Promise<AxiosResponse<Http.BaseResponse<T>>> => {
+  try {
+    return await axiosInstance.request<Http.BaseResponse<T>>(config)
+  } catch (error) {
+    return Promise.reject(error)
   }
 }
 
-export default api
+/** 创建请求方法的工厂函数 */
+const createRequest = (method: string) => {
+  return <T = any>(
+    url: string,
+    params?: object,
+    config?: ExtendedAxiosRequestConfig
+  ): Promise<T> => {
+    return request<T>({
+      method,
+      url,
+      [method === 'get' ? 'params' : 'data']: params,
+      ...config
+    })
+  }
+}
+
+/** 下载文件 */
+const download = (
+  url: string,
+  params?: object,
+  config?: ExtendedAxiosRequestConfig
+): Promise<AxiosResponse> => {
+  return requestNative({
+    method: 'get',
+    url,
+    responseType: 'blob',
+    params,
+    ...config
+  })
+}
+
+/** 上传文件 */
+const upload = <T = any>(
+  url: string,
+  formData: FormData,
+  config?: ExtendedAxiosRequestConfig
+): Promise<T> => {
+  return request<T>({
+    method: 'post',
+    url,
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    ...config
+  })
+}
+
+/** API方法集合 */
+const http = {
+  get: createRequest('get'),
+  post: createRequest('post'),
+  put: createRequest('put'),
+  patch: createRequest('patch'),
+  del: createRequest('delete'),
+  request,
+  requestNative,
+  download,
+  upload
+}
+
+export default http
