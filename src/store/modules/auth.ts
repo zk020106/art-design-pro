@@ -154,8 +154,8 @@ export const useAuthStore = defineStore(
         // 忽略 logout 接口的错误，避免无限循环
         console.warn('[AuthStore] Logout API error (ignored to prevent infinite loop):', error)
       } finally {
-        // 清理用户状态
-        userStore.logOut()
+        // 直接清理用户状态，不调用 logOut() 避免递归
+        userStore.cleanupState()
       }
     }
 

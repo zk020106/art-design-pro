@@ -119,8 +119,8 @@
   const isCaptchaExpired = ref(false)
 
   const formData = reactive({
-    username: '',
-    password: '',
+    username: 'admin',
+    password: 'admin123',
     captcha: '',
     rememberPassword: true,
     tenantCode: ''

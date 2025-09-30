@@ -155,30 +155,36 @@
         animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
 
-      // 动画 mixin
+      // 动画 mixin - 使用 CSS 自定义属性避免 Stylelint 冲突
       @mixin fadeAnimation($direction: '', $rotation: 0deg) {
         from {
           opacity: 0;
 
+          --transform-x: 0;
+          --transform-y: 0;
+
           @if $direction == 'up' {
-            transform: translateY(30px) rotate($rotation);
-          } @else if $direction == 'down' {
-            transform: translateY(-30px) rotate($rotation);
-          } @else if $direction == 'left' {
-            transform: translateX(-30px) rotate($rotation);
-          } @else if $direction == 'right' {
-            transform: translateX(30px) rotate($rotation);
+            --transform-y: 30px;
           }
+
+          @if $direction == 'down' {
+            --transform-y: -30px;
+          }
+
+          @if $direction == 'left' {
+            --transform-x: -30px;
+          }
+
+          @if $direction == 'right' {
+            --transform-x: 30px;
+          }
+
+          transform: translate(var(--transform-x), var(--transform-y)) rotate($rotation);
         }
 
         to {
           opacity: 1;
-
-          @if $direction == 'up' or $direction == 'down' {
-            transform: translateY(0) rotate($rotation);
-          } @else {
-            transform: translateX(0) rotate($rotation);
-          }
+          transform: translate(0, 0) rotate($rotation);
         }
       }
 

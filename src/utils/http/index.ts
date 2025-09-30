@@ -7,7 +7,6 @@ import { useTenantStore } from '@/store/modules/tenant'
 
 /** 请求配置常量 */
 const REQUEST_TIMEOUT = 15000
-const LOGOUT_DELAY = 500
 const MAX_RETRIES = 0
 const RETRY_DELAY = 1000
 const UNAUTHORIZED_DEBOUNCE_TIME = 3000
@@ -164,7 +163,8 @@ function handleUnauthorizedError(message?: string): never {
   const error = createHttpError(message || $t('httpMsg.unauthorized'), ApiStatus.unauthorized)
   if (!isUnauthorizedErrorShown) {
     isUnauthorizedErrorShown = true
-    logOut()
+    // 直接清理本地用户状态，不调用 logout API
+    useUserStore().cleanupState()
     unauthorizedTimer = setTimeout(resetUnauthorizedError, UNAUTHORIZED_DEBOUNCE_TIME)
     showError(error, true)
     throw error
@@ -176,13 +176,6 @@ function resetUnauthorizedError() {
   isUnauthorizedErrorShown = false
   if (unauthorizedTimer) clearTimeout(unauthorizedTimer)
   unauthorizedTimer = null
-}
-
-function logOut() {
-  setTimeout(() => {
-    // 直接清理用户状态，避免循环调用
-    useUserStore().cleanupState()
-  }, LOGOUT_DELAY)
 }
 
 /** 是否需要重试 */

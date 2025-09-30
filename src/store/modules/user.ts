@@ -123,6 +123,7 @@ export const useUserStore = defineStore(
 
     /**
      * 清理用户状态
+     * 这是一个安全的清理操作，不会触发任何 API 调用，避免无限循环
      */
     const cleanupState = () => {
       // 清空用户信息
