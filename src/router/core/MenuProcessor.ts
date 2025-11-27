@@ -7,13 +7,15 @@
  * @author Art Design Pro Team
  */
 
-import type { AppRouteRecord } from '@/types/router'
-import { useUserStore } from '@/store/modules/user'
+import { fetchGetUserRoute } from '@/api/auth'
 import { useAppMode } from '@/hooks/core/useAppMode'
-import { fetchGetMenuList } from '@/api/system-manage'
+import { useUserStore } from '@/store/modules/user'
+import { RouteResp } from '@/types/api/auth'
+import type { AppRouteRecord } from '@/types/router'
+import { formatMenuTitle } from '@/utils'
+import { transformRoutesToRecords } from '@/utils/route-transform'
 import { asyncRoutes } from '../routes/asyncRoutes'
 import { RoutesAlias } from '../routesAlias'
-import { formatMenuTitle } from '@/utils'
 
 export class MenuProcessor {
   /**
@@ -57,8 +59,11 @@ export class MenuProcessor {
    * 处理后端控制模式的菜单
    */
   private async processBackendMenu(): Promise<AppRouteRecord[]> {
-    const list = await fetchGetMenuList()
-    return this.filterEmptyMenus(list)
+    const list: RouteResp[] = await fetchGetUserRoute()
+    const menuList = transformRoutesToRecords(list)
+    console.log(menuList)
+
+    return this.filterEmptyMenus(menuList)
   }
 
   /**
@@ -131,6 +136,9 @@ export class MenuProcessor {
    */
   private normalizeMenuPaths(menuList: AppRouteRecord[], parentPath = ''): AppRouteRecord[] {
     return menuList.map((item) => {
+      if (item.component === 'Layout') {
+        item.component = RoutesAlias.Layout
+      }
       // 构建完整路径
       const fullPath = this.buildFullPath(item.path || '', parentPath)
 

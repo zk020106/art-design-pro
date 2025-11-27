@@ -1,4 +1,4 @@
-import { AppRouteRecordRaw } from '@/utils/router'
+import { AppRouteRecord } from '@/types/router'
 
 /**
  * 静态路由配置（不需要权限就能访问的路由）
@@ -10,7 +10,7 @@ import { AppRouteRecordRaw } from '@/utils/router'
  * 1、path、name 不要和动态路由冲突，否则会导致路由冲突无法访问
  * 2、静态路由不管是否登录都可以访问
  */
-export const staticRoutes: AppRouteRecordRaw[] = [
+export const staticRoutes: AppRouteRecord[] = [
   // 不需要登录就能访问的路由示例
   // {
   //   path: '/welcome',

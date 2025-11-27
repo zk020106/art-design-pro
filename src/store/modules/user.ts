@@ -31,17 +31,26 @@
  * @module store/modules/user
  * @author Art Design Pro Team
  */
-import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { fetchAccountLogin, fetchEmailLogin, fetchPhoneLogin, fetchSocialAuth } from '@/api/auth'
 import { LanguageEnum } from '@/enums/appEnum'
 import { router } from '@/router'
-import { useSettingStore } from './setting'
-import { useWorktabStore } from './worktab'
+import { resetRouterState } from '@/router/guards/beforeEach'
+import {
+  AuthTypeConstants,
+  EmailLoginReq,
+  PhoneLoginReq,
+  type AccountLoginReq,
+  type UserInfoResp
+} from '@/types/api/auth'
 import { AppRouteRecord } from '@/types/router'
 import { setPageTitle } from '@/utils/router'
-import { resetRouterState } from '@/router/guards/beforeEach'
-import { useMenuStore } from './menu'
 import { StorageConfig } from '@/utils/storage/storage-config'
+import { defineStore } from 'pinia'
+import { computed, ref } from 'vue'
+import { useMenuStore } from './menu'
+import { useSettingStore } from './setting'
+import { useTenantStore } from './tenant'
+import { useWorktabStore } from './worktab'
 
 /**
  * 用户状态管理
@@ -59,13 +68,15 @@ export const useUserStore = defineStore(
     // 锁屏密码
     const lockPassword = ref('')
     // 用户信息
-    const info = ref<Partial<Api.Auth.UserInfo>>({})
+    const info = ref<Partial<UserInfoResp>>({})
     // 搜索历史记录
     const searchHistory = ref<AppRouteRecord[]>([])
     // 访问令牌
     const accessToken = ref('')
     // 刷新令牌
     const refreshToken = ref('')
+    // 客户端ID
+    const clientId = import.meta.env.VITE_CLIENT_ID
 
     // 计算属性：获取用户信息
     const getUserInfo = computed(() => info.value)
@@ -73,12 +84,13 @@ export const useUserStore = defineStore(
     const getSettingState = computed(() => useSettingStore().$state)
     // 计算属性：获取工作台状态
     const getWorktabState = computed(() => useWorktabStore().$state)
-
+    // 租户状态
+    const tenantStore = useTenantStore()
     /**
      * 设置用户信息
      * @param newInfo 新的用户信息
      */
-    const setUserInfo = (newInfo: Api.Auth.UserInfo) => {
+    const setUserInfo = (newInfo: UserInfoResp) => {
       info.value = newInfo
     }
 
@@ -133,6 +145,52 @@ export const useUserStore = defineStore(
       if (newRefreshToken) {
         refreshToken.value = newRefreshToken
       }
+    }
+
+    // 登录
+    const accountLogin = async (req: AccountLoginReq, tenantCode?: string) => {
+      const res = await fetchAccountLogin(
+        { ...req, clientId, authType: AuthTypeConstants.ACCOUNT },
+        tenantCode
+      )
+      setLoginStatus(true)
+      setToken(res.token)
+      tenantStore.setTenantId(res.tenantId)
+    }
+
+    // 邮箱登录
+    const emailLogin = async (req: EmailLoginReq, tenantCode?: string) => {
+      const res = await fetchEmailLogin(
+        { ...req, clientId, authType: AuthTypeConstants.EMAIL },
+        tenantCode
+      )
+      setLoginStatus(true)
+      setToken(res.token)
+      tenantStore.setTenantId(res.tenantId)
+    }
+
+    // 手机号登录
+    const phoneLogin = async (req: PhoneLoginReq, tenantCode?: string) => {
+      const { token, tenantId } = await fetchPhoneLogin(
+        { ...req, clientId, authType: AuthTypeConstants.PHONE },
+        tenantCode
+      )
+      setLoginStatus(true)
+      setToken(token)
+      tenantStore.setTenantId(tenantId)
+    }
+
+    // 三方账号登录
+    const socialLogin = async (source: string, req: any) => {
+      const res: any = await fetchSocialAuth({
+        ...req,
+        source,
+        clientId,
+        authType: AuthTypeConstants.SOCIAL
+      })
+      setLoginStatus(true)
+      setToken(res.token)
+      tenantStore.setTenantId(res.tenantId)
     }
 
     /**
@@ -222,6 +280,10 @@ export const useUserStore = defineStore(
       setLockStatus,
       setLockPassword,
       setToken,
+      accountLogin,
+      emailLogin,
+      phoneLogin,
+      socialLogin,
       logOut,
       checkAndClearWorktabs
     }
