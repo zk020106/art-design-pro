@@ -37,14 +37,14 @@
 </template>
 
 <script setup lang="ts">
-  import type { FormRules } from 'element-plus'
-  import { ElIcon, ElTooltip } from 'element-plus'
-  import { QuestionFilled } from '@element-plus/icons-vue'
-  import { formatMenuTitle } from '@/utils/router'
-  import type { AppRouteRecord } from '@/types/router'
   import type { FormItem } from '@/components/core/forms/art-form/index.vue'
   import ArtForm from '@/components/core/forms/art-form/index.vue'
+  import type { AppRouteRecord } from '@/types/router'
+  import { formatMenuTitle } from '@/utils/router'
+  import { QuestionFilled } from '@element-plus/icons-vue'
   import { useWindowSize } from '@vueuse/core'
+  import type { FormRules } from 'element-plus'
+  import { ElIcon, ElTooltip } from 'element-plus'
 
   const { width } = useWindowSize()
 

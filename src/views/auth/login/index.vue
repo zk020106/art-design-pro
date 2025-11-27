@@ -18,17 +18,12 @@
             @keyup.enter="handleSubmit"
             style="margin-top: 25px"
           >
-            <ElFormItem prop="account">
-              <ElSelect v-model="formData.account" @change="setupAccount">
-                <ElOption
-                  v-for="account in accounts"
-                  :key="account.key"
-                  :label="account.label"
-                  :value="account.key"
-                >
-                  <span>{{ account.label }}</span>
-                </ElOption>
-              </ElSelect>
+            <ElFormItem prop="tenantCode">
+              <ElInput
+                class="custom-height"
+                :placeholder="$t('login.placeholder.tenantCode')"
+                v-model.trim="formData.tenantCode"
+              />
             </ElFormItem>
             <ElFormItem prop="username">
               <ElInput
@@ -48,30 +43,22 @@
               />
             </ElFormItem>
 
-            <!-- 推拽验证 -->
-            <div class="relative pb-5 mt-6">
-              <div
-                class="relative z-[2] overflow-hidden select-none rounded-lg border border-transparent tad-300"
-                :class="{ '!border-[#FF4E4F]': !isPassing && isClickPass }"
-              >
-                <ArtDragVerify
-                  ref="dragVerify"
-                  v-model:value="isPassing"
-                  :text="$t('login.sliderText')"
-                  textColor="var(--art-gray-700)"
-                  :successText="$t('login.sliderSuccessText')"
-                  :progressBarBg="getCssVar('--el-color-primary')"
-                  :background="isDark ? '#26272F' : '#F1F1F4'"
-                  handlerBg="var(--default-box-color)"
-                />
+            <!-- 图片验证 -->
+            <ElFormItem prop="captcha" v-if="isCaptchaEnabled">
+              <ElInput
+                v-model="formData.captcha"
+                placeholder="请输入验证码"
+                :max-length="4"
+                allow-clear
+                style="flex: 1 1"
+              />
+              <div class="captcha-container" @click="getCaptcha">
+                <img :src="captchaImgBase64" :alt="$t('login.captcha')" class="captcha" />
+                <div v-if="formData.expired" class="overlay">
+                  <p>{{ $t('login.expired') }}</p>
+                </div>
               </div>
-              <p
-                class="absolute top-0 z-[1] px-px mt-2 text-xs text-[#f56c6c] tad-300"
-                :class="{ 'translate-y-10': !isPassing && isClickPass }"
-              >
-                {{ $t('login.placeholder.slider') }}
-              </p>
-            </div>
+            </ElFormItem>
 
             <div class="flex-cb mt-2 text-sm">
               <ElCheckbox v-model="formData.rememberPassword">{{
@@ -108,19 +95,16 @@
 </template>
 
 <script setup lang="ts">
+  import { getImageCaptcha } from '@/api/captcha'
   import AppConfig from '@/config'
   import { useUserStore } from '@/store/modules/user'
-  import { getCssVar } from '@/utils/ui'
-  import { useI18n } from 'vue-i18n'
+  import { encryptByRsa } from '@/utils/encrypt'
   import { HttpError } from '@/utils/http/error'
-  import { fetchLogin } from '@/api/auth'
   import { ElNotification, type FormInstance, type FormRules } from 'element-plus'
-  import { useSettingStore } from '@/store/modules/setting'
+  import { useI18n } from 'vue-i18n'
 
   defineOptions({ name: 'Login' })
 
-  const settingStore = useSettingStore()
-  const { isDark } = storeToRefs(settingStore)
   const { t, locale } = useI18n()
   const formKey = ref(0)
 
@@ -129,55 +113,20 @@
     formKey.value++
   })
 
-  type AccountKey = 'super' | 'admin' | 'user'
-
-  export interface Account {
-    key: AccountKey
-    label: string
-    userName: string
-    password: string
-    roles: string[]
-  }
-
-  const accounts = computed<Account[]>(() => [
-    {
-      key: 'super',
-      label: t('login.roles.super'),
-      userName: 'Super',
-      password: '123456',
-      roles: ['R_SUPER']
-    },
-    {
-      key: 'admin',
-      label: t('login.roles.admin'),
-      userName: 'Admin',
-      password: '123456',
-      roles: ['R_ADMIN']
-    },
-    {
-      key: 'user',
-      label: t('login.roles.user'),
-      userName: 'User',
-      password: '123456',
-      roles: ['R_USER']
-    }
-  ])
-
-  const dragVerify = ref()
-
   const userStore = useUserStore()
   const router = useRouter()
   const route = useRoute()
-  const isPassing = ref(false)
-  const isClickPass = ref(false)
-
+  const captchaImgBase64 = ref<string>()
   const systemName = AppConfig.systemInfo.name
   const formRef = ref<FormInstance>()
-
+  const isCaptchaEnabled = ref<boolean>(true)
   const formData = reactive({
-    account: '',
-    username: '',
-    password: '',
+    tenantCode: '',
+    username: 'admin',
+    password: 'admin123',
+    captcha: '',
+    uuid: '',
+    expired: false,
     rememberPassword: true
   })
 
@@ -187,19 +136,15 @@
   }))
 
   const loading = ref(false)
-
-  onMounted(() => {
-    setupAccount('super')
-  })
-
-  // 设置账号
-  const setupAccount = (key: AccountKey) => {
-    const selectedAccount = accounts.value.find((account: Account) => account.key === key)
-    formData.account = key
-    formData.username = selectedAccount?.userName ?? ''
-    formData.password = selectedAccount?.password ?? ''
+  // 获取验证码
+  const getCaptcha = async () => {
+    const { uuid, img, isEnabled } = await getImageCaptcha()
+    isCaptchaEnabled.value = isEnabled
+    // 确保 base64 图片有正确的前缀
+    captchaImgBase64.value = img
+    formData.uuid = uuid
+    formData.expired = false
   }
-
   // 登录
   const handleSubmit = async () => {
     if (!formRef.value) return
@@ -209,30 +154,30 @@
       const valid = await formRef.value.validate()
       if (!valid) return
 
-      // 拖拽验证
-      if (!isPassing.value) {
-        isClickPass.value = true
+      loading.value = true
+
+      // ... (中间代码保持不变)
+
+      // 登录请求
+      const { username, password, captcha, uuid, tenantCode } = formData
+
+      // 密码加密
+      const encryptedPassword = encryptByRsa(password)
+      if (!encryptedPassword) {
+        ElNotification.error(`${t('login.error.passwordEncrypt')}`)
         return
       }
 
-      loading.value = true
-
-      // 登录请求
-      const { username, password } = formData
-
-      const { token, refreshToken } = await fetchLogin({
-        userName: username,
-        password
-      })
-
-      // 验证token
-      if (!token) {
-        throw new Error('Login failed - no token received')
-      }
-
-      // 存储 token 和登录状态
-      userStore.setToken(token, refreshToken)
-      userStore.setLoginStatus(true)
+      // 1. 登录获取 token
+      await userStore.accountLogin(
+        {
+          username,
+          password: encryptedPassword,
+          captcha: isCaptchaEnabled.value ? captcha : undefined,
+          uuid: isCaptchaEnabled.value ? uuid : undefined
+        },
+        tenantCode
+      )
 
       // 登录成功处理
       showLoginSuccessNotice()
@@ -243,21 +188,16 @@
     } catch (error) {
       // 处理 HttpError
       if (error instanceof HttpError) {
-        // console.log(error.code)
+        // 验证码错误时刷新验证码
+        if (isCaptchaEnabled.value) {
+          getCaptcha()
+        }
       } else {
-        // 处理非 HttpError
-        // ElMessage.error('登录失败，请稍后重试')
         console.error('[Login] Unexpected error:', error)
       }
     } finally {
       loading.value = false
-      resetDragVerify()
     }
-  }
-
-  // 重置拖拽验证
-  const resetDragVerify = () => {
-    dragVerify.value.reset()
   }
 
   // 登录成功提示
@@ -272,6 +212,9 @@
       })
     }, 1000)
   }
+  onMounted(() => {
+    getCaptcha()
+  })
 </script>
 
 <style scoped>
