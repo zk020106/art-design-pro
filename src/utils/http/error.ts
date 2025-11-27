@@ -21,14 +21,14 @@
  * @module utils/http/error
  * @author Art Design Pro Team
  */
+import { $t } from '@/locales'
 import { AxiosError } from 'axios'
 import { ApiStatus } from './status'
-import { $t } from '@/locales'
 
 // 错误响应接口
 export interface ErrorResponse {
   /** 错误状态码 */
-  code: number
+  code: string
   /** 错误消息 */
   msg: string
   /** 错误附加数据 */
@@ -38,7 +38,7 @@ export interface ErrorResponse {
 // 错误日志数据接口
 export interface ErrorLogData {
   /** 错误状态码 */
-  code: number
+  code: string
   /** 错误消息 */
   message: string
   /** 错误附加数据 */
@@ -55,7 +55,7 @@ export interface ErrorLogData {
 
 // 自定义 HttpError 类
 export class HttpError extends Error {
-  public readonly code: number
+  public readonly code: string
   public readonly data?: unknown
   public readonly timestamp: string
   public readonly url?: string
@@ -63,7 +63,7 @@ export class HttpError extends Error {
 
   constructor(
     message: string,
-    code: number,
+    code: string,
     options?: {
       data?: unknown
       url?: string
@@ -97,8 +97,8 @@ export class HttpError extends Error {
  * @param status 错误状态码
  * @returns 错误消息
  */
-const getErrorMessage = (status: number): string => {
-  const errorMap: Record<number, string> = {
+const getErrorMessage = (status: string): string => {
+  const errorMap: Record<string, string> = {
     [ApiStatus.unauthorized]: 'httpMsg.unauthorized',
     [ApiStatus.forbidden]: 'httpMsg.forbidden',
     [ApiStatus.notFound]: 'httpMsg.notFound',
@@ -141,7 +141,7 @@ export function handleError(error: AxiosError<ErrorResponse>): never {
   const message = statusCode
     ? getErrorMessage(statusCode)
     : errorMessage || $t('httpMsg.requestFailed')
-  throw new HttpError(message, statusCode || ApiStatus.error, {
+  throw new HttpError(message, String(statusCode || ApiStatus.error), {
     data: error.response.data,
     url: requestConfig?.url,
     method: requestConfig?.method?.toUpperCase()

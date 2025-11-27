@@ -14,12 +14,12 @@
  * @author Art Design Pro Team
  */
 
-import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
-import { useUserStore } from '@/store/modules/user'
-import { ApiStatus } from './status'
-import { HttpError, handleError, showError, showSuccess } from './error'
 import { $t } from '@/locales'
+import { useUserStore } from '@/store/modules/user'
 import { BaseResponse } from '@/types'
+import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import { HttpError, handleError, showError, showSuccess } from './error'
+import { ApiStatus } from './status'
 
 /** 请求配置常量 */
 const REQUEST_TIMEOUT = 15000
@@ -65,7 +65,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (request: InternalAxiosRequestConfig) => {
     const { accessToken } = useUserStore()
-    if (accessToken) request.headers.set('Authorization', accessToken)
+    if (accessToken) request.headers.set('Authorization', `Bearer ${accessToken}`)
 
     if (request.data && !(request.data instanceof FormData) && !request.headers['Content-Type']) {
       request.headers.set('Content-Type', 'application/json')
@@ -84,6 +84,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse<BaseResponse>) => {
     const { code, msg } = response.data
+
     if (code === ApiStatus.success) return response
     if (code === ApiStatus.unauthorized) handleUnauthorizedError(msg)
     throw createHttpError(msg || $t('httpMsg.requestFailed'), code)
@@ -95,7 +96,7 @@ axiosInstance.interceptors.response.use(
 )
 
 /** 统一创建HttpError */
-function createHttpError(message: string, code: number) {
+function createHttpError(message: string, code: string) {
   return new HttpError(message, code)
 }
 
@@ -131,14 +132,14 @@ function logOut() {
 }
 
 /** 是否需要重试 */
-function shouldRetry(statusCode: number) {
+function shouldRetry(statusCode: string) {
   return [
     ApiStatus.requestTimeout,
     ApiStatus.internalServerError,
     ApiStatus.badGateway,
     ApiStatus.serviceUnavailable,
     ApiStatus.gatewayTimeout
-  ].includes(statusCode)
+  ].includes(statusCode as ApiStatus)
 }
 
 /** 请求重试逻辑 */
