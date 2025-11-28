@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 <template>
-  <GiButton type="add">123</GiButton>
+  <GiPageLayout></GiPageLayout>
 </template>
 <style lang="scss" scoped></style>
