@@ -13,13 +13,14 @@
 </template>
 
 <script setup lang="ts">
-  import { nextTick } from 'vue'
-  import { useSettingStore } from '@/store/modules/setting'
   import { SETTING_DEFAULT_CONFIG } from '@/config/setting'
-  import { useClipboard } from '@vueuse/core'
-  import { useI18n } from 'vue-i18n'
   import { MenuThemeEnum } from '@/enums/appEnum'
   import { useTheme } from '@/hooks/core/useTheme'
+  import { useSettingStore } from '@/store/modules/setting'
+  import { useClipboard } from '@vueuse/core'
+  import { ElMessage } from 'element-plus'
+  import { nextTick } from 'vue'
+  import { useI18n } from 'vue-i18n'
 
   defineOptions({ name: 'SettingActions' })
 

@@ -57,11 +57,11 @@
 </template>
 
 <script setup lang="ts">
-  import { computed } from 'vue'
-  import type { AppRouteRecord } from '@/types/router'
-  import { formatMenuTitle } from '@/utils/router'
-  import { handleMenuJump } from '@/utils/navigation'
   import { useSettingStore } from '@/store/modules/setting'
+  import type { AppRouteRecord } from '@/types/router'
+  import { handleMenuJump } from '@/utils/navigation'
+  import { formatMenuTitle } from '@/utils/router'
+  import { computed } from 'vue'
 
   interface MenuTheme {
     iconColor?: string
