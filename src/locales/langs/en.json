@@ -272,5 +272,50 @@
       "refresh": "Refresh",
       "unfixed": "Unfixed"
     }
+  },
+  "components": {
+    "select": {
+      "loading": "Loading...",
+      "noData": "No data",
+      "placeholder": "Please select",
+      "loadError": "Failed to load data",
+      "searchPlaceholder": "Search by keyword"
+    },
+    "tableSelector": {
+      "title": "Select Data",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "searchPlaceholder": "Search by keyword",
+      "selected": "{count} items selected",
+      "noData": "No data",
+      "loading": "Loading..."
+    },
+    "tree": {
+      "searchPlaceholder": "Search by keyword",
+      "noData": "No data",
+      "loading": "Loading...",
+      "loadError": "Failed to load data",
+      "expandAll": "Expand All",
+      "collapseAll": "Collapse All"
+    },
+    "upload": {
+      "dragHint": "Drag files here, or click to upload",
+      "clickHint": "Click to upload",
+      "uploadSuccess": "Upload successful",
+      "uploadFailed": "Upload failed",
+      "fileSizeExceeded": "File size exceeds limit (max {size}MB)",
+      "fileTypeError": "Unsupported file type",
+      "uploading": "Uploading...",
+      "preview": "Preview",
+      "delete": "Delete",
+      "download": "Download"
+    },
+    "iconPicker": {
+      "searchPlaceholder": "Search icons",
+      "noIcon": "No icon selected",
+      "selectIcon": "Select Icon",
+      "clear": "Clear",
+      "noResult": "No matching icons found"
+    }
   }
 }

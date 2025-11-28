@@ -272,5 +272,50 @@
       "refresh": "刷新",
       "unfixed": "取消固定"
     }
+  },
+  "components": {
+    "select": {
+      "loading": "加载中...",
+      "noData": "暂无数据",
+      "placeholder": "请选择",
+      "loadError": "数据加载失败",
+      "searchPlaceholder": "请输入关键词搜索"
+    },
+    "tableSelector": {
+      "title": "选择数据",
+      "confirm": "确定",
+      "cancel": "取消",
+      "searchPlaceholder": "请输入关键词搜索",
+      "selected": "已选择 {count} 项",
+      "noData": "暂无数据",
+      "loading": "加载中..."
+    },
+    "tree": {
+      "searchPlaceholder": "请输入关键词搜索",
+      "noData": "暂无数据",
+      "loading": "加载中...",
+      "loadError": "数据加载失败",
+      "expandAll": "展开全部",
+      "collapseAll": "收起全部"
+    },
+    "upload": {
+      "dragHint": "将文件拖到此处，或点击上传",
+      "clickHint": "点击上传",
+      "uploadSuccess": "上传成功",
+      "uploadFailed": "上传失败",
+      "fileSizeExceeded": "文件大小超出限制（最大 {size}MB）",
+      "fileTypeError": "不支持的文件类型",
+      "uploading": "上传中...",
+      "preview": "预览",
+      "delete": "删除",
+      "download": "下载"
+    },
+    "iconPicker": {
+      "searchPlaceholder": "搜索图标",
+      "noIcon": "未选择图标",
+      "selectIcon": "选择图标",
+      "clear": "清空",
+      "noResult": "未找到匹配的图标"
+    }
   }
 }
