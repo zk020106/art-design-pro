@@ -44,8 +44,8 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5
       gi-component:
-        specifier: ^0.0.13
-        version: 0.0.13(element-plus@2.11.4(vue@3.5.22(typescript@5.6.3)))(vue@3.5.22(typescript@5.6.3))
+        specifier: ^0.0.18
+        version: 0.0.18(element-plus@2.11.4(vue@3.5.22(typescript@5.6.3)))(vue@3.5.22(typescript@5.6.3))
       highlight.js:
         specifier: ^11.10.0
         version: 11.11.1
@@ -3604,10 +3604,10 @@ packages:
         integrity: sha512-auHyJ4AgMz7vgS8Hp3N6HXSmlMdUyhSUrfBF16w153rxtLIEOE+HGqaBppczZvnHLqQJfiHotCYpNhl0lUROFQ==
       }
 
-  gi-component@0.0.13:
+  gi-component@0.0.18:
     resolution:
       {
-        integrity: sha512-YdJvTJ0aSdCAkVZBmbIXEbnR2mhPbpPo2qe/aDz5RXzyV7gBmQnnMf98Nnfb1XOOaobACmDSc6I+PsBlCTxT1A==
+        integrity: sha512-Zu0XFNa1B3f3751DGpy6/87sJCQOrTZvqNt7IWcUpYJilUi7YbSRvjzDHWOMQkkK4q3ohKbb9zRUGKebQmilQg==
       }
     peerDependencies:
       element-plus: ^2.11.0
@@ -8582,7 +8582,7 @@ snapshots:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
-  gi-component@0.0.13(element-plus@2.11.4(vue@3.5.22(typescript@5.6.3)))(vue@3.5.22(typescript@5.6.3)):
+  gi-component@0.0.18(element-plus@2.11.4(vue@3.5.22(typescript@5.6.3)))(vue@3.5.22(typescript@5.6.3)):
     dependencies:
       element-plus: 2.11.4(vue@3.5.22(typescript@5.6.3))
       vue: 3.5.22(typescript@5.6.3)
