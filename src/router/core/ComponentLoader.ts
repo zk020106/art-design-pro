@@ -24,6 +24,9 @@ export class ComponentLoader {
     if (!componentPath) {
       return this.createEmptyComponent()
     }
+    if (!componentPath.startsWith('/')) {
+      componentPath = `/${componentPath}`
+    }
 
     // 构建可能的路径
     const fullPath = `../../views${componentPath}.vue`

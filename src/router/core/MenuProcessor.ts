@@ -61,8 +61,6 @@ export class MenuProcessor {
   private async processBackendMenu(): Promise<AppRouteRecord[]> {
     const list: RouteResp[] = await fetchGetUserRoute()
     const menuList = transformRoutesToRecords(list)
-    console.log(menuList)
-
     return this.filterEmptyMenus(menuList)
   }
 
@@ -167,7 +165,7 @@ export class MenuProcessor {
     menuList.forEach((route) => {
       if (!route.children?.length) return
 
-      const parentName = String(route.name || route.path || '未知路由')
+      // const parentName = String(route.name || route.path || '未知路由')
 
       route.children.forEach((child) => {
         const childPath = child.path || ''
@@ -176,9 +174,9 @@ export class MenuProcessor {
         if (this.isValidAbsolutePath(childPath)) return
 
         // 检测非法的绝对路径
-        if (childPath.startsWith('/')) {
-          this.logPathError(child, childPath, parentName, level)
-        }
+        // if (childPath.startsWith('/')) {
+        //   this.logPathError(child, childPath, parentName, level)
+        // }
       })
 
       // 递归检查更深层级的子路由

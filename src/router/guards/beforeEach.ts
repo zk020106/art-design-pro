@@ -35,23 +35,23 @@
  * @module router/guards/beforeEach
  * @author Art Design Pro Team
  */
-import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router'
-import { nextTick } from 'vue'
-import NProgress from 'nprogress'
+import { fetchGetUserInfo } from '@/api/auth'
+import { useCommon } from '@/hooks/core/useCommon'
+import { useMenuStore } from '@/store/modules/menu'
 import { useSettingStore } from '@/store/modules/setting'
 import { useUserStore } from '@/store/modules/user'
-import { useMenuStore } from '@/store/modules/menu'
+import { useWorktabStore } from '@/store/modules/worktab'
+import { isHttpError } from '@/utils/http/error'
+import { ApiStatus } from '@/utils/http/status'
 import { setWorktab } from '@/utils/navigation'
 import { setPageTitle } from '@/utils/router'
-import { RoutesAlias } from '../routesAlias'
-import { staticRoutes } from '../routes/staticRoutes'
 import { loadingService } from '@/utils/ui'
-import { useCommon } from '@/hooks/core/useCommon'
-import { useWorktabStore } from '@/store/modules/worktab'
-import { fetchGetUserInfo } from '@/api/auth'
-import { ApiStatus } from '@/utils/http/status'
-import { isHttpError } from '@/utils/http/error'
-import { RouteRegistry, MenuProcessor, IframeRouteManager, RoutePermissionValidator } from '../core'
+import NProgress from 'nprogress'
+import { nextTick } from 'vue'
+import type { NavigationGuardNext, RouteLocationNormalized, Router } from 'vue-router'
+import { IframeRouteManager, MenuProcessor, RoutePermissionValidator, RouteRegistry } from '../core'
+import { staticRoutes } from '../routes/staticRoutes'
+import { RoutesAlias } from '../routesAlias'
 
 // 路由注册器实例
 let routeRegistry: RouteRegistry | null = null
@@ -219,10 +219,8 @@ async function handleDynamicRoutes(
   try {
     // 1. 获取用户信息
     await fetchUserInfo()
-
     // 2. 获取菜单数据
     const menuList = await menuProcessor.getMenuList()
-    console.log('msenuList', menuList)
     // 3. 验证菜单数据
     if (!menuProcessor.validateMenuList(menuList)) {
       throw new Error('获取菜单列表失败，请重新登录')
