@@ -17,29 +17,29 @@
  * @author Art Design Pro Team
  */
 
-import { ref, reactive, computed, onMounted, onUnmounted, nextTick, readonly } from 'vue'
-import { useWindowSize } from '@vueuse/core'
-import { useTableColumns } from './useTableColumns'
 import type { ColumnOption } from '@/types/component'
+import { useWindowSize } from '@vueuse/core'
+import { computed, nextTick, onMounted, onUnmounted, reactive, readonly, ref } from 'vue'
 import {
-  TableCache,
   CacheInvalidationStrategy,
+  TableCache,
   type ApiResponse
 } from '../../utils/table/tableCache'
+import { tableConfig } from '../../utils/table/tableConfig'
 import {
-  type TableError,
+  createErrorHandler,
+  createSmartDebounce,
   defaultResponseAdapter,
   extractTableData,
   updatePaginationFromResponse,
-  createSmartDebounce,
-  createErrorHandler
+  type TableError
 } from '../../utils/table/tableUtils'
-import { tableConfig } from '../../utils/table/tableConfig'
+import { useTableColumns } from './useTableColumns'
 
 // 类型推导工具类型
 type InferApiParams<T> = T extends (params: infer P) => any ? P : never
 type InferApiResponse<T> = T extends (params: any) => Promise<infer R> ? R : never
-type InferRecordType<T> = T extends Api.Common.PaginatedResponse<infer U> ? U : never
+type InferRecordType<T> = T extends Api.Common.PageResp<infer U> ? U : never
 
 // 优化的配置接口 - 支持自动类型推导
 export interface UseTableConfig<
@@ -212,10 +212,11 @@ function useTableImpl<TApiFn extends (params: any) => Promise<any>>(
   )
 
   // 分页配置
-  const pagination = reactive<Api.Common.PaginationParams>({
+  const pagination = reactive<Api.Common.PageResp>({
     current: ((searchParams as Record<string, unknown>)[pageKey] as number) || 1,
     size: ((searchParams as Record<string, unknown>)[sizeKey] as number) || 10,
-    total: 0
+    total: 0,
+    records: []
   })
 
   // 移动端分页 (响应式)

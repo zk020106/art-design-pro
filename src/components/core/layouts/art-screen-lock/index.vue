@@ -21,8 +21,8 @@
     <div v-if="!isLock">
       <ElDialog v-model="visible" :width="370" :show-close="false" @open="handleDialogOpen">
         <div class="flex-c flex-col">
-          <img class="w-16 h-16 rounded-full" src="@imgs/user/avatar.webp" alt="用户头像" />
-          <div class="mt-7.5 mb-3.5 text-base font-medium">{{ userInfo.userName }}</div>
+          <img class="w-16 h-16 rounded-full" :src="userInfo.avatar" alt="用户头像" />
+          <div class="mt-7.5 mb-3.5 text-base font-medium">{{ userInfo.nickname }}</div>
           <ElForm
             ref="formRef"
             :model="formData"
@@ -60,7 +60,7 @@
       <div class="flex-c flex-col w-80">
         <img class="w-16 h-16 mt-5 rounded-full" src="@imgs/user/avatar.webp" alt="用户头像" />
         <div class="mt-3 mb-3.5 text-base font-medium">
-          {{ userInfo.userName }}
+          {{ userInfo.nickname }}
         </div>
         <ElForm
           ref="unlockFormRef"
@@ -105,12 +105,13 @@
 </template>
 
 <script setup lang="ts">
-  import { Lock, Unlock } from '@element-plus/icons-vue'
-  import type { FormInstance, FormRules } from 'element-plus'
-  import { useI18n } from 'vue-i18n'
-  import CryptoJS from 'crypto-js'
   import { useUserStore } from '@/store/modules/user'
   import { mittBus } from '@/utils/sys'
+  import { Lock, Unlock } from '@element-plus/icons-vue'
+  import CryptoJS from 'crypto-js'
+  import type { FormInstance, FormRules } from 'element-plus'
+  import { ElMessage } from 'element-plus'
+  import { useI18n } from 'vue-i18n'
 
   // 国际化
   const { t } = useI18n()

@@ -23,11 +23,11 @@
         <div class="flex-c pb-1 px-0">
           <img
             class="w-10 h-10 mr-3 ml-0 overflow-hidden rounded-full float-left"
-            src="@imgs/user/avatar.webp"
+            :src="userInfo.avatar"
           />
           <div class="w-[calc(100%-60px)] h-full">
             <span class="block text-sm font-medium text-g-800 truncate">{{
-              userInfo.userName
+              userInfo.nickname
             }}</span>
             <span class="block mt-0.5 text-xs text-g-500 truncate">{{ userInfo.email }}</span>
           </div>
@@ -60,12 +60,12 @@
 </template>
 
 <script setup lang="ts">
-  import { useI18n } from 'vue-i18n'
-  import { useRouter } from 'vue-router'
-  import { ElMessageBox } from 'element-plus'
   import { useUserStore } from '@/store/modules/user'
   import { WEB_LINKS } from '@/utils/constants'
   import { mittBus } from '@/utils/sys'
+  import { ElMessageBox } from 'element-plus'
+  import { useI18n } from 'vue-i18n'
+  import { useRouter } from 'vue-router'
 
   defineOptions({ name: 'ArtUserMenu' })
 
