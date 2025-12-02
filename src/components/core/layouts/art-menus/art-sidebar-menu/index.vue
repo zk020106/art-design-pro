@@ -131,14 +131,13 @@
 
 <script setup lang="ts">
   import AppConfig from '@/config'
-  import { useSettingStore } from '@/store/modules/setting'
   import { MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
-  import { useMenuStore } from '@/store/modules/menu'
-  import { isIframe } from '@/utils/navigation'
-  import { handleMenuJump } from '@/utils/navigation'
-  import SidebarSubmenu from './widget/SidebarSubmenu.vue'
   import { useCommon } from '@/hooks/core/useCommon'
-  import { useWindowSize, useTimeoutFn } from '@vueuse/core'
+  import { useMenuStore } from '@/store/modules/menu'
+  import { useSettingStore } from '@/store/modules/setting'
+  import { handleMenuJump, isIframe } from '@/utils/navigation'
+  import { useTimeoutFn, useWindowSize } from '@vueuse/core'
+  import SidebarSubmenu from './widget/SidebarSubmenu.vue'
 
   defineOptions({ name: 'ArtSidebarMenu' })
 

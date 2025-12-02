@@ -10,13 +10,13 @@
         <div
           :class="
             isClickable(item, index)
-              ? 'c-p py-1 rounded tad-200 hover:bg-active-color hover:[&_span]:text-g-600'
+              ? 'c-p py-1 rounded tad-200 hover:bg-active-color hover:[&_span]:color: var(--art-gray-800)'
               : ''
           "
           @click="handleBreadcrumbClick(item, index)"
         >
           <span
-            class="block max-w-46 overflow-hidden text-ellipsis whitespace-nowrap px-1.5 text-sm text-g-600 dark:text-g-800"
+            class="block max-w-46 overflow-hidden text-ellipsis whitespace-nowrap px-1.5 text-sm color: var(--art-gray-800) dark:text-g-800"
             >{{ formatMenuTitle(item.meta?.title as string) }}</span
           >
         </div>
@@ -25,7 +25,7 @@
           class="mx-1 text-sm not-italic text-g-500"
           aria-hidden="true"
         >
-          /
+          >
         </div>
       </li>
     </ul>
@@ -33,10 +33,10 @@
 </template>
 
 <script setup lang="ts">
-  import { computed } from 'vue'
-  import { useRouter, useRoute } from 'vue-router'
-  import type { RouteLocationMatched, RouteRecordRaw } from 'vue-router'
   import { formatMenuTitle } from '@/utils/router'
+  import { computed } from 'vue'
+  import type { RouteLocationMatched, RouteRecordRaw } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
 
   defineOptions({ name: 'ArtBreadcrumb' })
 

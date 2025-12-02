@@ -35,6 +35,7 @@
           :icon="item.meta.icon"
           :color="theme?.iconColor"
           :style="{ color: theme.iconColor }"
+          size="1.25em"
         />
       </div>
       <div

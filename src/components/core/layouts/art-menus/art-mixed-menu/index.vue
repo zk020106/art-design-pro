@@ -30,6 +30,7 @@
               :icon="item.meta.icon"
               class="text-lg text-g-700 dark:text-g-800 mr-1"
               :class="item.isActive && '!text-theme'"
+              size="1.25em"
             />
             <span
               class="text-md text-g-700 dark:text-g-800"
@@ -53,12 +54,12 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, computed, onMounted, nextTick } from 'vue'
+  import type { AppRouteRecord } from '@/types/router'
+  import { handleMenuJump } from '@/utils/navigation'
+  import { formatMenuTitle } from '@/utils/router'
   import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
   import { useThrottleFn } from '@vueuse/core'
-  import { formatMenuTitle } from '@/utils/router'
-  import { handleMenuJump } from '@/utils/navigation'
-  import type { AppRouteRecord } from '@/types/router'
+  import { computed, nextTick, onMounted, ref } from 'vue'
 
   defineOptions({ name: 'ArtMixedMenu' })
 
