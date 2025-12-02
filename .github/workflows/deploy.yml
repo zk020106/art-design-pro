@@ -36,8 +36,10 @@ jobs:
       - name: Check pnpm version
         run: pnpm -v
 
-      - name: Set VITE_BASE_URL
-        run: echo "VITE_BASE_URL=/continew-admin-ui-art/" >> $GITHUB_ENV
+      - name: Set Environment Variables
+        run: |
+          echo "VITE_BASE_URL=/continew-admin-ui-art/" >> $GITHUB_ENV
+          echo "VITE_API_URL=https://api.ruanruyi.cn" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: pnpm install
