@@ -1,3 +1,4 @@
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import '@styles/core/tailwind.css'; // tailwind
 import '@styles/index.scss'; // 样式
 import '@utils/sys/console.ts'; // 控制台输出内容
@@ -27,4 +28,7 @@ setupErrorHandle(app)
 app.use(ElementPlus)
 app.use(language)
 app.use(GiComponent)
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+}
 app.mount('#app')

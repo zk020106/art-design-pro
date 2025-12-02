@@ -19,7 +19,7 @@ export interface TreeNode<T = any> extends Record<string, any> {
 /**
  * 通用树形组件属性
  */
-export interface GiTreeProps<T extends TreeNode = TreeNode> {
+export interface GiTreeProps<T extends TreeNode = TreeNode, M extends boolean = false> {
   /** 异步获取数据的函数（用于懒加载） */
   fetchData?: (parentNode?: T) => Promise<T[]>
   /** 静态树形数据 */
@@ -29,7 +29,7 @@ export interface GiTreeProps<T extends TreeNode = TreeNode> {
   /** 用作标签显示的字段名 */
   labelField: keyof T
   /** 启用多选（复选框） */
-  multiple?: boolean
+  multiple?: M
   /** 节点的选中状态是否影响其父节点和子节点 */
   checkStrictly?: boolean
   /** 默认展开所有节点 */
@@ -49,11 +49,11 @@ export interface GiTreeProps<T extends TreeNode = TreeNode> {
 /**
  * 通用树形组件事件
  */
-export interface GiTreeEmits<T extends TreeNode = TreeNode> {
+export interface GiTreeEmits<T extends TreeNode = TreeNode, M extends boolean = false> {
   /** 节点被选中时触发（单选） */
   (e: 'select', node: T): void
   /** 选中节点变化时触发（多选） */
-  (e: 'check', checkedNodes: T[]): void
+  (e: 'check', checkedNodes: M extends true ? T[] : T): void
   /** 数据加载成功时触发 */
   (e: 'loadSuccess', data: T[]): void
   /** 数据加载失败时触发 */
