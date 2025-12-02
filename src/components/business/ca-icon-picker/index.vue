@@ -19,7 +19,8 @@
       >
         <template #prefix>
           <ElIcon v-if="modelValue" class="text-lg">
-            <component :is="modelValue" />
+            <component v-if="isLocalSvg" :is="modelValue" />
+            <component v-else :is="modelValue" />
           </ElIcon>
           <ElIcon v-else class="text-gray-400">
             <Grid />
@@ -30,6 +31,20 @@
 
     <!-- Icon Picker Content -->
     <div class="icon-picker-content">
+      <!-- Tabs -->
+      <ElTabs v-model="activeTab" class="mb-3">
+        <ElTabPane label="Element Plus" name="preset">
+          <template #label>
+            <span class="text-sm">Element Plus</span>
+          </template>
+        </ElTabPane>
+        <ElTabPane label="SVG" name="local">
+          <template #label>
+            <span class="text-sm">SVG</span>
+          </template>
+        </ElTabPane>
+      </ElTabs>
+
       <!-- Search -->
       <div class="mb-3">
         <ElInput
@@ -46,20 +61,43 @@
 
       <!-- Icon Grid -->
       <div class="icon-grid-container">
-        <div v-if="filteredIcons.length === 0" class="text-center py-8 text-gray-400">
-          {{ t('components.iconPicker.noResult') }}
+        <!-- Element Plus Icons -->
+        <div v-if="activeTab === 'preset'">
+          <div v-if="filteredElementIcons.length === 0" class="text-center py-8 text-gray-400">
+            {{ t('components.iconPicker.noResult') }}
+          </div>
+          <div v-else class="icon-grid">
+            <div
+              v-for="icon in filteredElementIcons"
+              :key="icon"
+              :class="['icon-item', { 'icon-item-selected': modelValue === icon }]"
+              :title="icon"
+              @click="handleSelectIcon(icon)"
+            >
+              <ElIcon class="text-xl">
+                <component :is="icon" />
+              </ElIcon>
+            </div>
+          </div>
         </div>
-        <div v-else class="icon-grid">
-          <div
-            v-for="icon in filteredIcons"
-            :key="icon"
-            :class="['icon-item', { 'icon-item-selected': modelValue === icon }]"
-            :title="icon"
-            @click="handleSelectIcon(icon)"
-          >
-            <ElIcon class="text-xl">
-              <component :is="icon" />
-            </ElIcon>
+
+        <!-- Local SVG Icons -->
+        <div v-else>
+          <div v-if="filteredLocalSvgs.length === 0" class="text-center py-8 text-gray-400">
+            {{ t('components.iconPicker.noResult') }}
+          </div>
+          <div v-else class="icon-grid">
+            <div
+              v-for="item in filteredLocalSvgs"
+              :key="item.name"
+              :class="['icon-item', { 'icon-item-selected': modelValue === item.name }]"
+              :title="item.name"
+              @click="handleSelectIcon(item.name)"
+            >
+              <ElIcon class="text-xl">
+                <span class="svg-icon" v-html="decodeSvg(item.svg)"></span>
+              </ElIcon>
+            </div>
           </div>
         </div>
       </div>
@@ -70,18 +108,18 @@
 <script setup lang="ts">
   import * as ElementPlusIcons from '@element-plus/icons-vue'
   import { ElIcon, ElInput, ElPopover } from 'element-plus'
-  import { computed, ref } from 'vue'
+  import { ref } from 'vue'
   import { useI18n } from 'vue-i18n'
-  import type { GiIconPickerEmits, GiIconPickerProps } from './types'
+  import { useLocalSvgLoader } from './composables/use-svg-loader'
+  import type { CaIconPickerProps } from './types'
 
   defineOptions({
-    name: 'GiIconPicker',
+    name: 'CaIconPicker',
     inheritAttrs: false
   })
 
-  const props = withDefaults(defineProps<GiIconPickerProps>(), {
+  withDefaults(defineProps<CaIconPickerProps>(), {
     modelValue: '',
-    iconSet: 'element',
     placeholder: '',
     clearable: true,
     size: 'default',
@@ -89,11 +127,18 @@
     popoverWidth: 400
   })
 
-  const emit = defineEmits<GiIconPickerEmits>()
+  // 使用 SVG 加载器（无需参数，路径已写死）
+  const { decodeSvg, filterSvgs } = useLocalSvgLoader()
+
+  const emit = defineEmits<{
+    (e: 'update:modelValue', icon: string): void
+    (e: 'change', icon: string): void
+    (e: 'clear'): void
+  }>()
 
   const { t } = useI18n()
 
-  // 导入 Grid 图标用于默认显示
+  // 导入图标
   const { Grid, Search } = ElementPlusIcons
 
   // 弹出框可见性
@@ -102,22 +147,27 @@
   // 搜索查询
   const searchQuery = ref('')
 
+  // 当前激活的标签页
+  const activeTab = ref<'preset' | 'local'>('preset')
+
   // 获取所有 Element Plus 图标
-  const allIcons = computed(() => {
-    if (props.iconSet === 'element') {
-      return Object.keys(ElementPlusIcons)
-    }
-    return []
+  const allElementIcons = computed(() => Object.keys(ElementPlusIcons))
+
+  // 过滤 Element Plus 图标
+  const filteredElementIcons = computed(() => {
+    if (!searchQuery.value) return allElementIcons.value
+    const query = searchQuery.value.toLowerCase()
+    return allElementIcons.value.filter((icon) => icon.toLowerCase().includes(query))
   })
 
-  // 根据搜索过滤图标
-  const filteredIcons = computed(() => {
-    if (!searchQuery.value) {
-      return allIcons.value
-    }
+  // 过滤本地 SVG
+  const filteredLocalSvgs = computed(() => {
+    return filterSvgs(searchQuery.value)
+  })
 
-    const query = searchQuery.value.toLowerCase()
-    return allIcons.value.filter((icon) => icon.toLowerCase().includes(query))
+  // 判断是否是本地 SVG
+  const isLocalSvg = computed(() => {
+    return activeTab.value === 'local'
   })
 
   /**
@@ -204,5 +254,17 @@
   .icon-item-selected {
     background-color: #eff6ff;
     border-color: #3b82f6;
+  }
+
+  .svg-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .svg-icon :deep(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: currentcolor;
   }
 </style>

@@ -106,14 +106,14 @@
   } from 'element-plus'
   import { ref, watch } from 'vue'
   import { useI18n } from 'vue-i18n'
-  import type { GiTableSelectorEmits, GiTableSelectorProps } from './types'
+  import type { CaTableSelectorProps } from './types'
 
   defineOptions({
-    name: 'GiTableSelector',
+    name: 'CaTableSelector',
     inheritAttrs: false
   })
 
-  const props = withDefaults(defineProps<GiTableSelectorProps<T>>(), {
+  const props = withDefaults(defineProps<CaTableSelectorProps<T>>(), {
     multiple: true,
     pageSize: 20,
     title: '',
@@ -121,7 +121,12 @@
     showSearch: true
   })
 
-  const emit = defineEmits<GiTableSelectorEmits<T>>()
+  const emit = defineEmits<{
+    (e: 'confirm', selectedRows: T[]): void
+    (e: 'cancel'): void
+    (e: 'loadSuccess', data: T[]): void
+    (e: 'loadError', error: any): void
+  }>()
 
   const { t } = useI18n()
 
@@ -168,7 +173,7 @@
         })
       }
     } catch (error) {
-      console.error('[GiTableSelector] Failed to load data:', error)
+      console.error('[CaTableSelector] Failed to load data:', error)
       ElMessage.error(t('components.select.loadError'))
       emit('loadError', error)
     } finally {

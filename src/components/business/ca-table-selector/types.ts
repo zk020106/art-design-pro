@@ -1,7 +1,7 @@
 /**
  * 表格选择器组件类型定义
  *
- * 为 gi-table-selector 组件提供 TypeScript 类型定义
+ * 为 ca-table-selector 组件提供 TypeScript 类型定义
  */
 
 /**
@@ -23,7 +23,7 @@ export interface TableColumn<T = any> {
 /**
  * 表格选择器组件属性
  */
-export interface GiTableSelectorProps<T = any> {
+export interface CaTableSelectorProps<T = any> {
   /** 异步获取数据的函数 */
   fetchData: (params: { page: number; pageSize: number; query?: string }) => Promise<{
     data: T[]
@@ -43,18 +43,4 @@ export interface GiTableSelectorProps<T = any> {
   width?: string | number
   /** 显示搜索输入框 */
   showSearch?: boolean
-}
-
-/**
- * 表格选择器组件事件
- */
-export interface GiTableSelectorEmits<T = any> {
-  /** 用户确认选择时触发 */
-  (e: 'confirm', selectedRows: T[]): void
-  /** 用户取消时触发 */
-  (e: 'cancel'): void
-  /** 数据加载成功时触发 */
-  (e: 'loadSuccess', data: T[]): void
-  /** 数据加载失败时触发 */
-  (e: 'loadError', error: any): void
 }
