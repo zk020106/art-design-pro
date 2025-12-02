@@ -1,4 +1,5 @@
 name: Deploy continew-admin-ui-art
+
 on:
   push:
     branches: [main]
@@ -12,43 +13,35 @@ permissions:
 concurrency:
   group: pages
   cancel-in-progress: true
-
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      # 1️⃣ Checkout 仓库
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 2️⃣ 安装 pnpm
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 10.19.0
 
-      # 3️⃣ 安装 Node 并启用 pnpm 缓存
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
 
-      # 4️⃣ 确认 pnpm 可用
       - name: Check pnpm version
         run: pnpm -v
 
-      # 5️⃣ 安装依赖
       - name: Install dependencies
         run: pnpm install
 
-      # 6️⃣ 构建 Vue 应用
       - name: Build Vue App
         run: pnpm build
 
-      # 7️⃣ 检查构建产物
       - name: Check build output
         run: |
           echo "Checking Vue build output..."
@@ -58,7 +51,6 @@ jobs:
           echo "Total size of dist:"
           du -sh dist/
 
-      # 8️⃣ 添加 .nojekyll，防止 GitHub Pages 忽略 _ 文件夹
       - name: Add .nojekyll
         run: |
           if [ -d "dist" ]; then
@@ -69,21 +61,25 @@ jobs:
             exit 1
           fi
 
-      # 9️⃣ 配置 GitHub Pages
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
 
-      # 🔟 上传构建产物
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
 
-      # 1️⃣1️⃣ 部署到 GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 
-      # 1️⃣2️⃣ 打印访问 URL
       - name: Show Pages URL
         run: echo "Your site is published at ${{ steps.deployment.outputs.page_url }}"
