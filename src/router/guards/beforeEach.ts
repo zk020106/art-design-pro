@@ -35,7 +35,7 @@
  * @module router/guards/beforeEach
  * @author Art Design Pro Team
  */
-import { fetchGetUserInfo } from '@/api/auth'
+import { fetchGetUserInfo } from '@/apis/auth'
 import { useCommon } from '@/hooks/core/useCommon'
 import { useMenuStore } from '@/store/modules/menu'
 import { useSettingStore } from '@/store/modules/setting'

@@ -117,6 +117,52 @@
       "userCenter": "User Center"
     }
   },
+  "pages": {
+    "user": {
+      "title": "User Management",
+      "search": {
+        "username": "Username/Nickname/Description",
+        "status": "Status",
+        "statusPlaceholder": "Please select status",
+        "createTime": "Create Time"
+      },
+      "table": {
+        "index": "No.",
+        "nickname": "Nickname",
+        "username": "Username",
+        "status": "Status",
+        "gender": "Gender",
+        "dept": "Department",
+        "roles": "Roles",
+        "phone": "Phone",
+        "email": "Email",
+        "isSystem": "System Built-in",
+        "description": "Description",
+        "createUser": "Creator",
+        "createTime": "Create Time",
+        "updateUser": "Updater",
+        "updateTime": "Update Time",
+        "action": "Action"
+      },
+      "button": {
+        "add": "Add",
+        "import": "Import",
+        "export": "Export",
+        "detail": "Detail",
+        "edit": "Edit",
+        "more": "More",
+        "resetPwd": "Reset Password",
+        "assignRole": "Assign Role",
+        "delete": "Delete"
+      },
+      "message": {
+        "deleteConfirm": "Are you sure to delete user「{nickname}({username})」?",
+        "systemDataCannotDelete": "System built-in data cannot be deleted",
+        "yes": "Yes",
+        "no": "No"
+      }
+    }
+  },
   "notice": {
     "bar": ["Notice", "Message", "Todo"],
     "btnRead": "Mark as read",

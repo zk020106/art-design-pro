@@ -29,4 +29,7 @@ export { useHeaderBar } from './core/useHeaderBar'
 export { useChart, useChartComponent, useChartOps } from './core/useChart'
 
 // 布局高度
-export { useLayoutHeight, useAutoLayoutHeight } from './core/useLayoutHeight'
+export { useAutoLayoutHeight, useLayoutHeight } from './core/useLayoutHeight'
+
+// 响应式布局容器固定宽度
+export { useDevice } from './core/useDevice'

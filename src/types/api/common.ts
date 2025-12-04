@@ -3,7 +3,7 @@
  */
 
 /** 分页参数 */
-export interface PageParams {
+export interface PageQuery {
   /** 页码 */
   page?: number
   /** 每页条数 */
@@ -36,13 +36,40 @@ export interface LabelValueResp<T = any> {
   value: T
 }
 
-/** 树节点 */
-export interface TreeNode<T = any> {
-  id: number | string
-  parentId?: number | string
-  label: string
+/** 树节点键类型 (Element Plus TreeV2 兼容) */
+export type TreeKey = string | number
+
+/** 树节点数据 (Element Plus TreeV2 兼容) */
+export type TreeNodeData = Record<string, any>
+
+/**
+ * 通用树节点接口 (Element Plus TreeV2 兼容)
+ * @template T 扩展数据类型
+ */
+export interface TreeNode<T = Record<string, any>> {
+  /** 节点唯一标识 */
+  key?: TreeKey
+  /** 节点标签 */
+  label?: string
+  /** 子节点列表 */
   children?: TreeNode<T>[]
-  [key: string]: any
+  /** 是否禁用 */
+  disabled?: boolean
+  /** 是否叶子节点 */
+  isLeaf?: boolean
+  /** 扩展数据 */
+  [K: string]: any
+}
+
+/**
+ * 基础树节点 (适用于后端返回的树形数据)
+ * @template T 扩展数据类型
+ */
+export interface BaseTreeNode<T = Record<string, any>> extends TreeNode<T> {
+  /** 节点ID */
+  id: TreeKey
+  /** 父节点ID */
+  parentId?: TreeKey
 }
 
 /** ID 请求参数 */

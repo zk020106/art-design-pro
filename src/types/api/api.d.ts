@@ -36,13 +36,11 @@ declare namespace Api {
   /** 通用类型 */
   namespace Common {
     /** 分页参数 */
-    interface PageParams {
+    interface PageQuery {
       /** 页码 */
       page?: number
       /** 每页条数 */
       size?: number
-      /** 排序条件 */
-      sort?: string
     }
 
     /** 分页响应基础结构 */
@@ -222,7 +220,7 @@ declare namespace Api {
       }
 
       /** 用户搜索参数 */
-      interface UserQuery extends Common.PageParams {
+      interface UserQuery extends Common.PageQuery {
         /** 关键词 */
         description?: string
         /** 状态 */

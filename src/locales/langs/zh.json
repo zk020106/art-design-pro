@@ -117,6 +117,52 @@
       "userCenter": "个人中心"
     }
   },
+  "pages": {
+    "user": {
+      "title": "用户管理",
+      "search": {
+        "username": "用户名/昵称/描述",
+        "status": "状态",
+        "statusPlaceholder": "请选择状态",
+        "createTime": "创建时间"
+      },
+      "table": {
+        "index": "序号",
+        "nickname": "昵称",
+        "username": "用户名",
+        "status": "状态",
+        "gender": "性别",
+        "dept": "所属部门",
+        "roles": "角色",
+        "phone": "手机号",
+        "email": "邮箱",
+        "isSystem": "系统内置",
+        "description": "描述",
+        "createUser": "创建人",
+        "createTime": "创建时间",
+        "updateUser": "修改人",
+        "updateTime": "修改时间",
+        "action": "操作"
+      },
+      "button": {
+        "add": "新增",
+        "import": "导入",
+        "export": "导出",
+        "detail": "详情",
+        "edit": "修改",
+        "more": "更多",
+        "resetPwd": "重置密码",
+        "assignRole": "分配角色",
+        "delete": "删除"
+      },
+      "message": {
+        "deleteConfirm": "是否确定删除用户「{nickname}({username})」？",
+        "systemDataCannotDelete": "系统内置数据不能删除",
+        "yes": "是",
+        "no": "否"
+      }
+    }
+  },
   "notice": {
     "bar": ["通知", "消息", "代办"],
     "btnRead": "标为已读",

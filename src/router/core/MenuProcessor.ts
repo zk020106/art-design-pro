@@ -7,7 +7,7 @@
  * @author Art Design Pro Team
  */
 
-import { fetchGetUserRoute } from '@/api/auth'
+import { fetchGetUserRoute } from '@/apis/auth'
 import { useAppMode } from '@/hooks/core/useAppMode'
 import { useUserStore } from '@/store/modules/user'
 import { RouteResp } from '@/types/api/auth'

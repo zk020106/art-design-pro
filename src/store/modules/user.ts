@@ -31,7 +31,7 @@
  * @module store/modules/user
  * @author Art Design Pro Team
  */
-import { fetchAccountLogin, fetchEmailLogin, fetchPhoneLogin, fetchSocialAuth } from '@/api/auth'
+import { fetchAccountLogin, fetchEmailLogin, fetchPhoneLogin, fetchSocialAuth } from '@/apis/auth'
 import { LanguageEnum } from '@/enums/appEnum'
 import { router } from '@/router'
 import { resetRouterState } from '@/router/guards/beforeEach'
