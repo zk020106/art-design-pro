@@ -1,13 +1,13 @@
 <template>
-  <div class="container">
-    <div class="search">
+  <div>
+    <div class="mb-1">
       <ElInput v-model="searchKey" :placeholder="t('components.tree.searchPlaceholder')" clearable>
         <template #prefix>
           <ElIcon><Search /></ElIcon>
         </template>
       </ElInput>
     </div>
-    <div class="tree-wrapper">
+    <div>
       <div class="tree">
         <ElTree
           ref="treeRef"
@@ -21,8 +21,8 @@
           @node-click="handleNodeClick"
         >
           <template #default="{ node }">
-            <span class="custom-tree-node">
-              <span class="node-label">{{ node.label }}</span>
+            <span>
+              <span>{{ node.label }}</span>
             </span>
           </template>
         </ElTree>

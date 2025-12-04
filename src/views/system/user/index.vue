@@ -1,8 +1,7 @@
 <template>
-  <GiPageLayout :size="240" bordered>
+  <GiPageLayout :size="240">
     <template #left>
-      <div>111111</div>
-      <!-- <DeptTree @node-click="handleSelectDept" /> -->
+      <DeptTree @node-click="handleSelectDept" />
     </template>
 
     <div class="p-4">
@@ -14,18 +13,18 @@
 </template>
 
 <script setup lang="ts">
+  import { DeptDictTreeNode } from '@/types/api/system'
+  import DeptTree from './dept/index.vue'
   // import { useI18n } from 'vue-i18n'
-
-  defineOptions({ name: 'SystemUser' })
 
   // const { t } = useI18n()
 
   /**
    * 根据选中部门查询
    */
-  // const handleSelectDept = (key: string | number, data: DeptDictTreeNode) => {
-  //   console.log('选中部门:', key, data)
-  // }
+  const handleSelectDept = (key: string | number, data: DeptDictTreeNode) => {
+    console.log('选中部门:', key, data)
+  }
 </script>
 
 <style scoped lang="scss">

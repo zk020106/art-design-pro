@@ -3,6 +3,7 @@ import '@styles/core/tailwind.css'; // tailwind
 import '@styles/index.scss'; // 样式
 import '@utils/sys/console.ts'; // 控制台输出内容
 import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css';
 import 'gi-component/dist/gi.css';
 
 
