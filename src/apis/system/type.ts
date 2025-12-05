@@ -40,7 +40,7 @@ export interface UserQuery {
   userIds?: Array<string>
   roleId?: string
 }
-export interface UserPageQuery extends UserQuery, Api.Common.PageQuery {}
+export interface UserPageQuery extends UserQuery, PageQuery {}
 
 /** 角色类型 */
 export interface RoleResp {
@@ -94,7 +94,7 @@ export interface RoleUserQuery {
   description?: string
   sort: Array<string>
 }
-export interface RoleUserPageQuery extends RoleUserQuery, Api.Common.PageQuery {}
+export interface RoleUserPageQuery extends RoleUserQuery, PageQuery {}
 
 /** 菜单类型 */
 export interface MenuResp {
@@ -180,7 +180,7 @@ export interface DictItemQuery {
   sort: Array<string>
   dictId: string
 }
-export interface DictItemPageQuery extends DictItemQuery, Api.Common.PageQuery {}
+export interface DictItemPageQuery extends DictItemQuery, PageQuery {}
 
 /** 公告类型 */
 export interface NoticeResp {
@@ -208,7 +208,7 @@ export interface NoticeQuery {
   type?: string
   sort: Array<string>
 }
-export interface NoticePageQuery extends NoticeQuery, Api.Common.PageQuery {}
+export interface NoticePageQuery extends NoticeQuery, PageQuery {}
 
 /** 文件类型 */
 export interface FileItem {
@@ -253,7 +253,7 @@ export interface FileQuery {
   parentPath?: string
   sort: Array<string>
 }
-export interface FilePageQuery extends FileQuery, Api.Common.PageQuery {}
+export interface FilePageQuery extends FileQuery, PageQuery {}
 
 /** 存储类型 */
 export interface StorageResp {
@@ -329,7 +329,7 @@ export interface ClientQuery {
   status: string
   sort: Array<string>
 }
-export interface ClientPageQuery extends ClientQuery, Api.Common.PageQuery {}
+export interface ClientPageQuery extends ClientQuery, PageQuery {}
 
 /** 系统参数类型 */
 export interface OptionResp {
@@ -422,7 +422,7 @@ export interface SmsConfigQuery {
   accessKey: string | undefined
   sort: Array<string>
 }
-export interface SmsConfigPageQuery extends SmsConfigQuery, Api.Common.PageQuery {}
+export interface SmsConfigPageQuery extends SmsConfigQuery, PageQuery {}
 
 /** 短信日志类型 */
 export interface SmsLogResp {
@@ -445,7 +445,7 @@ export interface SmsLogQuery {
   status: number | undefined
   sort: Array<string>
 }
-export interface SmsLogPageQuery extends SmsLogQuery, Api.Common.PageQuery {}
+export interface SmsLogPageQuery extends SmsLogQuery, PageQuery {}
 
 /** 绑定三方账号信息 */
 export interface BindSocialAccountRes {
@@ -473,7 +473,7 @@ export interface MessageQuery {
   sort: Array<string>
 }
 
-export interface MessagePageQuery extends MessageQuery, Api.Common.PageQuery {}
+export interface MessagePageQuery extends MessageQuery, PageQuery {}
 
 /** 分片上传 - 初始化参数 */
 export interface MultiPartUploadInitReq {

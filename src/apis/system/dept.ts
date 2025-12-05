@@ -1,102 +1,42 @@
-/**
- * 部门管理 API
- * @module api/system/dept
- */
-
-import type * as T from '@/types/api/system'
+import { DeptDictTreeNode } from '@/types/api/system'
 import http from '@/utils/http'
+import type * as T from './type'
+
+export type * from './type'
 
 const BASE_URL = '/system/dept'
 
-/**
- * 查询部门列表（树形结构）
- * @param query 查询参数
- */
-export function fetchDeptTree(query?: T.DeptQuery) {
-  return http.get<T.DeptResp[]>({
-    url: `${BASE_URL}/tree`,
-    params: query
-  })
+/** @desc 查询部门列表 */
+export function listDept(query: T.DeptQuery) {
+  return http.get<T.DeptResp[]>({ url: `${BASE_URL}/tree`, params: query })
 }
 
-/**
- * 查询部门详情
- * @param id 部门ID
- */
-export function fetchDeptDetail(id: string) {
-  return http.get<T.DeptResp>({
-    url: `${BASE_URL}/${id}`
-  })
+/** @desc 查询部门详情 */
+export function getDept(id: string) {
+  return http.get<T.DeptResp>({ url: `${BASE_URL}/${id}` })
 }
 
-/**
- * 新增部门
- * @param data 部门信息
- */
-export function fetchAddDept(data: T.DeptReq) {
-  return http.post<boolean>({
-    url: BASE_URL,
-    data,
-    showSuccessMessage: true
-  })
+/** @desc 新增部门 */
+export function addDept(data: any) {
+  return http.post<boolean>({ url: `${BASE_URL}`, data })
 }
 
-/**
- * 修改部门
- * @param id 部门ID
- * @param data 部门信息
- */
-export function fetchUpdateDept(id: string, data: T.DeptReq) {
-  return http.put<boolean>({
-    url: `${BASE_URL}/${id}`,
-    data,
-    showSuccessMessage: true
-  })
+/** @desc 修改部门 */
+export function updateDept(data: any, id: string) {
+  return http.put({ url: `${BASE_URL}/${id}`, data })
 }
 
-/**
- * 删除部门
- * @param id 部门ID
- */
-export function fetchDeleteDept(id: string) {
-  return http.del<boolean>({
-    url: BASE_URL,
-    data: { ids: [id] },
-    showSuccessMessage: true
-  })
+/** @desc 删除部门 */
+export function deleteDept(id: string) {
+  return http.del({ url: `${BASE_URL}`, data: { ids: [id] } })
 }
 
-/**
- * 批量删除部门
- * @param ids 部门ID列表
- */
-export function fetchBatchDeleteDept(ids: string[]) {
-  return http.del<boolean>({
-    url: BASE_URL,
-    data: { ids },
-    showSuccessMessage: true
-  })
+/** @desc 导出部门 */
+export function exportDept(query: T.DeptQuery) {
+  return http.download({ url: `${BASE_URL}/export`, params: query })
 }
 
-/**
- * 导出部门
- * @param query 查询参数
- */
-export function fetchExportDept(query?: T.DeptQuery) {
-  return http.get<Blob>({
-    url: `${BASE_URL}/export`,
-    params: query,
-    responseType: 'blob'
-  })
-}
-
-/**
- * 查询部门字典树
- * @param query 查询参数
- */
-export function fetchDeptDictTree(query?: T.DeptQuery) {
-  return http.get<T.DeptDictTreeNode[]>({
-    url: `${BASE_URL}/dict/tree`,
-    params: query
-  })
+/** @desc 查询部门字典树 */
+export function listDeptDictTree(query: { description: string | unknown }) {
+  return http.get<DeptDictTreeNode[]>({ url: `${BASE_URL}/dict/tree`, params: query })
 }

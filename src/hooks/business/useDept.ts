@@ -1,4 +1,4 @@
-import { fetchDeptDictTree } from '@/apis/system'
+import { listDeptDictTree } from '@/apis/system'
 import type { DeptDictTreeNode } from '@/types/api/system'
 import { ref } from 'vue'
 
@@ -18,7 +18,7 @@ export function useDept(options?: { onSuccess?: () => void }) {
   const getDeptList = async (name?: string) => {
     try {
       loading.value = true
-      deptList.value = await fetchDeptDictTree({ description: name })
+      deptList.value = await listDeptDictTree({ description: name })
       options?.onSuccess?.()
     } finally {
       loading.value = false
