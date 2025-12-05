@@ -16,7 +16,6 @@
 
 import { $t } from '@/locales'
 import { useUserStore } from '@/store/modules/user'
-import { BaseResponse } from '@/types'
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { HttpError, handleError, showError, showSuccess } from './error'
 import { ApiStatus } from './status'
@@ -82,7 +81,7 @@ axiosInstance.interceptors.request.use(
 
 /** 响应拦截器 */
 axiosInstance.interceptors.response.use(
-  (response: AxiosResponse<BaseResponse>) => {
+  (response: AxiosResponse<ApiRes<any>>) => {
     const { code, msg } = response.data
 
     if (code === ApiStatus.success) return response
@@ -148,7 +147,7 @@ async function retryRequest<T>(
   retries: number = MAX_RETRIES
 ): Promise<T> {
   try {
-    return await request<T>(config)
+    return await http<T>(config)
   } catch (error) {
     if (retries > 0 && error instanceof HttpError && shouldRetry(error.code)) {
       await delay(RETRY_DELAY)
@@ -164,7 +163,7 @@ function delay(ms: number) {
 }
 
 /** 请求函数 */
-async function request<T = any>(config: ExtendedAxiosRequestConfig): Promise<T> {
+async function http<T = any>(config: ExtendedAxiosRequestConfig): Promise<T> {
   // POST | PUT 参数自动填充
   if (
     ['POST', 'PUT'].includes(config.method?.toUpperCase() || '') &&
@@ -176,7 +175,7 @@ async function request<T = any>(config: ExtendedAxiosRequestConfig): Promise<T> 
   }
 
   try {
-    const res = await axiosInstance.request<BaseResponse<T>>(config)
+    const res = await axiosInstance.request<ApiRes<T>>(config)
 
     // 显示成功消息
     if (config.showSuccessMessage && res.data.msg) {
@@ -209,6 +208,12 @@ const api = {
   },
   request<T>(config: ExtendedAxiosRequestConfig) {
     return retryRequest<T>(config)
+  },
+  download<T>(config: ExtendedAxiosRequestConfig) {
+    return retryRequest<T>({ ...config, method: 'GET', responseType: 'blob' })
+  },
+  patch<T>(config: ExtendedAxiosRequestConfig) {
+    return retryRequest<T>({ ...config, method: 'PATCH' })
   }
 }
 
