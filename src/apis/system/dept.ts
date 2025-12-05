@@ -1,5 +1,5 @@
-import { DeptDictTreeNode } from '@/types/api/system'
 import http from '@/utils/http'
+import { TreeData } from 'element-plus'
 import type * as T from './type'
 
 export type * from './type'
@@ -38,5 +38,5 @@ export function exportDept(query: T.DeptQuery) {
 
 /** @desc 查询部门字典树 */
 export function listDeptDictTree(query: { description: string | unknown }) {
-  return http.get<DeptDictTreeNode[]>({ url: `${BASE_URL}/dict/tree`, params: query })
+  return http.get<TreeData[]>({ url: `${BASE_URL}/dict/tree`, params: query })
 }

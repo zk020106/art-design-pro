@@ -95,7 +95,7 @@
 </template>
 
 <script setup lang="ts">
-  import { getImageCaptcha } from '@/apis/captcha'
+  import { getImageCaptcha } from '@/apis'
   import AppConfig from '@/config'
   import { useUserStore } from '@/store/modules/user'
   import { encryptByRsa } from '@/utils/encrypt'
