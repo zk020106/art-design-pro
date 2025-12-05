@@ -1,4 +1,3 @@
-import type { LabelValueState } from '@/types/global'
 import http from '@/utils/http'
 
 const BASE_URL = '/system/common'

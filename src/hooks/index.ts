@@ -33,3 +33,5 @@ export { useAutoLayoutHeight, useLayoutHeight } from './core/useLayoutHeight'
 
 // 响应式布局容器固定宽度
 export { useDevice } from './core/useDevice'
+
+export { useResetState, useState } from './core/useState'
