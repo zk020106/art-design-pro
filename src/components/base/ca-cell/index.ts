@@ -1,0 +1,6 @@
+export { default as CaCellAvatar } from './CaCellAvatar.vue'
+export { default as CaCellGender } from './CaCellGender.vue'
+export { default as CaCellStatus } from './CaCellStatus.vue'
+export { default as CaCellTag } from './CaCellTag.vue'
+export { default as CaCellTags } from './CaCellTags.vue'
+export type { CaCellTagType } from './types'
