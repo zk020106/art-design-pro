@@ -1,5 +1,4 @@
 import { listDeptDictTree } from '@/apis/system'
-import type { DeptDictTreeNode } from '@/types/api/system'
 import { ref } from 'vue'
 
 /**
@@ -9,7 +8,7 @@ import { ref } from 'vue'
  */
 export function useDept(options?: { onSuccess?: () => void }) {
   const loading = ref(false)
-  const deptList = ref<DeptDictTreeNode[]>([])
+  const deptList = ref<any[]>([])
 
   /**
    * 获取部门列表
@@ -18,7 +17,8 @@ export function useDept(options?: { onSuccess?: () => void }) {
   const getDeptList = async (name?: string) => {
     try {
       loading.value = true
-      deptList.value = await listDeptDictTree({ description: name })
+      const data = await listDeptDictTree({ description: name })
+      deptList.value = data as any[]
       options?.onSuccess?.()
     } finally {
       loading.value = false

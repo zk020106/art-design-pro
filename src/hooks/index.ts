@@ -7,6 +7,9 @@ export { useAppMode } from './core/useAppMode'
 // 权限控制
 export { useAuth } from './core/useAuth'
 
+// 国际化
+export { useLocale } from './core/useLocale'
+
 // 表格数据管理方案
 export { useTable } from './core/useTable'
 
@@ -34,4 +37,14 @@ export { useAutoLayoutHeight, useLayoutHeight } from './core/useLayoutHeight'
 // 响应式布局容器固定宽度
 export { useDevice } from './core/useDevice'
 
-export { useResetState, useState } from './core/useState'
+// 重置响应式数据
+export { useResetReactive } from './core/useResetReactive'
+
+// 文件下载
+export { useDownload } from './core/useDownload'
+
+// 响应式断点
+export { useBreakpoint } from './core/useBreakpoint'
+
+// 分页管理
+export { usePagination } from './core/usePagination'
