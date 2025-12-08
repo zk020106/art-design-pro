@@ -1,9 +1,11 @@
+import { Gender } from '@/types'
+
 /** 用户类型 */
 export interface UserInfo {
   id: string
   username: string
   nickname: string
-  gender: 0 | 1 | 2
+  gender: Gender
   email: string
   phone: string
   avatar: string
