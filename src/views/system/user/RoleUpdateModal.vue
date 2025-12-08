@@ -17,11 +17,11 @@
 
 <script setup lang="ts">
   import { getUser, updateUserRole } from '@/apis/system/user'
-  import { type ColumnItem, GiForm } from '@/components/GiForm'
   import { useResetReactive } from '@/hooks'
-  import { useRole } from '@/hooks/app'
+  import { useRole } from '@/hooks/business'
   import { useWindowSize } from '@vueuse/core'
   import { ElMessage } from 'element-plus'
+  import { GiForm } from 'gi-component'
 
   const emit = defineEmits<{
     (e: 'save-success'): void
@@ -35,7 +35,7 @@
 
   const [form, resetForm] = useResetReactive({})
 
-  const columns: ColumnItem[] = reactive([
+  const columns = reactive([
     {
       label: '角色',
       field: 'roleIds',
@@ -45,8 +45,8 @@
       props: {
         options: roleList,
         multiple: true,
-        allowClear: true,
-        allowSearch: { retainInputValue: true }
+        clearable: true,
+        placeholder: '请选择角色'
       }
     }
   ])
@@ -80,7 +80,7 @@
     if (!roleList.value.length) {
       await getRoleList()
     }
-    const { data } = await getUser(id)
+    const data = await getUser(id)
     Object.assign(form, data)
     visible.value = true
   }

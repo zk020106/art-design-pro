@@ -17,11 +17,11 @@
 
 <script setup lang="ts">
   import { resetUserPwd } from '@/apis/system/user'
-  import { type ColumnItem, GiForm } from '@/components/GiForm'
   import { useResetReactive } from '@/hooks'
   import { encryptByRsa } from '@/utils/encrypt'
   import { useWindowSize } from '@vueuse/core'
   import { ElMessage } from 'element-plus'
+  import { FormColumnItem, GiForm } from 'gi-component'
 
   const emit = defineEmits<{
     (e: 'save-success'): void
@@ -34,9 +34,20 @@
 
   const [form, resetForm] = useResetReactive({})
 
-  const columns: ColumnItem[] = reactive([
-    { label: '密码', field: 'newPassword', type: 'input-password', span: 24, required: true }
-  ])
+  const columns = reactive([
+    {
+      label: '密码',
+      field: 'newPassword',
+      type: 'input',
+      span: 24,
+      props: {
+        type: 'password',
+        max: 20,
+        showPassword: true
+      },
+      required: true
+    }
+  ] as FormColumnItem[])
 
   // 重置
   const reset = () => {

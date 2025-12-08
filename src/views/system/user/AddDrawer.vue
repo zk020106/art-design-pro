@@ -17,13 +17,13 @@
 
 <script setup lang="ts">
   import { addUser, getUser, updateUser } from '@/apis/system/user'
-  import { type ColumnItem, GiForm } from '@/components/GiForm'
   import { GenderList } from '@/constant/common'
   import { useResetReactive } from '@/hooks'
-  import { useDept, useRole } from '@/hooks/app'
-  import type { Gender, Status } from '@/types/global'
+  import { useDept, useRole } from '@/hooks/business'
+  import { Gender, Status } from '@/types'
   import { encryptByRsa } from '@/utils/encrypt'
   import { useWindowSize } from '@vueuse/core'
+  import { FormColumnItem } from 'gi-component'
 
   const emit = defineEmits<{
     (e: 'save-success'): void
@@ -44,7 +44,7 @@
     status: 1 as Status
   })
 
-  const columns: ColumnItem[] = reactive([
+  const columns = reactive([
     {
       label: '昵称',
       field: 'nickname',
@@ -144,7 +144,7 @@
     },
     {
       label: '状态',
-      field: 'status',
+      prop: 'status',
       type: 'switch',
       span: 24,
       props: {
@@ -155,7 +155,7 @@
         uncheckedText: '禁用'
       }
     }
-  ])
+  ] as FormColumnItem[])
 
   // 重置
   const reset = () => {
@@ -212,7 +212,7 @@
     if (!roleList.value.length) {
       await getRoleList()
     }
-    const { data } = await getUser(id)
+    const data = await getUser(id)
     Object.assign(form, data)
     visible.value = true
   }

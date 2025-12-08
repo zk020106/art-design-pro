@@ -5,7 +5,7 @@
     </template>
     <GiTable
       row-key="id"
-      :data="dataList"
+      :data="tableData"
       :columns="columns"
       :loading="loading"
       :scroll="{ x: '100%', y: '100%', minWidth: 1500 }"
@@ -39,40 +39,38 @@
           导出
         </ElButton>
       </template>
-      <template #nickname="{ record }">
-        <GiCellAvatar :avatar="record.avatar" :name="record.nickname" />
+      <template #nickname="{ row }">
+        <CaAvatar fit="cover" :src="row.avatar" :name="row.nickname" />
       </template>
-      <template #gender="{ record }">
-        <GiCellGender :gender="record.gender" />
+      <template #gender="{ row }">
+        <CaCellGender :gender="row.gender" />
       </template>
-      <template #roleNames="{ record }">
-        <GiCellTags :data="record.roleNames" />
+      <template #roleNames="{ row }">
+        <CaCellTags :data="row.roleNames" />
       </template>
-      <template #status="{ record }">
-        <GiCellStatus :status="record.status" />
+      <template #status="{ row }">
+        <CaCellStatus :status="row.status" />
       </template>
-      <template #isSystem="{ record }">
-        <ElTag v-if="record.isSystem" type="danger" size="small">是</ElTag>
+      <template #isSystem="{ row }">
+        <ElTag v-if="row.isSystem" type="danger" size="small">是</ElTag>
         <ElTag v-else type="primary" size="small">否</ElTag>
       </template>
-      <template #action="{ record }">
+      <template #action="{ row }">
         <ElSpace>
-          <ElLink type="primary" @click="onDetail(record)">详情</ElLink>
-          <ElLink type="primary" @click="onUpdate(record)">修改</ElLink>
+          <ElLink type="primary" @click="onDetail(row)">详情</ElLink>
+          <ElLink type="primary" @click="onUpdate(row)">修改</ElLink>
           <ElDropdown>
             <ElButton text>
               <ElIcon><MoreFilled /></ElIcon>
             </ElButton>
             <template #dropdown>
               <ElDropdownMenu>
-                <ElDropdownItem @click="onResetPwd(record)">重置密码</ElDropdownItem>
-                <ElDropdownItem :disabled="record.isSystem" @click="onUpdateRole(record)">
+                <ElDropdownItem @click="onResetPwd(row)">重置密码</ElDropdownItem>
+                <ElDropdownItem :disabled="row.isSystem" @click="onUpdateRole(row)">
                   分配角色
                 </ElDropdownItem>
-                <ElDropdownItem :disabled="record.isSystem" @click="onDelete(record)">
-                  <ElLink type="danger" :disabled="record.isSystem" :underline="false">
-                    删除
-                  </ElLink>
+                <ElDropdownItem :disabled="row.isSystem" @click="onDelete(row)">
+                  <ElLink type="danger" :disabled="row.isSystem" :underline="false"> 删除 </ElLink>
                 </ElDropdownItem>
               </ElDropdownMenu>
             </template>
@@ -90,13 +88,13 @@
 </template>
 
 <script setup lang="ts">
-  import { type UserResp, deleteUser, exportUser, listUser } from '@/apis/system/user'
-  import type { ColumnItem } from '@/components/GiForm'
+  import { UserQuery, UserResp } from '@/apis'
+  import { exportUser, listUser } from '@/apis/system/user'
   import { DisEnableStatusList } from '@/constant/common'
-  import { useDownload, useResetReactive, useTable } from '@/hooks'
-  import { isMobile } from '@/utils'
+  import { useDevice, useDownload, useResetReactive, useTable } from '@/hooks'
+  import { DeptDictTreeNode } from '@/types/api/system'
   import { Download, MoreFilled, Plus, Upload } from '@element-plus/icons-vue'
-  import type { TableInstance } from 'element-plus'
+  import { FormColumnItem, TableColumnItem } from 'gi-component'
   import AddDrawer from './AddDrawer.vue'
   import DeptTree from './dept/index.vue'
   import DetailDrawer from './DetailDrawer.vue'
@@ -106,115 +104,112 @@
 
   defineOptions({ name: 'SystemUser' })
 
-  const [queryForm, resetForm] = useResetReactive({
+  const { isMobile } = useDevice()
+
+  const [queryForm, resetForm] = useResetReactive<UserQuery>({
     sort: ['t1.id,desc']
   })
 
-  const queryFormColumns: ColumnItem[] = reactive([
-    {
-      type: 'input',
-      label: '用户名',
-      field: 'description',
-      span: { xs: 24, sm: 8, xxl: 8 },
-      props: {
-        placeholder: '用户名/昵称/描述'
-      }
-    },
-    {
-      type: 'select',
-      label: '状态',
-      field: 'status',
-      span: { xs: 24, sm: 6, xxl: 8 },
-      props: {
-        options: DisEnableStatusList,
-        placeholder: '请选择状态'
-      }
-    },
-    {
-      type: 'date-picker',
-      label: '创建时间',
-      field: 'createTime',
-      span: { xs: 24, sm: 10, xxl: 8 },
-      props: {
-        type: 'daterange'
-      }
-    }
-  ])
+  const queryFormColumns = computed(
+    () =>
+      [
+        {
+          type: 'input',
+          label: '用户名',
+          field: 'description',
+          gridItemProps: { span: { xs: 24, sm: 12, xxl: 8 } },
+          props: {
+            placeholder: '用户名/昵称/描述'
+          }
+        },
+        {
+          type: 'select',
+          label: '状态',
+          field: 'status',
+          gridItemProps: { span: { xs: 24, sm: 6, xxl: 8 } },
+          props: {
+            options: DisEnableStatusList,
+            placeholder: '请选择状态'
+          }
+        },
+        {
+          type: 'date-picker',
+          label: '创建时间',
+          field: 'createTime',
+          gridItemProps: { span: { xs: 24, sm: 10, xxl: 8 } },
+          props: {
+            type: 'daterange'
+          }
+        }
+      ] as FormColumnItem<UserQuery>[]
+  )
 
-  const {
-    tableData: dataList,
-    loading,
-    pagination,
-    search,
-    handleDelete
-  } = useTable((page) => listUser({ ...queryForm, ...page }), { immediate: false })
+  const { tableData, loading, pagination, search } = useTable<UserResp>(
+    (page) => listUser({ ...queryForm, ...page }),
+    { immediate: false }
+  )
 
-  const columns: TableInstance['columns'] = [
+  const columns: TableColumnItem[] = [
     {
-      title: '序号',
+      label: '序号',
       width: 66,
       align: 'center',
-      render: ({ rowIndex }) =>
-        h('span', {}, rowIndex + 1 + (pagination.current - 1) * pagination.pageSize),
-      fixed: !isMobile() ? 'left' : undefined
+      render: ({ $index }) =>
+        h('span', {}, $index + 1 + (pagination.current - 1) * pagination.pageSize),
+      fixed: !isMobile.value ? 'left' : false
     },
     {
-      title: '昵称',
-      dataIndex: 'nickname',
+      label: '昵称',
+      prop: 'nickname',
       slotName: 'nickname',
       minWidth: 140,
-      ellipsis: true,
-      tooltip: true,
-      fixed: !isMobile() ? 'left' : undefined
+      showOverflowTooltip: true,
+      fixed: !isMobile.value ? 'left' : false
     },
     {
-      title: '用户名',
-      dataIndex: 'username',
-      slotName: 'username',
+      label: '用户名',
+      prop: 'username',
+      // slotName: 'username',
       minWidth: 140,
-      ellipsis: true,
-      tooltip: true
+      showOverflowTooltip: true
     },
-    { title: '状态', dataIndex: 'status', slotName: 'status', align: 'center' },
-    { title: '性别', dataIndex: 'gender', slotName: 'gender', align: 'center' },
-    { title: '所属部门', dataIndex: 'deptName', minWidth: 180, ellipsis: true, tooltip: true },
-    { title: '角色', dataIndex: 'roleNames', slotName: 'roleNames', minWidth: 165 },
-    { title: '手机号', dataIndex: 'phone', minWidth: 170, ellipsis: true, tooltip: true },
-    { title: '邮箱', dataIndex: 'email', minWidth: 170, ellipsis: true, tooltip: true },
+    { label: '状态', prop: 'status', slotName: 'status', align: 'center' },
+    { label: '性别', prop: 'gender', slotName: 'gender', align: 'center' },
+    { label: '所属部门', prop: 'deptName', minWidth: 180, showOverflowTooltip: true },
+    { label: '角色', prop: 'roleNames', slotName: 'roleNames', minWidth: 165 },
+    { label: '手机号', prop: 'phone', minWidth: 170, showOverflowTooltip: true },
+    { label: '邮箱', prop: 'email', minWidth: 170, showOverflowTooltip: true },
     {
-      title: '系统内置',
-      dataIndex: 'isSystem',
+      label: '系统内置',
+      prop: 'isSystem',
       slotName: 'isSystem',
       width: 100,
-      align: 'center',
-      show: false
+      align: 'center'
     },
-    { title: '描述', dataIndex: 'description', minWidth: 130, ellipsis: true, tooltip: true },
+    { label: '描述', prop: 'description', minWidth: 130, showOverflowTooltip: true },
     {
-      title: '创建人',
-      dataIndex: 'createUserString',
+      label: '创建人',
+      prop: 'createUserString',
       width: 140,
-      ellipsis: true,
-      tooltip: true,
-      show: false
+      showOverflowTooltip: true
     },
-    { title: '创建时间', dataIndex: 'createTime', width: 180 },
+    { label: '创建时间', prop: 'createTime', width: 180 },
+
+    // {
+    //   label: '修改人',
+    //   prop: 'updateUserString',
+    //   width: 140,
+    //   showOverflowTooltip: true,
+    //   show: false
+    // },
+    // { label: '修改时间', prop: 'updateTime', width: 180, show: false },
     {
-      title: '修改人',
-      dataIndex: 'updateUserString',
-      width: 140,
-      ellipsis: true,
-      tooltip: true,
-      show: false
-    },
-    { title: '修改时间', dataIndex: 'updateTime', width: 180, show: false },
-    {
-      title: '操作',
-      dataIndex: 'action',
+      label: '操作',
+      prop: 'action',
       slotName: 'action',
       width: 160,
       align: 'center',
-      fixed: !isMobile() ? 'right' : undefined
+      fixed: !isMobile.value ? 'right' : false
     }
   ]
 
@@ -226,10 +221,10 @@
 
   // 删除
   const onDelete = (record: UserResp) => {
-    return handleDelete(() => deleteUser(record.id), {
-      content: `是否确定删除用户「${record.nickname}(${record.username})」？`,
-      showModal: true
-    })
+    // return handleDelete(() => deleteUser(record.id), {
+    //   content: `是否确定删除用户「${record.nickname}(${record.username})」？`,
+    //   showModal: true
+    // })
   }
 
   // 导出
@@ -238,8 +233,8 @@
   }
 
   // 根据选中部门查询
-  const handleSelectDept = (keys: Array<any>) => {
-    queryForm.deptId = keys.length === 1 ? keys[0] : undefined
+  const handleSelectDept = (key: string | number, data: DeptDictTreeNode) => {
+    queryForm.deptId = key
     search()
   }
 

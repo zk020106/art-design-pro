@@ -19,7 +19,7 @@
       <ElDescriptionsItem label="邮箱">{{ dataDetail?.email || '暂无' }}</ElDescriptionsItem>
       <ElDescriptionsItem label="所属部门">{{ dataDetail?.deptName }}</ElDescriptionsItem>
       <ElDescriptionsItem label="角色">
-        <GiCellTags :data="dataDetail?.roleNames" />
+        <CaCellTags :data="dataDetail?.roleNames" />
       </ElDescriptionsItem>
       <ElDescriptionsItem label="创建人">{{ dataDetail?.createUserString }}</ElDescriptionsItem>
       <ElDescriptionsItem label="创建时间">{{ dataDetail?.createTime }}</ElDescriptionsItem>
@@ -31,7 +31,8 @@
 </template>
 
 <script setup lang="ts">
-  import { type UserDetailResp, getUser as getDetail } from '@/apis/system/user'
+  import { UserDetailResp } from '@/apis'
+  import { getUser as getDetail } from '@/apis/system/user'
   import { useWindowSize } from '@vueuse/core'
 
   const { width } = useWindowSize()
@@ -42,8 +43,7 @@
 
   // 查询详情
   const getDataDetail = async () => {
-    const { data } = await getDetail(dataId.value)
-    dataDetail.value = data
+    dataDetail.value = await getDetail(dataId.value)
   }
 
   // 打开

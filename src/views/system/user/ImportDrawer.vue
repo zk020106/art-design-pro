@@ -94,12 +94,8 @@
 </template>
 
 <script setup lang="ts">
-  import {
-    type UserImportResp,
-    downloadUserImportTemplate,
-    importUser,
-    parseImportUser
-  } from '@/apis/system/user'
+  import { UserImportResp } from '@/apis'
+  import { downloadUserImportTemplate, importUser, parseImportUser } from '@/apis/system/user'
   import { useDownload, useResetReactive } from '@/hooks'
   import { Document, UploadFilled } from '@element-plus/icons-vue'
   import { useWindowSize } from '@vueuse/core'
