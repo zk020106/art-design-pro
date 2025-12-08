@@ -214,6 +214,12 @@ const api = {
   },
   patch<T>(config: ExtendedAxiosRequestConfig) {
     return retryRequest<T>({ ...config, method: 'PATCH' })
+  },
+  /**
+   * 原始响应方法，返回完整结构（data/code/message...）
+   */
+  raw<T = any>(config: ExtendedAxiosRequestConfig): Promise<ApiRes<T>> {
+    return axiosInstance.request<ApiRes<T>>(config).then((res) => res.data)
   }
 }
 

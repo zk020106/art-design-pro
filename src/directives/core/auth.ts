@@ -32,23 +32,26 @@
  * @author Art Design Pro Team
  */
 
-import { router } from '@/router'
+import { useUserStore } from '@/store/modules/user'
 import { App, Directive, DirectiveBinding } from 'vue'
 
 interface AuthBinding extends DirectiveBinding {
   value: string
 }
-
 function checkAuthPermission(el: HTMLElement, binding: AuthBinding): void {
-  // 获取当前路由的权限列表
-  const authList = (router.currentRoute.value.meta.authList as Array<{ authMark: string }>) || []
-
-  // 检查是否有对应的权限标识
-  const hasPermission = authList.some((item) => item.authMark === binding.value)
-
-  // 如果没有权限，移除元素
-  if (!hasPermission) {
-    removeElement(el)
+  const userStore = useUserStore()
+  const { value } = binding
+  const all_permission = '*:*:*'
+  if (value && Array.isArray(value) && value.length) {
+    const permissionValues: string[] = value
+    const hasPermission = userStore.getUserInfo.permissions?.some((perm) => {
+      return all_permission === perm || permissionValues.includes(perm)
+    })
+    if (!hasPermission) {
+      removeElement(el)
+    }
+  } else {
+    throw new Error(`need permission! Like v-hasPerm="['home:btn:edit','home:btn:delete']"`)
   }
 }
 
