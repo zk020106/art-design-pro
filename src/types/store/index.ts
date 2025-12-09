@@ -23,6 +23,7 @@
  * @author Art Design Pro Team
  */
 
+import { UserInfo } from '@/apis'
 import { MenuThemeEnum, SystemThemeEnum } from '@/enums/appEnum'
 import { LocationQueryRaw } from 'vue-router'
 
@@ -104,7 +105,7 @@ export interface WorkTab {
 // 用户Store状态
 export interface UserState {
   /** 用户信息 */
-  userInfo: Api.Auth.UserInfo | null
+  userInfo: UserInfo | null
   /** 认证令牌 */
   token: string | null
   /** 用户角色列表 */

@@ -1,6 +1,6 @@
-import type { TreeNodeData } from '@arco-design/web-vue'
-import type * as T from './type'
 import http from '@/utils/http'
+import { TreeNodeData } from 'element-plus'
+import type * as T from './type'
 
 export type * from './type'
 

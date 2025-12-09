@@ -3,7 +3,7 @@
     <template #left>
       <DeptTree @node-click="handleSelectDept" />
     </template>
-    <GiTable
+    <CaTable
       row-key="id"
       :data="tableData"
       :columns="columns"
@@ -77,7 +77,7 @@
           </ElDropdown>
         </ElSpace>
       </template>
-    </GiTable>
+    </CaTable>
 
     <AddDrawer ref="AddDrawerRef" @save-success="search" />
     <ImportDrawer ref="ImportDrawerRef" @save-success="search" />

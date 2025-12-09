@@ -268,6 +268,19 @@
     }
   },
   "table": {
+    "refresh": "刷新",
+    "size": "尺寸",
+    "fullscreen": "全屏",
+    "exitFullscreen": "退出全屏",
+    "selectAll": "全选",
+    "reset": "重置",
+    "save": "保存",
+    "pinLeft": "左固定",
+    "pinRight": "右固定",
+    "resetSuccess": "已重置表格列",
+    "resetError": "重置表格列失败",
+    "saveSuccess": "保存成功",
+    "saveError": "保存失败",
     "border": "边框",
     "column": {
       "expand": "展开",
@@ -289,9 +302,9 @@
     },
     "selection": "选择",
     "sizeOptions": {
+      "large": "大型",
       "default": "默认",
-      "large": "宽松",
-      "small": "紧凑"
+      "small": "小型"
     },
     "zebra": "斑马纹"
   },

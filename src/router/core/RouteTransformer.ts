@@ -7,13 +7,13 @@
  * @author Art Design Pro Team
  */
 
-import type { RouteRecordRaw } from 'vue-router'
 import type { AppRouteRecord } from '@/types/router'
+import type { RouteRecordRaw } from 'vue-router'
 import { ComponentLoader } from './ComponentLoader'
 import { IframeRouteManager } from './IframeRouteManager'
 
 interface ConvertedRoute extends Omit<RouteRecordRaw, 'children'> {
-  id?: number
+  id?: string | number
   children?: ConvertedRoute[]
   component?: RouteRecordRaw['component'] | (() => Promise<any>)
 }

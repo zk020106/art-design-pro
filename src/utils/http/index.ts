@@ -1,37 +1,3 @@
-/**
- * HTTP 请求封装模块
- * 基于 Axios 封装的 HTTP 请求工具，提供统一的请求/响应处理
- *
- * ## 主要功能
- *
- * - 请求/响应拦截器（自动添加 Token、统一错误处理）
- * - 401 未授权自动登出（带防抖机制）
- * - 请求失败自动重试（可配置）
- * - 统一的成功/错误消息提示
- * - 支持 GET/POST/PUT/DELETE/PATCH 等常用方法
- * - 请求取消功能
- * - 响应数据转换
- *
- * ## 使用方式
- *
- * ```typescript
- * // 基础用法
- * const users = await api.get<User[]>('/users', { page: 1, size: 10 })
- *
- * // 带消息提示
- * await api.post('/users', userData, { showSuccessMessage: true })
- *
- * // 获取完整响应
- * const response = await api.requestNative({ url: '/users' })
- *
- * // 获取原始响应数据（包含 code/msg/data）
- * const { code, msg, data } = await api.raw<ApiRes<User[]>>('/users')
- * ```
- *
- * @module utils/http
- * @author Art Design Pro Team
- */
-
 import { $t } from '@/locales'
 import { useTenantStore } from '@/store/modules/tenant'
 import { useUserStore } from '@/store/modules/user'
@@ -44,31 +10,38 @@ import axios, {
 import { ErrorResponse, HttpError, handleError, showError, showSuccess } from './error'
 import { ApiStatus } from './status'
 
-/** API 响应数据格式 */
+const REQUEST_TIMEOUT = 30000
+const LOGOUT_DELAY = 500
+const MAX_RETRIES = 2
+
 export interface ApiRes<T = any> {
   code: string
   data: T
   msg: string
   success: boolean
-  timestamp: string
+  timestamp?: string
 }
-
-/** 分页响应数据格式 */
 export interface PageRes<T> {
   list: T[]
   total: number
 }
 
-/** 分页请求数据格式 */
 export interface PageQuery {
-  page: number
-  size: number
+  page?: number
+  size?: number
 }
+/**
+ * HTTP 请求封装模块
+ * 基于 Axios 封装的 HTTP 请求工具，提供统一的请求/响应处理
+ *
+ * ## 主要功能
+ *
+ * - 401 未授权自动登出（带防抖机制）
+ * - 请求失败自动重试（可配置）
+ * - 统一的成功/错误消息提示
+ * - 支持 GET/POST/PUT/DELETE/PATCH 等常用方法
+/** 简化的 HTTP 请求封装（Axios） */
 
-/** 请求配置常量 */
-const REQUEST_TIMEOUT = 30000 // 30秒
-const LOGOUT_DELAY = 500
-const MAX_RETRIES = 2
 const RETRY_DELAY = 1000
 const UNAUTHORIZED_DEBOUNCE_TIME = 3000
 
@@ -404,7 +377,7 @@ const api = {
   /**
    * DELETE 请求
    */
-  delete: createRequest('DELETE'),
+  del: createRequest('DELETE'),
 
   /**
    * PATCH 请求
