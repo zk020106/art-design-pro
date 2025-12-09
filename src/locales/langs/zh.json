@@ -55,10 +55,14 @@
     "btnText": "登录",
     "captcha": "验证码",
     "error": {
-      "passwordEncrypt": "密码加密失败"
+      "passwordEncrypt": "密码加密失败",
+      "captchaExpired": "验证码已过期，请刷新验证码"
     },
     "expired": "已过期,请刷新",
     "forgetPwd": "忘记密码",
+    "warning": {
+      "captchaExpiringSoon": "验证码即将过期，请及时刷新"
+    },
     "leftView": {
       "subTitle": "美观实用的界面，经过视觉优化，确保卓越的用户体验",
       "title": "一款兼具设计美学与高效开发的后台系统"
@@ -68,7 +72,8 @@
       "password": "请输入密码",
       "slider": "请拖动滑块完成验证",
       "tenantCode": "请输入租户编码",
-      "username": "请输入账号"
+      "username": "请输入账号",
+      "captcha": "请输入验证码"
     },
     "register": "注册",
     "rememberPwd": "记住密码",

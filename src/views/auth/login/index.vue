@@ -47,9 +47,9 @@
             <ElFormItem prop="captcha" v-if="isCaptchaEnabled">
               <ElInput
                 v-model="formData.captcha"
-                placeholder="请输入验证码"
+                :placeholder="$t('login.placeholder.captcha')"
                 :max-length="4"
-                allow-clear
+                clearable
                 style="flex: 1 1"
               />
               <div class="captcha-container" @click="getCaptcha">
@@ -120,6 +120,10 @@
   const systemName = AppConfig.systemInfo.name
   const formRef = ref<FormInstance>()
   const isCaptchaEnabled = ref<boolean>(true)
+
+  // 验证码过期定时器
+  let timer: ReturnType<typeof setTimeout> | null = null
+
   const formData = reactive({
     tenantCode: '',
     username: 'admin',
@@ -136,14 +140,48 @@
   }))
 
   const loading = ref(false)
+
+  // 验证码过期定时器
+  const startTimer = (expireTime: number, curTime: number = Date.now()) => {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    const remainingTime = expireTime - curTime
+
+    // 已经过期
+    if (remainingTime <= 0) {
+      formData.expired = true
+      return
+    }
+
+    // 设置过期定时器
+    timer = setTimeout(() => {
+      formData.expired = true
+      ElNotification.warning({
+        title: t('login.warning'),
+        message: t('login.expired'),
+        duration: 3000
+      })
+    }, remainingTime)
+  }
+
+  // 组件销毁时清理定时器
+  onBeforeUnmount(() => {
+    if (timer) {
+      clearTimeout(timer)
+    }
+  })
+
   // 获取验证码
   const getCaptcha = async () => {
-    const { uuid, img, isEnabled } = await getImageCaptcha()
+    const { uuid, img, expireTime, isEnabled } = await getImageCaptcha()
     isCaptchaEnabled.value = isEnabled
     // 确保 base64 图片有正确的前缀
     captchaImgBase64.value = img
     formData.uuid = uuid
     formData.expired = false
+    // 启动过期定时器
+    startTimer(expireTime, Date.now())
   }
   // 登录
   const handleSubmit = async () => {
@@ -154,9 +192,14 @@
       const valid = await formRef.value.validate()
       if (!valid) return
 
-      loading.value = true
+      // 检查验证码是否过期
+      if (isCaptchaEnabled.value && formData.expired) {
+        ElNotification.error(t('login.error.captchaExpired'))
+        getCaptcha() // 刷新验证码
+        return
+      }
 
-      // ... (中间代码保持不变)
+      loading.value = true
 
       // 登录请求
       const { username, password, captcha, uuid, tenantCode } = formData

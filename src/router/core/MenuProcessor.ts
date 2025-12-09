@@ -7,10 +7,9 @@
  * @author Art Design Pro Team
  */
 
-import { fetchGetUserRoute } from '@/apis/auth'
+import { getUserRoute } from '@/apis/auth'
 import { useAppMode } from '@/hooks/core/useAppMode'
 import { useUserStore } from '@/store/modules/user'
-import { RouteResp } from '@/types/api/auth'
 import type { AppRouteRecord } from '@/types/router'
 import { formatMenuTitle } from '@/utils'
 import { transformRoutesToRecords } from '@/utils/route-transform'
@@ -59,8 +58,8 @@ export class MenuProcessor {
    * 处理后端控制模式的菜单
    */
   private async processBackendMenu(): Promise<AppRouteRecord[]> {
-    const list: RouteResp[] = await fetchGetUserRoute()
-    const menuList = transformRoutesToRecords(list)
+    const data = await getUserRoute()
+    const menuList = transformRoutesToRecords(data)
     return this.filterEmptyMenus(menuList)
   }
 

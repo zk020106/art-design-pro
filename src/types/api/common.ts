@@ -33,17 +33,6 @@ export interface TreeNode<T = Record<string, any>> {
   [K: string]: any
 }
 
-/**
- * 基础树节点 (适用于后端返回的树形数据)
- * @template T 扩展数据类型
- */
-export interface BaseTreeNode<T = Record<string, any>> extends TreeNode<T> {
-  /** 节点ID */
-  id: TreeKey
-  /** 父节点ID */
-  parentId?: TreeKey
-}
-
 /** ID 请求参数 */
 export interface IdsReq {
   ids: number[]

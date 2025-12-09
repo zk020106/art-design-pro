@@ -20,7 +20,7 @@
   import { GenderList } from '@/constant/common'
   import { useResetReactive } from '@/hooks'
   import { useDept, useRole } from '@/hooks/business'
-  import { Gender, Status } from '@/types'
+  import { EnableStatus, Gender } from '@/types/api/common'
   import { encryptByRsa } from '@/utils/encrypt'
   import { useWindowSize } from '@vueuse/core'
   import { FormColumnItem } from 'gi-component'
@@ -35,13 +35,13 @@
   const visible = ref(false)
   const isUpdate = computed(() => !!dataId.value)
   const title = computed(() => (isUpdate.value ? '修改用户' : '新增用户'))
-  const formRef = ref<InstanceType<typeof GiForm>>()
+  const formRef = useTemplateRef('formRef')
   const { roleList, getRoleList } = useRole()
   const { deptList, getDeptList } = useDept()
 
   const [form, resetForm] = useResetReactive({
     gender: 1 as Gender,
-    status: 1 as Status
+    status: 1 as EnableStatus
   })
 
   const columns = reactive([

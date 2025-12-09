@@ -31,17 +31,20 @@
  * @module store/modules/user
  * @author Art Design Pro Team
  */
-import { fetchAccountLogin, fetchEmailLogin, fetchPhoneLogin, fetchSocialAuth } from '@/apis/auth'
+import {
+  AccountLoginReq,
+  AuthTypeConstants,
+  EmailLoginReq,
+  accountLogin as fetchAccountLogin,
+  emailLogin as fetchEmailLogin,
+  phoneLogin as fetchPhoneLogin,
+  socialAuth as fetchSocialAuth,
+  PhoneLoginReq,
+  UserInfo
+} from '@/apis/auth'
 import { LanguageEnum } from '@/enums/appEnum'
 import { router } from '@/router'
 import { resetRouterState } from '@/router/guards/beforeEach'
-import {
-  AuthTypeConstants,
-  EmailLoginReq,
-  PhoneLoginReq,
-  type AccountLoginReq,
-  type UserInfoResp
-} from '@/types/api/auth'
 import { AppRouteRecord } from '@/types/router'
 import { setPageTitle } from '@/utils/router'
 import { StorageConfig } from '@/utils/storage/storage-config'
@@ -68,7 +71,22 @@ export const useUserStore = defineStore(
     // 锁屏密码
     const lockPassword = ref('')
     // 用户信息
-    const info = ref<Partial<UserInfoResp>>({})
+    const info = ref<UserInfo>({
+      id: '',
+      username: '',
+      nickname: '',
+      gender: 0,
+      email: '',
+      phone: '',
+      avatar: '',
+      pwdResetTime: '',
+      pwdExpired: false,
+      registrationDate: '',
+      deptName: '',
+      roles: [],
+      roleNames: [],
+      permissions: []
+    })
     // 搜索历史记录
     const searchHistory = ref<AppRouteRecord[]>([])
     // 访问令牌
@@ -90,7 +108,7 @@ export const useUserStore = defineStore(
      * 设置用户信息
      * @param newInfo 新的用户信息
      */
-    const setUserInfo = (newInfo: UserInfoResp) => {
+    const setUserInfo = (newInfo: UserInfo) => {
       info.value = newInfo
     }
 
@@ -200,13 +218,28 @@ export const useUserStore = defineStore(
      */
     const logOut = () => {
       // 保存当前用户 ID，用于下次登录时判断是否为同一用户
-      const currentUserId = info.value.userId
+      const currentUserId = info.value.id
       if (currentUserId) {
         localStorage.setItem(StorageConfig.LAST_USER_ID_KEY, String(currentUserId))
       }
 
       // 清空用户信息
-      info.value = {}
+      info.value = {
+        id: '',
+        username: '',
+        nickname: '',
+        gender: 0,
+        email: '',
+        phone: '',
+        avatar: '',
+        pwdResetTime: '',
+        pwdExpired: false,
+        registrationDate: '',
+        deptName: '',
+        roles: [],
+        roleNames: [],
+        permissions: []
+      }
       // 重置登录状态
       isLogin.value = false
       // 重置锁屏状态
@@ -240,7 +273,7 @@ export const useUserStore = defineStore(
      */
     const checkAndClearWorktabs = () => {
       const lastUserId = localStorage.getItem(StorageConfig.LAST_USER_ID_KEY)
-      const currentUserId = info.value.userId
+      const currentUserId = info.value.id
 
       // 无法获取当前用户 ID，跳过检查
       if (!currentUserId) return

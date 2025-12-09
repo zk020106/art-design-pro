@@ -1,17 +1,19 @@
+import { RouteItem } from '@/apis/auth/type'
 import { AppRouteRecord, RouteMeta } from '@/types'
-import { RouteResp } from '@/types/api/auth'
 
 /**
  * 将路由响应数据转换为应用路由记录
  * @param routes 路由响应数据
  * @returns 转换后的路由记录数组
  */
-export function transformRoutesToRecords(routes: RouteResp[]): AppRouteRecord[] {
-  return routes
-    .filter((route) => route.status !== 2) // 过滤掉禁用的路由
-    .sort((a, b) => (a.sort || 0) - (b.sort || 0)) // 先对当前层级的路由排序
-    .map((route) => transformRouteToRecord(route))
-    .filter(Boolean) as AppRouteRecord[]
+export function transformRoutesToRecords(routes: RouteItem[]): AppRouteRecord[] {
+  return (
+    routes
+      // .filter((route) => route.status !== 2) // 过滤掉禁用的路由
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0)) // 先对当前层级的路由排序
+      .map((route) => transformRouteToRecord(route))
+      .filter(Boolean) as AppRouteRecord[]
+  )
 }
 
 /**
@@ -19,7 +21,7 @@ export function transformRoutesToRecords(routes: RouteResp[]): AppRouteRecord[] 
  * @param route 路由响应数据
  * @returns 转换后的路由记录
  */
-function transformRouteToRecord(route: RouteResp): AppRouteRecord | null {
+function transformRouteToRecord(route: RouteItem): AppRouteRecord | null {
   // 按钮类型不作为路由，直接返回null
   if (route.type === 3) {
     return null
@@ -59,6 +61,6 @@ function transformRouteToRecord(route: RouteResp): AppRouteRecord | null {
  * @returns 排序后的路由记录数组
  * @deprecated transformRoutesToRecords 已经包含排序功能
  */
-export function transformRoutesToRecordsWithSort(routes: RouteResp[]): AppRouteRecord[] {
+export function transformRoutesToRecordsWithSort(routes: RouteItem[]): AppRouteRecord[] {
   return transformRoutesToRecords(routes)
 }

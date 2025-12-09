@@ -55,10 +55,14 @@
     "btnText": "Login",
     "captcha": "captcha",
     "error": {
-      "passwordEncrypt": "Password encryption failed"
+      "passwordEncrypt": "Password encryption failed",
+      "captchaExpired": "Captcha expired, please refresh"
     },
     "expired": "Expired, please refresh",
     "forgetPwd": "Forgot password",
+    "warning": {
+      "captchaExpiringSoon": "Captcha is about to expire, please refresh in time"
+    },
     "leftView": {
       "subTitle": "A sleek and practical interface for a great user experience",
       "title": "A backend system of beauty and efficiency"
@@ -68,7 +72,8 @@
       "password": "Please enter your password",
       "slider": "Please slide to verify",
       "tenantCode": "Please enter your tenant code",
-      "username": "Please enter your account"
+      "username": "Please enter your account",
+      "captcha": "Please enter captcha"
     },
     "register": "Register",
     "rememberPwd": "Remember password",

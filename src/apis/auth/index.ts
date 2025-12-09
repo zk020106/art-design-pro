@@ -1,96 +1,59 @@
-import type * as T from '@/types/api/auth'
 import http from '@/utils/http'
+import type * as T from './type'
+
+export * from './type'
 
 const BASE_URL = '/auth'
 
-/**
- * 统一登录处理函数
- * @param req 登录请求参数
- * @param tenantCode 租户编码
- */
-const login = (req: T.AccountLoginReq | T.PhoneLoginReq | T.EmailLoginReq, tenantCode?: string) => {
+const login = (
+  req: T.AccountLoginReq | T.PhoneLoginReq | T.EmailLoginReq,
+  tenantCode?: string
+): Promise<T.LoginResp> => {
   const headers: Record<string, string> = {}
   if (tenantCode) {
     headers['X-Tenant-Code'] = tenantCode
   }
-  return http.post<T.LoginResp>({
-    url: `${BASE_URL}/login`,
-    data: req,
+  return http.post<T.LoginResp>(`${BASE_URL}/login`, req, {
     headers
   })
 }
 
-/**
- * 账号登录
- * @param req 账号登录参数
- * @param tenantCode 租户编码
- */
-export function fetchAccountLogin(req: T.AccountLoginReq, tenantCode?: string) {
+/** @desc 账号登录 */
+export function accountLogin(req: T.AccountLoginReq, tenantCode?: string) {
   return login(req, tenantCode)
 }
 
-/**
- * 邮箱登录
- * @param req 邮箱登录参数
- * @param tenantCode 租户编码
- */
-export function fetchEmailLogin(req: T.EmailLoginReq, tenantCode?: string) {
+/** @desc 邮箱登录 */
+export function emailLogin(req: T.EmailLoginReq, tenantCode?: string) {
   return login(req, tenantCode)
 }
 
-/**
- * 手机号登录
- * @param req 手机号登录参数
- * @param tenantCode 租户编码
- */
-export function fetchPhoneLogin(req: T.PhoneLoginReq, tenantCode?: string) {
+/** @desc 手机号登录 */
+export function phoneLogin(req: T.PhoneLoginReq, tenantCode?: string) {
   return login(req, tenantCode)
 }
 
-/**
- * 三方账号登录
- * @param req 三方登录参数
- */
-export function fetchSocialLogin(req: any) {
-  return http.post<T.LoginResp>({
-    url: `${BASE_URL}/login`,
-    data: req
-  })
+/** @desc 三方账号登录 */
+export function socialLogin(req: any) {
+  return http.post<T.LoginResp>(`${BASE_URL}/login`, req)
 }
 
-/**
- * 三方账号登录授权
- * @param source 来源
- */
-export function fetchSocialAuth(source: string) {
-  return http.get<T.SocialAuthAuthorizeResp>({
-    url: `${BASE_URL}/${source}`
-  })
+/** @desc 三方账号登录授权 */
+export function socialAuth(source: string) {
+  return http.get<T.SocialAuthAuthorizeResp>(`${BASE_URL}/${source}`)
 }
 
-/**
- * 退出登录
- */
-export function fetchLogout() {
-  return http.post<void>({
-    url: `${BASE_URL}/logout`
-  })
+/** @desc 退出登录 */
+export function logout() {
+  return http.post(`${BASE_URL}/logout`)
 }
 
-/**
- * 获取用户信息
- */
-export function fetchGetUserInfo() {
-  return http.get<T.UserInfoResp>({
-    url: `${BASE_URL}/user/info`
-  })
+/** @desc 获取用户信息 */
+export const getUserInfo = () => {
+  return http.get<T.UserInfo>(`${BASE_URL}/user/info`)
 }
 
-/**
- * 获取用户路由信息
- */
-export function fetchGetUserRoute() {
-  return http.get<T.RouteResp[]>({
-    url: `${BASE_URL}/user/route`
-  })
+/** @desc 获取路由信息 */
+export const getUserRoute = () => {
+  return http.get<T.RouteItem[]>(`${BASE_URL}/user/route`)
 }

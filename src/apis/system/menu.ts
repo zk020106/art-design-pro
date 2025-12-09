@@ -1,6 +1,6 @@
-import http from '@/utils/http'
-import { TreeNodeData } from 'element-plus'
+import type { TreeNodeData } from '@arco-design/web-vue'
 import type * as T from './type'
+import http from '@/utils/http'
 
 export type * from './type'
 
@@ -8,35 +8,35 @@ const BASE_URL = '/system/menu'
 
 /** @desc 查询菜单列表 */
 export function listMenu(query?: T.MenuQuery) {
-  return http.get<T.MenuResp[]>({ url: `${BASE_URL}/tree`, params: query })
+  return http.get<T.MenuResp[]>(`${BASE_URL}/tree`, query)
 }
 
 /** @desc 查询菜单详情 */
 export function getMenu(id: string) {
-  return http.get<T.MenuResp>({ url: `${BASE_URL}/${id}` })
+  return http.get<T.MenuResp>(`${BASE_URL}/${id}`)
 }
 
 /** @desc 新增菜单 */
 export function addMenu(data: any) {
-  return http.post<boolean>({ url: `${BASE_URL}`, data })
+  return http.post<boolean>(`${BASE_URL}`, data)
 }
 
 /** @desc 修改菜单 */
 export function updateMenu(data: any, id: string) {
-  return http.put({ url: `${BASE_URL}/${id}`, data })
+  return http.put(`${BASE_URL}/${id}`, data)
 }
 
 /** @desc 删除菜单 */
 export function deleteMenu(id: string) {
-  return http.del({ url: `${BASE_URL}`, data: { ids: [id] } })
+  return http.del(`${BASE_URL}`, { ids: [id] })
 }
 
 /** @desc 清除菜单缓存 */
 export function clearMenuCache() {
-  return http.del({ url: `${BASE_URL}/cache` })
+  return http.del(`${BASE_URL}/cache`)
 }
 
 /** @desc 查询菜单字典树 */
 export function listMenuDictTree(query: { description: string }) {
-  return http.get<TreeNodeData[]>({ url: `${BASE_URL}/dict/tree`, params: query })
+  return http.get<TreeNodeData[]>(`${BASE_URL}/dict/tree`, query)
 }

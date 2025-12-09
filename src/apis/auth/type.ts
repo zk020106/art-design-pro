@@ -1,11 +1,9 @@
-import { Gender } from '@/types'
-
 /** 用户类型 */
 export interface UserInfo {
   id: string
   username: string
   nickname: string
-  gender: Gender
+  gender: 0 | 1 | 2
   email: string
   phone: string
   avatar: string
@@ -64,8 +62,8 @@ export interface AuthReq {
 export interface AccountLoginReq extends AuthReq {
   username: string
   password: string
-  captcha: string
-  uuid: string
+  captcha?: string
+  uuid?: string
 }
 
 /** 手机号登录请求参数 */

@@ -35,7 +35,7 @@
  * @module router/guards/beforeEach
  * @author Art Design Pro Team
  */
-import { fetchGetUserInfo } from '@/apis/auth'
+import { getUserInfo } from '@/apis/auth'
 import { useCommon } from '@/hooks/core/useCommon'
 import { useMenuStore } from '@/store/modules/menu'
 import { useSettingStore } from '@/store/modules/setting'
@@ -305,7 +305,7 @@ async function handleDynamicRoutes(
  */
 async function fetchUserInfo(): Promise<void> {
   const userStore = useUserStore()
-  const data = await fetchGetUserInfo()
+  const data = await getUserInfo()
   userStore.setUserInfo(data)
   // 检查并清理工作台标签页（如果是不同用户登录）
   userStore.checkAndClearWorktabs()

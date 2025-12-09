@@ -23,6 +23,7 @@
  */
 import { $t } from '@/locales'
 import { AxiosError } from 'axios'
+import { ElMessage } from 'element-plus'
 import { ApiStatus } from './status'
 
 // 错误响应接口
@@ -125,7 +126,7 @@ export function handleError(error: AxiosError<ErrorResponse>): never {
     throw new HttpError($t('httpMsg.requestCancelled'), ApiStatus.error)
   }
 
-  const statusCode = error.response?.status
+  const statusCode = `${error.response?.status || ''}`
   const errorMessage = error.response?.data?.msg || error.message
   const requestConfig = error.config
 
