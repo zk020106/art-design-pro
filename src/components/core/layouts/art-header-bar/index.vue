@@ -116,7 +116,7 @@
           class="notice-button relative"
           @click="visibleNotice"
         >
-          <div class="absolute top-2 right-2 size-1.5 !bg-danger rounded-full"></div>
+          <!-- <div class="absolute top-2 right-2 size-1.5 !bg-danger rounded-full"></div> -->
         </ArtIconButton>
 
         <!-- 聊天按钮 -->
@@ -126,7 +126,7 @@
           class="chat-button relative"
           @click="openChat"
         >
-          <div class="absolute top-2 right-2 size-1.5 !bg-success rounded-full"></div>
+          <!-- <div class="absolute top-2 right-2 size-1.5 !bg-success rounded-full"></div> -->
         </ArtIconButton>
 
         <!-- 设置按钮 -->
@@ -463,6 +463,11 @@
 
   .chat-button:hover :deep(.art-svg-icon) {
     animation: shake 0.5s ease-in-out;
+  }
+
+  /* Breathing animation for chat dot */
+  .breathing-dot {
+    animation: breathing 1.5s ease-in-out infinite;
   }
 
   /* iPad breakpoint adjustments */

@@ -82,7 +82,7 @@
 
 <script setup lang="ts">
   import { UserQuery, UserResp } from '@/apis'
-  import { exportUser, listUser } from '@/apis/system/user'
+  import { deleteUser, exportUser, listUser } from '@/apis/system/user'
   import { DisEnableStatusList } from '@/constant/common'
   import { useDevice, useDownload, useResetReactive, useTable } from '@/hooks'
   import { MoreFilled } from '@element-plus/icons-vue'
@@ -137,7 +137,7 @@
       ] as FormColumnItem<UserQuery>[]
   )
 
-  const { tableData, loading, pagination, search } = useTable<UserResp>(
+  const { tableData, loading, pagination, search, handleDelete } = useTable<UserResp>(
     (page) => listUser({ ...queryForm, ...page }),
     { immediate: false }
   )
@@ -213,11 +213,10 @@
   }
 
   // 删除
-  const onDelete = () => {
-    // return handleDelete(() => deleteUser(record.id), {
-    //   content: `是否确定删除用户「${record.nickname}(${record.username})」？`,
-    //   showModal: true
-    // })
+  const onDelete = (row) => {
+    return handleDelete(() => deleteUser(row.id), {
+      content: `是否确定删除用户「${row.nickname}(${row.username})」？`
+    })
   }
 
   // 导出

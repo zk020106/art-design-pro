@@ -97,7 +97,6 @@
   .art-svg-icon :deep(svg) {
     width: var(--icon-size, 1em);
     height: var(--icon-size, 1em);
-    fill: currentcolor;
   }
 
   .art-svg-icon-placeholder {
