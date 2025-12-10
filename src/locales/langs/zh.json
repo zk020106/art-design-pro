@@ -1,9 +1,66 @@
 {
   "common": {
+    "button": {
+      "add": "新增",
+      "delete": "删除",
+      "download": "下载",
+      "edit": "编辑",
+      "export": "导出",
+      "import": "导入",
+      "print": "打印",
+      "reset": "重置",
+      "search": "搜索",
+      "upload": "上传"
+    },
     "cancel": "取消",
     "confirm": "确定",
     "logOutTips": "您是否要退出登录?",
     "tips": "提示"
+  },
+  "components": {
+    "iconPicker": {
+      "clear": "清空",
+      "noIcon": "未选择图标",
+      "noResult": "未找到匹配的图标",
+      "searchPlaceholder": "搜索图标",
+      "selectIcon": "选择图标"
+    },
+    "select": {
+      "loadError": "数据加载失败",
+      "loading": "加载中...",
+      "noData": "暂无数据",
+      "placeholder": "请选择",
+      "searchPlaceholder": "请输入关键词搜索"
+    },
+    "tableSelector": {
+      "cancel": "取消",
+      "confirm": "确定",
+      "loading": "加载中...",
+      "noData": "暂无数据",
+      "searchPlaceholder": "请输入关键词搜索",
+      "selected": "已选择 {count} 项",
+      "title": "选择数据"
+    },
+    "tree": {
+      "collapseAll": "收起全部",
+      "expandAll": "展开全部",
+      "loadError": "数据加载失败",
+      "loading": "加载中...",
+      "noData": "暂无数据",
+      "searchPlaceholder": "请输入关键词搜索"
+    },
+    "upload": {
+      "clickHint": "点击上传",
+      "delete": "删除",
+      "download": "下载",
+      "dragHint": "将文件拖到此处，或点击上传",
+      "fileSizeExceeded": "文件大小超出限制（最大 {size}MB）",
+      "fileTypeError": "不支持的文件类型",
+      "preview": "预览",
+      "uploadFailed": "上传失败",
+      "uploadSuccess": "上传成功",
+      "uploading": "上传中..."
+    }
   },
   "exceptionPage": {
     "403": "抱歉，您无权访问该页面",
@@ -55,25 +112,22 @@
     "btnText": "登录",
     "captcha": "验证码",
     "error": {
-      "passwordEncrypt": "密码加密失败",
-      "captchaExpired": "验证码已过期，请刷新验证码"
+      "captchaExpired": "验证码已过期，请刷新验证码",
+      "passwordEncrypt": "密码加密失败"
     },
     "expired": "已过期,请刷新",
     "forgetPwd": "忘记密码",
-    "warning": {
-      "captchaExpiringSoon": "验证码即将过期，请及时刷新"
-    },
     "leftView": {
       "subTitle": "美观实用的界面，经过视觉优化，确保卓越的用户体验",
       "title": "一款兼具设计美学与高效开发的后台系统"
     },
     "noAccount": "还没有账号？",
     "placeholder": {
+      "captcha": "请输入验证码",
       "password": "请输入密码",
       "slider": "请拖动滑块完成验证",
       "tenantCode": "请输入租户编码",
-      "username": "请输入账号",
-      "captcha": "请输入验证码"
+      "username": "请输入账号"
     },
     "register": "注册",
     "rememberPwd": "记住密码",
@@ -84,7 +138,10 @@
       "message": "欢迎回来",
       "title": "登录成功"
     },
-    "title": "欢迎回来"
+    "title": "欢迎回来",
+    "warning": {
+      "captchaExpiringSoon": "验证码即将过期，请及时刷新"
+    }
   },
   "menus": {
     "dashboard": {
@@ -122,58 +179,58 @@
       "userCenter": "个人中心"
     }
   },
-  "pages": {
-    "user": {
-      "title": "用户管理",
-      "search": {
-        "username": "用户名/昵称/描述",
-        "status": "状态",
-        "statusPlaceholder": "请选择状态",
-        "createTime": "创建时间"
-      },
-      "table": {
-        "index": "序号",
-        "nickname": "昵称",
-        "username": "用户名",
-        "status": "状态",
-        "gender": "性别",
-        "dept": "所属部门",
-        "roles": "角色",
-        "phone": "手机号",
-        "email": "邮箱",
-        "isSystem": "系统内置",
-        "description": "描述",
-        "createUser": "创建人",
-        "createTime": "创建时间",
-        "updateUser": "修改人",
-        "updateTime": "修改时间",
-        "action": "操作"
-      },
-      "button": {
-        "add": "新增",
-        "import": "导入",
-        "export": "导出",
-        "detail": "详情",
-        "edit": "修改",
-        "more": "更多",
-        "resetPwd": "重置密码",
-        "assignRole": "分配角色",
-        "delete": "删除"
-      },
-      "message": {
-        "deleteConfirm": "是否确定删除用户「{nickname}({username})」？",
-        "systemDataCannotDelete": "系统内置数据不能删除",
-        "yes": "是",
-        "no": "否"
-      }
-    }
-  },
   "notice": {
     "bar": ["通知", "消息", "代办"],
     "btnRead": "标为已读",
     "text": ["暂无"],
     "title": "通知",
     "viewAll": "查看全部"
+  },
+  "pages": {
+    "user": {
+      "button": {
+        "add": "新增",
+        "assignRole": "分配角色",
+        "delete": "删除",
+        "detail": "详情",
+        "edit": "修改",
+        "export": "导出",
+        "import": "导入",
+        "more": "更多",
+        "resetPwd": "重置密码"
+      },
+      "message": {
+        "deleteConfirm": "是否确定删除用户「{nickname}({username})」？",
+        "no": "否",
+        "systemDataCannotDelete": "系统内置数据不能删除",
+        "yes": "是"
+      },
+      "search": {
+        "createTime": "创建时间",
+        "status": "状态",
+        "statusPlaceholder": "请选择状态",
+        "username": "用户名/昵称/描述"
+      },
+      "table": {
+        "action": "操作",
+        "createTime": "创建时间",
+        "createUser": "创建人",
+        "dept": "所属部门",
+        "description": "描述",
+        "email": "邮箱",
+        "gender": "性别",
+        "index": "序号",
+        "isSystem": "系统内置",
+        "nickname": "昵称",
+        "phone": "手机号",
+        "roles": "角色",
+        "status": "状态",
+        "updateTime": "修改时间",
+        "updateUser": "修改人",
+        "username": "用户名"
+      },
+      "title": "用户管理"
+    }
   },
   "register": {
     "agreeText": "我同意",
@@ -268,30 +325,31 @@
     }
   },
   "table": {
-    "refresh": "刷新",
-    "size": "尺寸",
-    "fullscreen": "全屏",
-    "exitFullscreen": "退出全屏",
-    "selectAll": "全选",
-    "reset": "重置",
-    "save": "保存",
-    "pinLeft": "左固定",
-    "pinRight": "右固定",
-    "resetSuccess": "已重置表格列",
-    "resetError": "重置表格列失败",
-    "saveSuccess": "保存成功",
-    "saveError": "保存失败",
+    "action": "操作",
     "border": "边框",
     "column": {
       "expand": "展开",
       "index": "序号",
-      "selection": "勾选"
+      "selection": "勾选",
+      "settings": "列设置"
     },
+    "columnSettings": "列设置",
+    "exitFullscreen": "退出全屏",
     "form": {
       "reset": "重置",
       "submit": "提交"
     },
+    "fullscreen": "全屏",
     "headerBackground": "表头背景",
+    "pinLeft": "左固定",
+    "pinRight": "右固定",
+    "refresh": "刷新",
+    "reset": "重置",
+    "resetError": "重置表格列失败",
+    "resetSuccess": "已重置表格列",
+    "save": "保存",
+    "saveError": "保存失败",
+    "saveSuccess": "保存成功",
     "searchBar": {
       "collapse": "收起",
       "expand": "展开",
@@ -300,10 +358,12 @@
       "searchInputPlaceholder": "请输入",
       "searchSelectPlaceholder": "请选择"
     },
+    "selectAll": "全选",
     "selection": "选择",
+    "size": "尺寸",
     "sizeOptions": {
-      "large": "大型",
       "default": "默认",
+      "large": "大型",
       "small": "小型"
     },
     "zebra": "斑马纹"
@@ -335,51 +395,6 @@
       "fixed": "固定",
       "refresh": "刷新",
       "unfixed": "取消固定"
-    }
-  },
-  "components": {
-    "select": {
-      "loading": "加载中...",
-      "noData": "暂无数据",
-      "placeholder": "请选择",
-      "loadError": "数据加载失败",
-      "searchPlaceholder": "请输入关键词搜索"
-    },
-    "tableSelector": {
-      "title": "选择数据",
-      "confirm": "确定",
-      "cancel": "取消",
-      "searchPlaceholder": "请输入关键词搜索",
-      "selected": "已选择 {count} 项",
-      "noData": "暂无数据",
-      "loading": "加载中..."
-    },
-    "tree": {
-      "searchPlaceholder": "请输入关键词搜索",
-      "noData": "暂无数据",
-      "loading": "加载中...",
-      "loadError": "数据加载失败",
-      "expandAll": "展开全部",
-      "collapseAll": "收起全部"
-    },
-    "upload": {
-      "dragHint": "将文件拖到此处，或点击上传",
-      "clickHint": "点击上传",
-      "uploadSuccess": "上传成功",
-      "uploadFailed": "上传失败",
-      "fileSizeExceeded": "文件大小超出限制（最大 {size}MB）",
-      "fileTypeError": "不支持的文件类型",
-      "uploading": "上传中...",
-      "preview": "预览",
-      "delete": "删除",
-      "download": "下载"
-    },
-    "iconPicker": {
-      "searchPlaceholder": "搜索图标",
-      "noIcon": "未选择图标",
-      "selectIcon": "选择图标",
-      "clear": "清空",
-      "noResult": "未找到匹配的图标"
     }
   }
 }

@@ -1,9 +1,66 @@
 {
   "common": {
+    "button": {
+      "add": "Add",
+      "delete": "Delete",
+      "download": "Download",
+      "edit": "Edit",
+      "export": "Export",
+      "import": "Import",
+      "print": "Print",
+      "reset": "Reset",
+      "search": "Search",
+      "upload": "Upload"
+    },
     "cancel": "Cancel",
     "confirm": "Confirm",
     "logOutTips": "Do you want to log out?",
     "tips": "Prompt"
+  },
+  "components": {
+    "iconPicker": {
+      "clear": "Clear",
+      "noIcon": "No icon selected",
+      "noResult": "No matching icons found",
+      "searchPlaceholder": "Search icons",
+      "selectIcon": "Select Icon"
+    },
+    "select": {
+      "loadError": "Failed to load data",
+      "loading": "Loading...",
+      "noData": "No data",
+      "placeholder": "Please select",
+      "searchPlaceholder": "Search by keyword"
+    },
+    "tableSelector": {
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "loading": "Loading...",
+      "noData": "No data",
+      "searchPlaceholder": "Search by keyword",
+      "selected": "{count} items selected",
+      "title": "Select Data"
+    },
+    "tree": {
+      "collapseAll": "Collapse All",
+      "expandAll": "Expand All",
+      "loadError": "Failed to load data",
+      "loading": "Loading...",
+      "noData": "No data",
+      "searchPlaceholder": "Search by keyword"
+    },
+    "upload": {
+      "clickHint": "Click to upload",
+      "delete": "Delete",
+      "download": "Download",
+      "dragHint": "Drag files here, or click to upload",
+      "fileSizeExceeded": "File size exceeds limit (max {size}MB)",
+      "fileTypeError": "Unsupported file type",
+      "preview": "Preview",
+      "uploadFailed": "Upload failed",
+      "uploadSuccess": "Upload successful",
+      "uploading": "Uploading..."
+    }
   },
   "exceptionPage": {
     "403": "Sorry, you do not have permission to access this page",
@@ -55,25 +112,22 @@
     "btnText": "Login",
     "captcha": "captcha",
     "error": {
-      "passwordEncrypt": "Password encryption failed",
-      "captchaExpired": "Captcha expired, please refresh"
+      "captchaExpired": "Captcha expired, please refresh",
+      "passwordEncrypt": "Password encryption failed"
     },
     "expired": "Expired, please refresh",
     "forgetPwd": "Forgot password",
-    "warning": {
-      "captchaExpiringSoon": "Captcha is about to expire, please refresh in time"
-    },
     "leftView": {
       "subTitle": "A sleek and practical interface for a great user experience",
       "title": "A backend system of beauty and efficiency"
     },
     "noAccount": "No account yet?",
     "placeholder": {
+      "captcha": "Please enter captcha",
       "password": "Please enter your password",
       "slider": "Please slide to verify",
       "tenantCode": "Please enter your tenant code",
-      "username": "Please enter your account",
-      "captcha": "Please enter captcha"
+      "username": "Please enter your account"
     },
     "register": "Register",
     "rememberPwd": "Remember password",
@@ -84,7 +138,10 @@
       "message": "Welcome back",
       "title": "Login successful"
     },
-    "title": "Welcome back"
+    "title": "Welcome back",
+    "warning": {
+      "captchaExpiringSoon": "Captcha is about to expire, please refresh in time"
+    }
   },
   "menus": {
     "dashboard": {
@@ -122,58 +179,58 @@
       "userCenter": "User Center"
     }
   },
-  "pages": {
-    "user": {
-      "title": "User Management",
-      "search": {
-        "username": "Username/Nickname/Description",
-        "status": "Status",
-        "statusPlaceholder": "Please select status",
-        "createTime": "Create Time"
-      },
-      "table": {
-        "index": "No.",
-        "nickname": "Nickname",
-        "username": "Username",
-        "status": "Status",
-        "gender": "Gender",
-        "dept": "Department",
-        "roles": "Roles",
-        "phone": "Phone",
-        "email": "Email",
-        "isSystem": "System Built-in",
-        "description": "Description",
-        "createUser": "Creator",
-        "createTime": "Create Time",
-        "updateUser": "Updater",
-        "updateTime": "Update Time",
-        "action": "Action"
-      },
-      "button": {
-        "add": "Add",
-        "import": "Import",
-        "export": "Export",
-        "detail": "Detail",
-        "edit": "Edit",
-        "more": "More",
-        "resetPwd": "Reset Password",
-        "assignRole": "Assign Role",
-        "delete": "Delete"
-      },
-      "message": {
-        "deleteConfirm": "Are you sure to delete user「{nickname}({username})」?",
-        "systemDataCannotDelete": "System built-in data cannot be deleted",
-        "yes": "Yes",
-        "no": "No"
-      }
-    }
-  },
   "notice": {
     "bar": ["Notice", "Message", "Todo"],
     "btnRead": "Mark as read",
     "text": ["No"],
     "title": "Notice",
     "viewAll": "View all"
+  },
+  "pages": {
+    "user": {
+      "button": {
+        "add": "Add",
+        "assignRole": "Assign Role",
+        "delete": "Delete",
+        "detail": "Detail",
+        "edit": "Edit",
+        "export": "Export",
+        "import": "Import",
+        "more": "More",
+        "resetPwd": "Reset Password"
+      },
+      "message": {
+        "deleteConfirm": "Are you sure to delete user「{nickname}({username})」?",
+        "no": "No",
+        "systemDataCannotDelete": "System built-in data cannot be deleted",
+        "yes": "Yes"
+      },
+      "search": {
+        "createTime": "Create Time",
+        "status": "Status",
+        "statusPlaceholder": "Please select status",
+        "username": "Username/Nickname/Description"
+      },
+      "table": {
+        "action": "Action",
+        "createTime": "Create Time",
+        "createUser": "Creator",
+        "dept": "Department",
+        "description": "Description",
+        "email": "Email",
+        "gender": "Gender",
+        "index": "No.",
+        "isSystem": "System Built-in",
+        "nickname": "Nickname",
+        "phone": "Phone",
+        "roles": "Roles",
+        "status": "Status",
+        "updateTime": "Update Time",
+        "updateUser": "Updater",
+        "username": "Username"
+      },
+      "title": "User Management"
+    }
   },
   "register": {
     "agreeText": "I agree",
@@ -268,30 +325,31 @@
     }
   },
   "table": {
-    "refresh": "Refresh",
-    "size": "Size",
-    "fullscreen": "Fullscreen",
-    "exitFullscreen": "Exit Fullscreen",
-    "selectAll": "Select All",
-    "reset": "Reset",
-    "save": "Save",
-    "pinLeft": "Pin Left",
-    "pinRight": "Pin Right",
-    "resetSuccess": "Table columns have been reset",
-    "resetError": "Failed to reset table columns",
-    "saveSuccess": "Saved successfully",
-    "saveError": "Save failed",
+    "action": "Action",
     "border": "Border",
     "column": {
       "expand": "Expand",
       "index": "Index",
-      "selection": "Select"
+      "selection": "Select",
+      "settings": "Column Settings"
     },
+    "columnSettings": "Column Settings",
+    "exitFullscreen": "Exit Fullscreen",
     "form": {
       "reset": "Reset",
       "submit": "Submit"
     },
+    "fullscreen": "Fullscreen",
     "headerBackground": "Header BG",
+    "pinLeft": "Pin Left",
+    "pinRight": "Pin Right",
+    "refresh": "Refresh",
+    "reset": "Reset",
+    "resetError": "Failed to reset table columns",
+    "resetSuccess": "Table columns have been reset",
+    "save": "Save",
+    "saveError": "Save failed",
+    "saveSuccess": "Saved successfully",
     "searchBar": {
       "collapse": "Collapse",
       "expand": "Expand",
@@ -300,10 +358,12 @@
       "searchInputPlaceholder": "Please enter",
       "searchSelectPlaceholder": "Please select"
     },
+    "selectAll": "Select All",
     "selection": "Select",
+    "size": "Size",
     "sizeOptions": {
-      "large": "Large",
       "default": "Default",
+      "large": "Large",
       "small": "Small"
     },
     "zebra": "Zebra"
@@ -335,51 +395,6 @@
       "fixed": "Fixed",
       "refresh": "Refresh",
       "unfixed": "Unfixed"
-    }
-  },
-  "components": {
-    "select": {
-      "loading": "Loading...",
-      "noData": "No data",
-      "placeholder": "Please select",
-      "loadError": "Failed to load data",
-      "searchPlaceholder": "Search by keyword"
-    },
-    "tableSelector": {
-      "title": "Select Data",
-      "confirm": "Confirm",
-      "cancel": "Cancel",
-      "searchPlaceholder": "Search by keyword",
-      "selected": "{count} items selected",
-      "noData": "No data",
-      "loading": "Loading..."
-    },
-    "tree": {
-      "searchPlaceholder": "Search by keyword",
-      "noData": "No data",
-      "loading": "Loading...",
-      "loadError": "Failed to load data",
-      "expandAll": "Expand All",
-      "collapseAll": "Collapse All"
-    },
-    "upload": {
-      "dragHint": "Drag files here, or click to upload",
-      "clickHint": "Click to upload",
-      "uploadSuccess": "Upload successful",
-      "uploadFailed": "Upload failed",
-      "fileSizeExceeded": "File size exceeds limit (max {size}MB)",
-      "fileTypeError": "Unsupported file type",
-      "uploading": "Uploading...",
-      "preview": "Preview",
-      "delete": "Delete",
-      "download": "Download"
-    },
-    "iconPicker": {
-      "searchPlaceholder": "Search icons",
-      "noIcon": "No icon selected",
-      "selectIcon": "Select Icon",
-      "clear": "Clear",
-      "noResult": "No matching icons found"
     }
   }
 }

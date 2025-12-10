@@ -126,7 +126,7 @@
           class="chat-button relative"
           @click="openChat"
         >
-          <div class="breathing-dot absolute top-2 right-2 size-1.5 !bg-success rounded-full"></div>
+          <div class="absolute top-2 right-2 size-1.5 !bg-success rounded-full"></div>
         </ArtIconButton>
 
         <!-- 设置按钮 -->
@@ -169,19 +169,19 @@
 </template>
 
 <script setup lang="ts">
-  import { useI18n } from 'vue-i18n'
-  import { useRouter } from 'vue-router'
-  import { useFullscreen, useWindowSize } from '@vueuse/core'
-  import { LanguageEnum, MenuTypeEnum } from '@/enums/appEnum'
-  import { useSettingStore } from '@/store/modules/setting'
-  import { useUserStore } from '@/store/modules/user'
-  import { useMenuStore } from '@/store/modules/menu'
   import AppConfig from '@/config'
-  import { languageOptions } from '@/locales'
-  import { mittBus } from '@/utils/sys'
-  import { themeAnimation } from '@/utils/ui/animation'
+  import { LanguageEnum, MenuTypeEnum } from '@/enums/appEnum'
   import { useCommon } from '@/hooks/core/useCommon'
   import { useHeaderBar } from '@/hooks/core/useHeaderBar'
+  import { languageOptions } from '@/locales'
+  import { useMenuStore } from '@/store/modules/menu'
+  import { useSettingStore } from '@/store/modules/setting'
+  import { useUserStore } from '@/store/modules/user'
+  import { mittBus } from '@/utils/sys'
+  import { themeAnimation } from '@/utils/ui/animation'
+  import { useFullscreen, useWindowSize } from '@vueuse/core'
+  import { useI18n } from 'vue-i18n'
+  import { useRouter } from 'vue-router'
   import ArtUserMenu from './widget/ArtUserMenu.vue'
 
   defineOptions({ name: 'ArtHeaderBar' })
@@ -463,11 +463,6 @@
 
   .chat-button:hover :deep(.art-svg-icon) {
     animation: shake 0.5s ease-in-out;
-  }
-
-  /* Breathing animation for chat dot */
-  .breathing-dot {
-    animation: breathing 1.5s ease-in-out infinite;
   }
 
   /* iPad breakpoint adjustments */

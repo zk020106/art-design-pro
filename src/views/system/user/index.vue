@@ -24,20 +24,13 @@
         />
       </template>
       <template #toolbar-left>
-        <ElButton type="primary" @click="onAdd">
-          <ElIcon><Plus /></ElIcon>
-          新增
-        </ElButton>
-        <ElButton @click="onImport">
-          <ElIcon><Upload /></ElIcon>
-          导入
-        </ElButton>
+        <ElSpace>
+          <CaButton type="add" @click="onAdd" />
+          <CaButton type="import" @click="onImport" />
+        </ElSpace>
       </template>
       <template #toolbar-right>
-        <ElButton @click="onExport">
-          <ElIcon><Download /></ElIcon>
-          导出
-        </ElButton>
+        <CaButton type="export" @click="onExport" />
       </template>
       <template #nickname="{ row }">
         <CaAvatar fit="cover" :src="row.avatar" :name="row.nickname" />
@@ -92,8 +85,8 @@
   import { exportUser, listUser } from '@/apis/system/user'
   import { DisEnableStatusList } from '@/constant/common'
   import { useDevice, useDownload, useResetReactive, useTable } from '@/hooks'
-  import { DeptDictTreeNode } from '@/types/api/system'
-  import { Download, MoreFilled, Plus, Upload } from '@element-plus/icons-vue'
+  import { MoreFilled } from '@element-plus/icons-vue'
+  import { ElSpace } from 'element-plus'
   import { FormColumnItem, TableColumnItem } from 'gi-component'
   import AddDrawer from './AddDrawer.vue'
   import DeptTree from './dept/index.vue'
@@ -220,7 +213,7 @@
   }
 
   // 删除
-  const onDelete = (record: UserResp) => {
+  const onDelete = () => {
     // return handleDelete(() => deleteUser(record.id), {
     //   content: `是否确定删除用户「${record.nickname}(${record.username})」？`,
     //   showModal: true
@@ -233,7 +226,7 @@
   }
 
   // 根据选中部门查询
-  const handleSelectDept = (key: string | number, data: DeptDictTreeNode) => {
+  const handleSelectDept = (key: string | number) => {
     queryForm.deptId = key
     search()
   }
