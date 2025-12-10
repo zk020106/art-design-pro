@@ -18,12 +18,28 @@
     "tips": "Prompt"
   },
   "components": {
+    "form": {
+      "expand": "Expand",
+      "collapse": "Collapse",
+      "placeholder": {
+        "input": "Please enter {label}",
+        "select": "Please select {label}",
+        "date": "Please select date",
+        "time": "Please select time"
+      },
+      "validate": {
+        "required": "{label} is required"
+      }
+    },
     "iconPicker": {
       "clear": "Clear",
       "noIcon": "No icon selected",
       "noResult": "No matching icons found",
       "searchPlaceholder": "Search icons",
       "selectIcon": "Select Icon"
+    },
+    "inputSearch": {
+      "placeholder": "Please select"
     },
     "select": {
       "loadError": "Failed to load data",
@@ -396,5 +412,17 @@
       "refresh": "Refresh",
       "unfixed": "Unfixed"
     }
+  },
+  "message": {
+    "prompt": "Prompt",
+    "confirmDelete": "Are you sure to delete?",
+    "deleteSuccess": "Deleted successfully",
+    "deleteFailed": "Delete failed",
+    "selected": "Selected",
+    "items": "items",
+    "selectDeleteData": "Please select data to delete",
+    "loadFailed": "Load failed",
+    "batchDelete": "Batch Delete",
+    "batchDeleteSuccess": "Batch deleted successfully"
   }
 }

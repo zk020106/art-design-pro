@@ -8,7 +8,7 @@ import { ref } from 'vue'
  */
 export function useRole(options?: { onSuccess?: () => void }) {
   const loading = ref(false)
-  const roleList = ref<any[]>([])
+  const roleList = ref<Record<string, any>[]>([])
 
   /**
    * 获取角色列表

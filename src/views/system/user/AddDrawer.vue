@@ -112,15 +112,13 @@
       required: true,
       props: {
         data: deptList,
-        allowClear: true,
-        allowSearch: true,
-        fallbackOption: false,
-        filterTreeNode(searchKey: string, nodeData: any) {
-          if (nodeData.title) {
-            return nodeData.title.toLowerCase().includes(searchKey.toLowerCase())
-          }
-          return false
-        }
+        props: {
+          children: 'children',
+          label: 'title',
+          value: 'key'
+        },
+        nodeKey: 'key',
+        checkStrictly: true
       }
     },
     {
@@ -144,15 +142,15 @@
     },
     {
       label: '状态',
-      prop: 'status',
+      field: 'status',
       type: 'switch',
       span: 24,
       props: {
         type: 'round',
-        checkedValue: 1,
-        uncheckedValue: 2,
-        checkedText: '启用',
-        uncheckedText: '禁用'
+        activeValue: 1,
+        inactiveValue: 2,
+        activeText: '启用',
+        inactiveText: '禁用'
       }
     }
   ] as FormColumnItem[])
@@ -167,8 +165,7 @@
   const save = async () => {
     const rawPassword = form.password
     try {
-      const isInvalid = await formRef.value?.formRef?.validate()
-      if (isInvalid) return false
+      await formRef.value?.formRef?.validate()
       if (isUpdate.value) {
         await updateUser(form, dataId.value)
         ElMessage.success('修改成功')

@@ -65,7 +65,7 @@
     "echarts": "^6.0.0",
     "element-plus": "^2.11.2",
     "file-saver": "^2.0.5",
-    "gi-component": "^0.0.20",
+    "gi-component": "^0.0.21",
     "highlight.js": "^11.10.0",
     "jsencrypt": "^3.5.4",
     "lodash-es": "^4.17.21",

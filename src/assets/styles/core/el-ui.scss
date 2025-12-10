@@ -522,3 +522,6 @@ html.dark .el-card {
     height: calc((var(--el-component-size) / 2)) !important;
   }
 }
+.el-dialog__body {
+  padding: 16px !important;
+}

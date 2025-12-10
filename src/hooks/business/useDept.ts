@@ -8,7 +8,7 @@ import { ref } from 'vue'
  */
 export function useDept(options?: { onSuccess?: () => void }) {
   const loading = ref(false)
-  const deptList = ref<any[]>([])
+  const deptList = ref<Record<string, any>[]>([])
 
   /**
    * 获取部门列表

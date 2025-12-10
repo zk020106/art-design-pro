@@ -7,7 +7,7 @@
     :width="width >= 500 ? 500 : '100%'"
     @close="reset"
   >
-    <GiForm ref="formRef" v-model="form" :columns="columns" />
+    <CaForm ref="formRef" v-model="form" :columns="columns" />
     <template #footer>
       <ElButton @click="visible = false">取消</ElButton>
       <ElButton type="primary" @click="save">确定</ElButton>
@@ -17,11 +17,11 @@
 
 <script setup lang="ts">
   import { resetUserPwd } from '@/apis/system/user'
+  import { FormColumnItem } from '@/components/base/CaForm/type'
   import { useResetReactive } from '@/hooks'
   import { encryptByRsa } from '@/utils/encrypt'
   import { useWindowSize } from '@vueuse/core'
   import { ElMessage } from 'element-plus'
-  import { FormColumnItem, GiForm } from 'gi-component'
 
   const emit = defineEmits<{
     (e: 'save-success'): void
@@ -30,7 +30,7 @@
   const { width } = useWindowSize()
   const dataId = ref('')
   const visible = ref(false)
-  const formRef = ref<InstanceType<typeof GiForm>>()
+  const formRef = useTemplateRef('formRef')
 
   const [form, resetForm] = useResetReactive({})
 
@@ -58,8 +58,7 @@
   // 保存
   const save = async () => {
     try {
-      const isInvalid = await formRef.value?.formRef?.validate()
-      if (isInvalid) return false
+      await formRef.value?.formRef?.validate()
       await resetUserPwd({ newPassword: encryptByRsa(form.newPassword) || '' }, dataId.value)
       ElMessage.success('重置成功')
       emit('save-success')

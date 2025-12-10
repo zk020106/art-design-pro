@@ -18,12 +18,28 @@
     "tips": "提示"
   },
   "components": {
+    "form": {
+      "expand": "展开",
+      "collapse": "收起",
+      "placeholder": {
+        "input": "请输入{label}",
+        "select": "请选择{label}",
+        "date": "请选择日期",
+        "time": "请选择时间"
+      },
+      "validate": {
+        "required": "{label}为必填项"
+      }
+    },
     "iconPicker": {
       "clear": "清空",
       "noIcon": "未选择图标",
       "noResult": "未找到匹配的图标",
       "searchPlaceholder": "搜索图标",
       "selectIcon": "选择图标"
+    },
+    "inputSearch": {
+      "placeholder": "请选择"
     },
     "select": {
       "loadError": "数据加载失败",
@@ -396,5 +412,17 @@
       "refresh": "刷新",
       "unfixed": "取消固定"
     }
+  },
+  "message": {
+    "prompt": "提示",
+    "confirmDelete": "确定要删除吗？",
+    "deleteSuccess": "删除成功",
+    "deleteFailed": "删除失败",
+    "selected": "已选择",
+    "items": "个项目",
+    "selectDeleteData": "请选择要删除的数据",
+    "loadFailed": "加载失败",
+    "batchDelete": "批量删除",
+    "batchDeleteSuccess": "批量删除成功"
   }
 }

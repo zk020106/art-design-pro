@@ -7,7 +7,7 @@
     :width="width >= 500 ? 500 : '100%'"
     @close="reset"
   >
-    <GiForm ref="formRef" v-model="form" :columns="columns" />
+    <CaForm ref="formRef" v-model="form" :columns="columns" />
     <template #footer>
       <ElButton @click="visible = false">取消</ElButton>
       <ElButton type="primary" @click="save">确定</ElButton>
@@ -17,11 +17,11 @@
 
 <script setup lang="ts">
   import { getUser, updateUserRole } from '@/apis/system/user'
+  import { FormColumnItem } from '@/components/base/CaForm/type'
   import { useResetReactive } from '@/hooks'
   import { useRole } from '@/hooks/business'
   import { useWindowSize } from '@vueuse/core'
   import { ElMessage } from 'element-plus'
-  import { GiForm } from 'gi-component'
 
   const emit = defineEmits<{
     (e: 'save-success'): void
@@ -30,26 +30,29 @@
   const { width } = useWindowSize()
   const dataId = ref('')
   const visible = ref(false)
-  const formRef = ref<InstanceType<typeof GiForm>>()
+  const formRef = useTemplateRef('formRef')
   const { roleList, getRoleList } = useRole()
 
   const [form, resetForm] = useResetReactive({})
 
-  const columns = reactive([
-    {
-      label: '角色',
-      field: 'roleIds',
-      type: 'select',
-      span: 24,
-      required: true,
-      props: {
-        options: roleList,
-        multiple: true,
-        clearable: true,
-        placeholder: '请选择角色'
-      }
-    }
-  ])
+  const columns = computed(
+    () =>
+      [
+        {
+          label: '角色',
+          field: 'roleIds',
+          type: 'select',
+          span: 24,
+          required: true,
+          props: {
+            options: roleList.value,
+            multiple: true,
+            clearable: true,
+            placeholder: '请选择角色'
+          }
+        }
+      ] as FormColumnItem[]
+  )
 
   // 重置
   const reset = () => {
@@ -60,8 +63,8 @@
   // 保存
   const save = async () => {
     try {
-      const isInvalid = await formRef.value?.formRef?.validate()
-      if (isInvalid) return false
+      await formRef.value?.formRef?.validate()
+
       await updateUserRole({ roleIds: form.roleIds }, dataId.value)
       ElMessage.success('分配成功')
       emit('save-success')

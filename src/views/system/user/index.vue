@@ -83,11 +83,12 @@
 <script setup lang="ts">
   import { UserQuery, UserResp } from '@/apis'
   import { deleteUser, exportUser, listUser } from '@/apis/system/user'
+  import { TableColumnItem } from '@/components/base/CaTable/type'
   import { DisEnableStatusList } from '@/constant/common'
   import { useDevice, useDownload, useResetReactive, useTable } from '@/hooks'
   import { MoreFilled } from '@element-plus/icons-vue'
   import { ElSpace } from 'element-plus'
-  import { FormColumnItem, TableColumnItem } from 'gi-component'
+  import { FormColumnItem } from 'gi-component'
   import AddDrawer from './AddDrawer.vue'
   import DeptTree from './dept/index.vue'
   import DetailDrawer from './DetailDrawer.vue'
@@ -213,7 +214,7 @@
   }
 
   // 删除
-  const onDelete = (row) => {
+  const onDelete = (row: { id: string; nickname: any; username: any }) => {
     return handleDelete(() => deleteUser(row.id), {
       content: `是否确定删除用户「${row.nickname}(${row.username})」？`
     })
