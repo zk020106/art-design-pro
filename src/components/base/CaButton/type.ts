@@ -12,6 +12,8 @@ export interface ButtonProps extends Partial<Omit<ElButtonProps, 'type'>> {
     | 'print'
     | 'export'
     | 'import'
+    | 'cancel'
+    | 'confirm'
     | ''
     | ElButtonProps['type']
 }

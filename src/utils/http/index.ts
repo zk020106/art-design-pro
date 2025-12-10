@@ -1,4 +1,4 @@
-import { $t } from '@/locales'
+import i18n, { $t } from '@/locales'
 import { useTenantStore } from '@/store/modules/tenant'
 import { useUserStore } from '@/store/modules/user'
 import axios, {
@@ -7,6 +7,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig
 } from 'axios'
+import { unref } from 'vue'
 import { ErrorResponse, HttpError, handleError, showError, showSuccess } from './error'
 import { ApiStatus } from './status'
 
@@ -107,6 +108,12 @@ axiosInstance.interceptors.request.use(
     const tenantStore = useTenantStore()
     if (tenantStore.tenantEnabled && tenantStore.tenantId && request.headers) {
       request.headers.set('X-Tenant-Id', tenantStore.tenantId)
+    }
+
+    // 自动添加语言标识
+    const locale = unref(i18n.global.locale)
+    if (locale && request.headers) {
+      request.headers.set('X-Language', locale)
     }
 
     // 处理请求数据

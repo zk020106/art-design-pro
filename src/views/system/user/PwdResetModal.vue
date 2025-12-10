@@ -9,14 +9,16 @@
   >
     <CaForm ref="formRef" v-model="form" :columns="columns" />
     <template #footer>
-      <ElButton @click="visible = false">取消</ElButton>
-      <ElButton type="primary" @click="save">确定</ElButton>
+      <CaButton type="cancel" @click="visible = false" />
+      <CaButton type="confirm" @click="save" />
     </template>
   </ElDialog>
 </template>
 
 <script setup lang="ts">
   import { resetUserPwd } from '@/apis/system/user'
+  import CaButton from '@/components/base/CaButton/index.vue'
+  import CaForm from '@/components/base/CaForm/index.vue'
   import { FormColumnItem } from '@/components/base/CaForm/type'
   import { useResetReactive } from '@/hooks'
   import { encryptByRsa } from '@/utils/encrypt'

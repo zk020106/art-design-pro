@@ -87,8 +87,8 @@
     </ElForm>
 
     <template #footer>
-      <ElButton @click="visible = false">取消导入</ElButton>
-      <ElButton type="primary" @click="save">确认导入</ElButton>
+      <CaButton type="cancel" @click="visible = false">取消导入</CaButton>
+      <CaButton type="confirm" @click="save">确认导入</CaButton>
     </template>
   </ElDrawer>
 </template>
@@ -96,6 +96,7 @@
 <script setup lang="ts">
   import { UserImportResp } from '@/apis'
   import { downloadUserImportTemplate, importUser, parseImportUser } from '@/apis/system/user'
+  import CaButton from '@/components/base/CaButton/index.vue'
   import { useDownload, useResetReactive } from '@/hooks'
   import { Document, UploadFilled } from '@element-plus/icons-vue'
   import { useWindowSize } from '@vueuse/core'

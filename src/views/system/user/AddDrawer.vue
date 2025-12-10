@@ -9,14 +9,15 @@
   >
     <GiForm ref="formRef" v-model="form" :columns="columns" />
     <template #footer>
-      <ElButton @click="visible = false">取消</ElButton>
-      <ElButton type="primary" @click="save">确定</ElButton>
+      <CaButton type="cancel" @click="visible = false" />
+      <CaButton type="confirm" @click="save" />
     </template>
   </ElDrawer>
 </template>
 
 <script setup lang="ts">
   import { addUser, getUser, updateUser } from '@/apis/system/user'
+  import CaButton from '@/components/base/CaButton/index.vue'
   import { GenderList } from '@/constant/common'
   import { useResetReactive } from '@/hooks'
   import { useDept, useRole } from '@/hooks/business'

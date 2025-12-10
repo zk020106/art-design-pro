@@ -45,7 +45,9 @@
       btnProps: { icon: Upload, type: undefined, plain: true },
       btnTextKey: t('common.button.import')
     },
-    print: { btnProps: { icon: Printer, type: 'primary' }, btnTextKey: t('common.button.print') }
+    print: { btnProps: { icon: Printer, type: 'primary' }, btnTextKey: t('common.button.print') },
+    cancel: { btnProps: { type: undefined }, btnTextKey: t('common.cancel') },
+    confirm: { btnProps: { type: 'primary' }, btnTextKey: t('common.confirm') }
   }
 
   const bindProps = computed(() => {
