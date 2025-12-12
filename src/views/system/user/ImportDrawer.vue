@@ -114,7 +114,6 @@
   const uploadFile = ref([])
 
   const [form, resetForm] = useResetReactive({
-    errorPolicy: 1,
     duplicateUser: 1,
     duplicateEmail: 1,
     duplicatePhone: 1,
@@ -145,12 +144,11 @@
 
   // 上传解析导入数据
   const handleUpload = (options: UploadRequestOptions) => {
-    const { onProgress, onError, onSuccess, file } = options
-    onProgress({ percent: 20 })
+    const { onError, onSuccess, file } = options
     const formData = new FormData()
     formData.append('file', file)
 
-    parseImportUser(formData)
+    return parseImportUser(formData)
       .then((res) => {
         dataResult.value = res.data
         ElMessage.success('上传解析成功')

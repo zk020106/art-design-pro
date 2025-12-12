@@ -5,7 +5,7 @@ export const systemRoutes: AppRouteRecord = {
   name: 'System',
   component: '/index/index',
   meta: {
-    title: 'menus.system.title',
+    title: 'menus.system.index',
     icon: 'ri:user-3-line',
     roles: ['R_SUPER', 'R_ADMIN']
   },

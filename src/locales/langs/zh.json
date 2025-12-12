@@ -179,21 +179,80 @@
     "outside": {
       "title": "内嵌页面"
     },
-    "register": {
-      "title": "注册"
-    },
     "result": {
       "fail": "失败页",
       "success": "成功页",
       "title": "结果页面"
     },
     "system": {
-      "menu": "菜单管理",
-      "role": "角色管理",
-      "title": "系统管理",
+      "index": "系统管理",
       "user": "用户管理",
-      "userCenter": "个人中心"
+      "role": "角色管理",
+      "menu": "菜单管理",
+      "dept": "部门管理",
+      "notice": "通知公告",
+      "file": "文件管理",
+      "dict": "字典管理",
+      "dictItem": "字典项管理",
+      "config": {
+        "website": "网站配置",
+        "security": "安全配置",
+        "login": "登录配置",
+        "email": "邮件配置",
+        "sms": "短信配置",
+        "storage": "存储配置",
+        "client": "客户端配置"
+      }
+    },
+    "monitor": {
+      "index": "系统监控",
+      "onlineUser": "在线用户",
+      "systemLog": "系统日志",
+      "smsLog": "短信日志"
+    },
+    "tenant": {
+      "index": "租户管理",
+      "manage": "租户管理",
+      "package": "套餐管理"
+    },
+    "open": {
+      "index": "能力开放",
+      "api": "API管理",
+      "app": "应用管理"
+    },
+    "scheduler": {
+      "index": "任务调度",
+      "task": "任务管理",
+      "log": "任务日志"
+    },
+    "dev": {
+      "index": "开发工具",
+      "gen": "代码生成",
+      "terminal": "终端管理"
     }
+  },
+  "button": {
+    "list": "列表",
+    "detail": "详情",
+    "add": "新增",
+    "edit": "修改",
+    "delete": "删除",
+    "export": "导出",
+    "import": "导入",
+    "resetPassword": "重置密码",
+    "assignRole": "分配角色",
+    "editPermission": "修改权限",
+    "assign": "分配",
+    "unassign": "取消分配",
+    "clearCache": "清除缓存",
+    "upload": "上传",
+    "download": "下载",
+    "createFolder": "创建文件夹",
+    "calcFolderSize": "计算文件夹大小",
+    "recycleList": "回收站文件列表",
+    "recycleRestore": "还原回收站文件",
+    "recycleDelete": "删除回收站文件",
+    "recycleClear": "清空回收站"
   },
   "notice": {
     "bar": ["通知", "消息", "代办"],

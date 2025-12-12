@@ -1,31 +1,31 @@
 {
   "common": {
     "button": {
-      "add": "Add",
-      "delete": "Delete",
-      "download": "Download",
-      "edit": "Edit",
+      "add": "New",
+      "delete": "delete",
+      "download": "download",
+      "edit": "edit",
       "export": "Export",
-      "import": "Import",
+      "import": "import",
       "print": "Print",
-      "reset": "Reset",
-      "search": "Search",
-      "upload": "Upload"
+      "reset": "reset",
+      "search": "search",
+      "upload": "upload"
     },
     "cancel": "Cancel",
-    "confirm": "Confirm",
+    "confirm": "Sure",
     "logOutTips": "Do you want to log out?",
-    "tips": "Prompt"
+    "tips": "hint"
   },
   "components": {
     "form": {
       "expand": "Expand",
-      "collapse": "Collapse",
+      "collapse": "close",
       "placeholder": {
         "input": "Please enter {label}",
         "select": "Please select {label}",
-        "date": "Please select date",
-        "time": "Please select time"
+        "date": "Please select a date",
+        "time": "Please select a time"
       },
       "validate": {
         "required": "{label} is required"
@@ -34,44 +34,44 @@
     "iconPicker": {
       "clear": "Clear",
       "noIcon": "No icon selected",
-      "noResult": "No matching icons found",
-      "searchPlaceholder": "Search icons",
-      "selectIcon": "Select Icon"
+      "noResult": "No matching icon found",
+      "searchPlaceholder": "search icon",
+      "selectIcon": "Select icon"
     },
     "inputSearch": {
       "placeholder": "Please select"
     },
     "select": {
-      "loadError": "Failed to load data",
-      "loading": "Loading...",
-      "noData": "No data",
+      "loadError": "Data loading failed",
+      "loading": "loading...",
+      "noData": "No data yet",
       "placeholder": "Please select",
-      "searchPlaceholder": "Search by keyword"
+      "searchPlaceholder": "Please enter keyword search"
     },
     "tableSelector": {
       "cancel": "Cancel",
-      "confirm": "Confirm",
-      "loading": "Loading...",
-      "noData": "No data",
-      "searchPlaceholder": "Search by keyword",
+      "confirm": "Sure",
+      "loading": "loading...",
+      "noData": "No data yet",
+      "searchPlaceholder": "Please enter keyword search",
       "selected": "{count} items selected",
-      "title": "Select Data"
+      "title": "Select data"
     },
     "tree": {
-      "collapseAll": "Collapse All",
-      "expandAll": "Expand All",
-      "loadError": "Failed to load data",
-      "loading": "Loading...",
-      "noData": "No data",
-      "searchPlaceholder": "Search by keyword"
+      "collapseAll": "Collapse all",
+      "expandAll": "Expand all",
+      "loadError": "Data loading failed",
+      "loading": "loading...",
+      "noData": "No data yet",
+      "searchPlaceholder": "Please enter keyword search"
     },
     "upload": {
       "clickHint": "Click to upload",
-      "delete": "Delete",
-      "download": "Download",
-      "dragHint": "Drag files here, or click to upload",
-      "fileSizeExceeded": "File size exceeds limit (max {size}MB)",
-      "fileTypeError": "Unsupported file type",
+      "delete": "delete",
+      "download": "download",
+      "dragHint": "Drag your files here, or click Upload",
+      "fileSizeExceeded": "File size exceeds limit (maximum {size}MB)",
+      "fileTypeError": "Unsupported file types",
       "preview": "Preview",
       "uploadFailed": "Upload failed",
       "uploadSuccess": "Upload successful",
@@ -80,349 +80,408 @@
   },
   "exceptionPage": {
     "403": "Sorry, you do not have permission to access this page",
-    "404": "Sorry, the page you are trying to access does not exist",
-    "500": "Sorry, there was an error on the server",
-    "gohome": "Go Home"
+    "404": "Sorry, the page you visited does not exist",
+    "500": "Sorry, there was a server error",
+    "gohome": "Return to home page"
   },
   "forgetPassword": {
-    "backBtnText": "Back",
+    "backBtnText": "return",
     "placeholder": "Please enter your email",
     "subTitle": "Enter your email to reset your password",
-    "submitBtnText": "Submit",
-    "title": "Forgot password?"
+    "submitBtnText": "submit",
+    "title": "forget the password?"
   },
   "greeting": {
-    "afternoon": "Good afternoon!",
-    "dawn": "Good morning!",
+    "afternoon": "good afternoon!",
+    "dawn": "It's early morning!",
     "evening": "Good evening!",
     "morning": "Good morning!"
   },
   "httpMsg": {
-    "badGateway": "Bad gateway error, please try again later",
-    "forbidden": "Access to this resource is forbidden",
+    "badGateway": "Gateway error, please try again later",
+    "forbidden": "Access to this resource is prohibited",
     "gatewayTimeout": "Gateway timeout, please try again later",
     "internalServerError": "Internal server error, please try again later",
     "methodNotAllowed": "Request method not allowed",
-    "networkError": "Network connection error, please check your connection",
+    "networkError": "The network connection is abnormal, please check the network connection",
     "notFound": "The requested resource does not exist",
-    "requestCancelled": "Request cancelled",
+    "requestCancelled": "Request canceled",
     "requestConfigError": "Request configuration error",
     "requestFailed": "Request failed",
-    "requestTimeout": "Request timeout, please try again later",
-    "serviceUnavailable": "Service temporarily unavailable, please try again later",
-    "unauthorized": "Unauthorized access, please login again"
+    "requestTimeout": "Request timed out, please try again later",
+    "serviceUnavailable": "The service is temporarily unavailable, please try again later",
+    "unauthorized": "Unauthorized access, please log in again"
   },
   "lockScreen": {
     "lock": {
-      "btnText": "Lock",
-      "inputPlaceholder": "Please input lock screen password"
+      "btnText": "locking",
+      "inputPlaceholder": "Please enter the lock screen password"
     },
-    "pwdError": "Password error",
+    "pwdError": "Wrong password",
     "unlock": {
-      "backBtnText": "Back to login",
+      "backBtnText": "Return to login",
       "btnText": "Unlock",
-      "inputPlaceholder": "Please input unlock password"
+      "inputPlaceholder": "Please enter the unlock password"
     }
   },
   "login": {
-    "btnText": "Login",
-    "captcha": "captcha",
+    "btnText": "Log in",
+    "captcha": "Verification code",
     "error": {
-      "captchaExpired": "Captcha expired, please refresh",
+      "captchaExpired": "The verification code has expired, please refresh the verification code",
       "passwordEncrypt": "Password encryption failed"
     },
     "expired": "Expired, please refresh",
-    "forgetPwd": "Forgot password",
+    "forgetPwd": "forget the password",
     "leftView": {
-      "subTitle": "A sleek and practical interface for a great user experience",
-      "title": "A backend system of beauty and efficiency"
+      "subTitle": "Beautiful and practical interface, visually optimized to ensure an excellent user experience",
+      "title": "A backend system that combines design aesthetics and efficient development"
     },
-    "noAccount": "No account yet?",
+    "noAccount": "Don’t have an account yet?",
     "placeholder": {
-      "captcha": "Please enter captcha",
-      "password": "Please enter your password",
-      "slider": "Please slide to verify",
-      "tenantCode": "Please enter your tenant code",
-      "username": "Please enter your account"
+      "captcha": "Please enter the verification code",
+      "password": "Please enter password",
+      "slider": "Please drag the slider to complete verification",
+      "tenantCode": "Please enter tenant code",
+      "username": "Please enter account number"
     },
-    "register": "Register",
+    "register": "register",
     "rememberPwd": "Remember password",
     "sliderSuccessText": "Verification successful",
-    "sliderText": "Please slide to verify",
-    "subTitle": "Please enter your account and password to login",
+    "sliderText": "Hold down the slider and drag",
+    "subTitle": "Enter your account number and password to log in",
     "success": {
-      "message": "Welcome back",
+      "message": "welcome back",
       "title": "Login successful"
     },
-    "title": "Welcome back",
+    "title": "welcome back",
     "warning": {
-      "captchaExpiringSoon": "Captcha is about to expire, please refresh in time"
+      "captchaExpiringSoon": "The verification code is about to expire, please refresh it in time"
     }
   },
   "menus": {
     "dashboard": {
-      "console": "Console",
+      "console": "workbench",
       "title": "Dashboard"
     },
     "exception": {
       "forbidden": "403",
       "notFound": "404",
       "serverError": "500",
-      "title": "Exception"
+      "title": "Exception page"
     },
     "forgetPassword": {
-      "title": "Forget Password"
+      "title": "forget the password"
     },
     "login": {
-      "title": "Login"
+      "title": "Log in"
     },
     "outside": {
-      "title": "Outside"
-    },
-    "register": {
-      "title": "Register"
+      "title": "embedded page"
     },
     "result": {
-      "fail": "Fail",
-      "success": "Success",
-      "title": "Result Page"
+      "fail": "failure page",
+      "success": "success page",
+      "title": "Results page"
     },
     "system": {
-      "menu": "Menu Manage",
-      "role": "Role Manage",
-      "title": "System Settings",
-      "user": "User Manage",
-      "userCenter": "User Center"
+      "index": "System management",
+      "user": "User management",
+      "role": "role management",
+      "menu": "Menu management",
+      "dept": "Department management",
+      "notice": "Notices and Announcements",
+      "file": "File management",
+      "dict": "Dictionary management",
+      "dictItem": "Dictionary item management",
+      "config": {
+        "website": "Website configuration",
+        "security": "Security configuration",
+        "login": "Login configuration",
+        "email": "Email configuration",
+        "sms": "SMS configuration",
+        "storage": "Storage configuration",
+        "client": "Client configuration"
+      }
+    },
+    "monitor": {
+      "index": "System monitoring",
+      "onlineUser": "Online users",
+      "systemLog": "System log",
+      "smsLog": "SMS log"
+    },
+    "tenant": {
+      "index": "Tenant management",
+      "manage": "Tenant management",
+      "package": "Package management"
+    },
+    "open": {
+      "index": "Capability opening",
+      "api": "API management",
+      "app": "Application management"
+    },
+    "scheduler": {
+      "index": "Task scheduling",
+      "task": "task management",
+      "log": "Mission log"
+    },
+    "dev": {
+      "index": "development tools",
+      "gen": "code generation",
+      "terminal": "Terminal management"
     }
   },
+  "button": {
+    "list": "list",
+    "detail": "Details",
+    "add": "New",
+    "edit": "Revise",
+    "delete": "delete",
+    "export": "Export",
+    "import": "import",
+    "resetPassword": "reset password",
+    "assignRole": "Assign roles",
+    "editPermission": "Modify permissions",
+    "assign": "distribute",
+    "unassign": "deallocate",
+    "clearCache": "clear cache",
+    "upload": "upload",
+    "download": "download",
+    "createFolder": "Create folder",
+    "calcFolderSize": "Calculate folder size",
+    "recycleList": "Recycle bin file list",
+    "recycleRestore": "Restore Recycle Bin files",
+    "recycleDelete": "Delete recycle bin files",
+    "recycleClear": "Empty Recycle Bin"
+  },
   "notice": {
-    "bar": ["Notice", "Message", "Todo"],
+    "bar": ["notify", "information", "Agent"],
     "btnRead": "Mark as read",
-    "text": ["No"],
-    "title": "Notice",
+    "text": ["None yet"],
+    "title": "notify",
     "viewAll": "View all"
   },
   "pages": {
     "user": {
       "button": {
-        "add": "Add",
-        "assignRole": "Assign Role",
-        "delete": "Delete",
-        "detail": "Detail",
-        "edit": "Edit",
+        "add": "New",
+        "assignRole": "Assign roles",
+        "delete": "delete",
+        "detail": "Details",
+        "edit": "Revise",
         "export": "Export",
-        "import": "Import",
+        "import": "import",
         "more": "More",
-        "resetPwd": "Reset Password"
+        "resetPwd": "reset password"
       },
       "message": {
-        "deleteConfirm": "Are you sure to delete user「{nickname}({username})」?",
-        "no": "No",
+        "deleteConfirm": "Are you sure you want to delete user \"{nickname}({username})\"?",
+        "no": "no",
         "systemDataCannotDelete": "System built-in data cannot be deleted",
-        "yes": "Yes"
+        "yes": "yes"
       },
       "search": {
-        "createTime": "Create Time",
-        "status": "Status",
-        "statusPlaceholder": "Please select status",
-        "username": "Username/Nickname/Description"
+        "createTime": "creation time",
+        "status": "state",
+        "statusPlaceholder": "Please select a status",
+        "username": "Username/nickname/description"
       },
       "table": {
-        "action": "Action",
-        "createTime": "Create Time",
+        "action": "operate",
+        "createTime": "creation time",
         "createUser": "Creator",
         "dept": "Department",
-        "description": "Description",
-        "email": "Email",
-        "gender": "Gender",
-        "index": "No.",
-        "isSystem": "System Built-in",
-        "nickname": "Nickname",
-        "phone": "Phone",
-        "roles": "Roles",
-        "status": "Status",
-        "updateTime": "Update Time",
-        "updateUser": "Updater",
-        "username": "Username"
+        "description": "describe",
+        "email": "Mail",
+        "gender": "gender",
+        "index": "serial number",
+        "isSystem": "System built-in",
+        "nickname": "Nick name",
+        "phone": "Phone number",
+        "roles": "Role",
+        "status": "state",
+        "updateTime": "modification time",
+        "updateUser": "Modifier",
+        "username": "username"
       },
-      "title": "User Management"
+      "title": "User management"
     }
   },
   "register": {
     "agreeText": "I agree",
     "hasAccount": "Already have an account?",
     "placeholder": {
-      "confirmPassword": "Please enter your password again",
-      "password": "Please enter your password",
-      "username": "Please enter your account"
+      "confirmPassword": "Please enter password again",
+      "password": "Please enter password",
+      "username": "Please enter account number"
     },
-    "privacyPolicy": "Privacy policy",
+    "privacyPolicy": "\"Privacy Policy\"",
     "rule": {
-      "agreementRequired": "Please agree to the privacy policy",
-      "confirmPasswordRequired": "Please enter your password again",
-      "passwordLength": "The password length cannot be less than 6 digits",
-      "passwordMismatch": "The two passwords are inconsistent!",
-      "usernameLength": "The length is 3 to 20 characters"
+      "agreementRequired": "Please agree to the privacy agreement",
+      "confirmPasswordRequired": "Please enter password again",
+      "passwordLength": "The password length cannot be less than 6 characters",
+      "passwordMismatch": "The passwords entered twice are inconsistent!",
+      "usernameLength": "3 to 20 characters in length"
     },
-    "subTitle": "Welcome to join us, please fill in the following information to complete the registration",
-    "submitBtnText": "Register",
+    "subTitle": "Welcome to join us, please fill in the following information to complete registration",
+    "submitBtnText": "register",
     "title": "Create account",
-    "toLogin": "To login"
+    "toLogin": "Go to login"
   },
   "search": {
-    "exitKeydown": "Close",
+    "exitKeydown": "closure",
     "historyTitle": "Search history",
-    "placeholder": "Search page",
-    "selectKeydown": "Select",
-    "switchKeydown": "Navigate"
+    "placeholder": "search page",
+    "selectKeydown": "choose",
+    "switchKeydown": "switch"
   },
   "setting": {
     "actions": {
-      "copyConfig": "Copy Config",
+      "copyConfig": "Copy configuration",
       "copyFailed": "Copy failed, please try again",
-      "copySuccess": "Configuration copied to clipboard, paste it into src/config/setting.ts file",
-      "resetConfig": "Reset Config",
+      "copySuccess": "The configuration has been copied to the clipboard and can be pasted into the src/config/setting.ts file",
+      "resetConfig": "Reset configuration",
       "resetFailed": "Reset failed, please refresh the page and try again"
     },
     "basics": {
       "list": {
-        "accordion": "Sidebar opens accordion",
-        "borderRadius": "Custom radius",
-        "breadcrumb": "Show crumb navigation",
-        "collapseSidebar": "Show sidebar button",
-        "fastEnter": "Show fast enter",
-        "language": "Show multilingual selection",
-        "menuWidth": "Menu width",
-        "multiTab": "Show work tab",
-        "pageTransition": "Page animation",
+        "accordion": "Turn on accordion mode in sidebar",
+        "borderRadius": "Custom rounded corners",
+        "breadcrumb": "Show global breadcrumbs",
+        "collapseSidebar": "Show collapsing sidebar button",
+        "fastEnter": "Show quick entry",
+        "language": "Show multiple language selections",
+        "menuWidth": "menu width",
+        "multiTab": "Enable multi-tab bar",
+        "pageTransition": "Page switching animation",
         "progressBar": "Show top progress bar",
         "reloadPage": "Show reload page button",
         "tabStyle": "Tab style",
-        "watermark": "Global watermark",
+        "watermark": "global watermark",
         "weakMode": "Color Weakness Mode"
       },
-      "title": "Basic Config"
+      "title": "Basic configuration"
     },
     "box": {
-      "list": ["Border", "Shadow"],
-      "title": "Box Style"
+      "list": ["frame", "shadow"],
+      "title": "box style"
     },
     "color": {
-      "title": "Theme Color"
+      "title": "System theme color"
     },
     "container": {
-      "list": ["Full", "Boxed"],
-      "title": "Container Width"
+      "list": ["Covered", "fixed width"],
+      "title": "Container width"
     },
     "menu": {
-      "title": "Menu Style"
+      "title": "menu style"
     },
     "menuType": {
-      "list": ["Vertical", "Horizontal", "Mixed", "Dual"],
-      "title": "Menu Layout"
+      "list": ["vertical", "level", "mix", "double row"],
+      "title": "Menu layout"
     },
     "tabStyle": {
-      "card": "Card",
-      "default": "Default",
-      "google": "Chrome"
+      "card": "card",
+      "default": "default",
+      "google": "Google"
     },
     "theme": {
-      "list": ["Light", "Dark", "System"],
-      "title": "Theme Style"
+      "list": ["light color", "Dark", "system"],
+      "title": "theme style"
     },
     "transition": {
       "list": {
-        "fade": "Fade",
-        "none": "None",
-        "slideBottom": "Slide Bottom",
-        "slideLeft": "Slide Left",
-        "slideTop": "Slide Top"
+        "fade": "Fade in and out",
+        "none": "No animation",
+        "slideBottom": "Slide below",
+        "slideLeft": "Slide in left",
+        "slideTop": "Slide in from above"
       }
     }
   },
   "table": {
-    "action": "Action",
-    "border": "Border",
+    "action": "operate",
+    "border": "frame",
     "column": {
       "expand": "Expand",
-      "index": "Index",
-      "selection": "Select",
-      "settings": "Column Settings"
+      "index": "serial number",
+      "selection": "Check",
+      "settings": "Column settings"
     },
-    "columnSettings": "Column Settings",
-    "exitFullscreen": "Exit Fullscreen",
+    "columnSettings": "Column settings",
+    "exitFullscreen": "Exit full screen",
     "form": {
-      "reset": "Reset",
-      "submit": "Submit"
+      "reset": "reset",
+      "submit": "submit"
     },
-    "fullscreen": "Fullscreen",
-    "headerBackground": "Header BG",
-    "pinLeft": "Pin Left",
-    "pinRight": "Pin Right",
-    "refresh": "Refresh",
-    "reset": "Reset",
+    "fullscreen": "full screen",
+    "headerBackground": "header background",
+    "pinLeft": "left fixed",
+    "pinRight": "right fixed",
+    "refresh": "refresh",
+    "reset": "reset",
     "resetError": "Failed to reset table columns",
-    "resetSuccess": "Table columns have been reset",
-    "save": "Save",
+    "resetSuccess": "Table columns reset",
+    "save": "save",
     "saveError": "Save failed",
     "saveSuccess": "Saved successfully",
     "searchBar": {
-      "collapse": "Collapse",
+      "collapse": "close",
       "expand": "Expand",
-      "reset": "Reset",
-      "search": "Search",
+      "reset": "reset",
+      "search": "Query",
       "searchInputPlaceholder": "Please enter",
       "searchSelectPlaceholder": "Please select"
     },
-    "selectAll": "Select All",
-    "selection": "Select",
-    "size": "Size",
+    "selectAll": "Select all",
+    "selection": "choose",
+    "size": "size",
     "sizeOptions": {
-      "default": "Default",
+      "default": "default",
       "large": "Large",
-      "small": "Small"
+      "small": "small"
     },
-    "zebra": "Zebra"
+    "zebra": "zebra print"
   },
   "topBar": {
     "guide": {
-      "description": "More configurations",
-      "menu": "Open top menu",
-      "theme": "Theme style",
+      "description": "Wait for more configurations",
+      "menu": "Open top bar menu",
+      "theme": "theme style",
       "title": "Click here to view"
     },
     "search": {
-      "title": "Search"
+      "title": "search"
     },
     "user": {
-      "docs": "Document",
+      "docs": "Use documentation",
       "github": "Github",
-      "lockScreen": "Lock screen",
+      "lockScreen": "lock screen",
       "logout": "Log out",
-      "userCenter": "User center"
+      "userCenter": "Personal center"
     }
   },
   "worktab": {
     "btn": {
       "closeAll": "Close all",
-      "closeLeft": "Close left",
+      "closeLeft": "close left",
       "closeOther": "Close other",
-      "closeRight": "Close right",
-      "fixed": "Fixed",
-      "refresh": "Refresh",
-      "unfixed": "Unfixed"
+      "closeRight": "close right",
+      "fixed": "fixed",
+      "refresh": "refresh",
+      "unfixed": "Unpin"
     }
   },
   "message": {
-    "prompt": "Prompt",
-    "confirmDelete": "Are you sure to delete?",
-    "deleteSuccess": "Deleted successfully",
+    "prompt": "hint",
+    "confirmDelete": "Are you sure you want to delete it?",
+    "deleteSuccess": "Delete successfully",
     "deleteFailed": "Delete failed",
     "selected": "Selected",
     "items": "items",
-    "selectDeleteData": "Please select data to delete",
-    "loadFailed": "Load failed",
-    "batchDelete": "Batch Delete",
-    "batchDeleteSuccess": "Batch deleted successfully"
+    "selectDeleteData": "Please select the data you want to delete",
+    "loadFailed": "Loading failed",
+    "batchDelete": "Batch delete",
+    "batchDeleteSuccess": "Batch deletion successful"
   }
 }

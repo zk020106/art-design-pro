@@ -5,11 +5,11 @@
  *
  * @module utils/router
  */
-import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import AppConfig from '@/config'
+import i18n, { $t } from '@/locales'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import i18n, { $t } from '@/locales'
+import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 
 /** 扩展的路由配置类型 */
 export type AppRouteRecordRaw = RouteRecordRaw & {
@@ -45,6 +45,7 @@ export const setPageTitle = (to: RouteLocationNormalized): void => {
  * @returns 格式化后的菜单标题
  */
 export const formatMenuTitle = (title: string): string => {
+  console.log('Formatting menu title:', $t(title))
   if (title) {
     if (title.startsWith('menus.')) {
       // 使用 te() 方法检查翻译键值是否存在，避免控制台警告
