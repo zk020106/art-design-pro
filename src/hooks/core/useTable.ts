@@ -247,7 +247,7 @@ export function useTable<T extends U, U = T>(api: Api<T>, options?: Options<T, U
       await ElMessageBox.confirm(confirmContent, title, {
         type: confirmType as any,
         confirmButtonText: t('message.confirm'),
-        cancelButtonText: t('ncel'),
+        cancelButtonText: t('message.cancel'),
         draggable: true
       })
       return await executeDelete()

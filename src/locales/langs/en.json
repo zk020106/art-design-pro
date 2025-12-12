@@ -524,6 +524,42 @@
       "username": "Please enter username"
     }
   },
+  "role": {
+    "assignUser": "Assign User",
+    "batchUnassign": "Batch Remove",
+    "code": "Role Code",
+    "dataScope": "Data Scope",
+    "description": "Description",
+    "field": {
+      "code": "Role Code",
+      "dataScope": "Data Scope",
+      "description": "Description",
+      "name": "Role Name",
+      "sort": "Sort",
+      "status": "Status"
+    },
+    "page": {
+      "title": {
+        "add": "Add Role",
+        "edit": "Edit Role"
+      }
+    },
+    "permission": {
+      "button": "Button"
+    },
+    "placeholder": {
+      "code": "Please enter role code",
+      "name": "Please enter role name"
+    },
+    "title": "Role Management",
+    "tree": {
+      "placeholder": "Search name/code"
+    },
+    "tab": {
+      "permission": "Function Permission",
+      "user": "Role Users"
+    }
+  },
   "worktab": {
     "btn": {
       "closeAll": "Close all",

@@ -504,6 +504,7 @@
       "password": "密码",
       "phone": "手机号",
       "role": "角色",
+      "roles": "角色管理",
       "status": "状态",
       "title": "用户详情",
       "updateTime": "修改时间",
@@ -522,6 +523,42 @@
       "password": "请输入密码",
       "role": "请选择角色",
       "username": "请输入用户名"
+    }
+  },
+  "role": {
+    "assignUser": "分配用户",
+    "batchUnassign": "批量移除",
+    "code": "角色编码",
+    "dataScope": "数据权限",
+    "description": "描述",
+    "field": {
+      "code": "角色编码",
+      "dataScope": "数据权限",
+      "description": "描述",
+      "name": "角色名称",
+      "sort": "排序",
+      "status": "状态"
+    },
+    "page": {
+      "title": {
+        "add": "新增角色",
+        "edit": "编辑角色"
+      }
+    },
+    "permission": {
+      "button": "按钮"
+    },
+    "placeholder": {
+      "code": "请输入角色编码",
+      "name": "请输入角色名称"
+    },
+    "title": "角色管理",
+    "tree": {
+      "placeholder": "搜索名称/编码"
+    },
+    "tab": {
+      "permission": "功能权限",
+      "user": "角色用户"
     }
   },
   "worktab": {
