@@ -15,7 +15,7 @@
       @refresh="search"
     >
       <template #top>
-        <GiForm
+        <CaForm
           v-model="queryForm"
           search
           :columns="queryFormColumns"
