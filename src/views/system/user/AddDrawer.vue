@@ -25,6 +25,7 @@
   import { encryptByRsa } from '@/utils/encrypt'
   import { useWindowSize } from '@vueuse/core'
   import { FormColumnItem } from 'gi-component'
+  import { useI18n } from 'vue-i18n'
 
   const emit = defineEmits<{
     (e: 'save-success'): void
@@ -44,10 +45,10 @@
     gender: 1 as Gender,
     status: 1 as EnableStatus
   })
-
+  const { t } = useI18n()
   const columns = reactive([
     {
-      label: '昵称',
+      label: t('user.field.nickname'),
       field: 'nickname',
       type: 'input',
       span: 24,
@@ -57,7 +58,7 @@
       }
     },
     {
-      label: '用户名',
+      label: t('user.field.username'),
       field: 'username',
       type: 'input',
       span: 24,
@@ -67,7 +68,7 @@
       }
     },
     {
-      label: '密码',
+      label: t('user.field.password'),
       field: 'password',
       type: 'input-password',
       span: 24,
@@ -79,7 +80,7 @@
       hide: () => isUpdate.value
     },
     {
-      label: '手机号码',
+      label: t('user.field.phone'),
       field: 'phone',
       type: 'input',
       span: 24,
@@ -88,7 +89,7 @@
       }
     },
     {
-      label: '邮箱',
+      label: t('user.field.email'),
       field: 'email',
       type: 'input',
       span: 24,
@@ -97,7 +98,7 @@
       }
     },
     {
-      label: '性别',
+      label: t('user.field.gender'),
       field: 'gender',
       type: 'radio-group',
       span: 24,
@@ -106,7 +107,7 @@
       }
     },
     {
-      label: '所属部门',
+      label: t('user.field.dept'),
       field: 'deptId',
       type: 'tree-select',
       span: 24,
@@ -123,7 +124,7 @@
       }
     },
     {
-      label: '角色',
+      label: t('user.field.role'),
       field: 'roleIds',
       type: 'select',
       span: 24,
@@ -136,13 +137,13 @@
       }
     },
     {
-      label: '描述',
+      label: t('user.field.description'),
       field: 'description',
       type: 'textarea',
       span: 24
     },
     {
-      label: '状态',
+      label: t('user.field.status'),
       field: 'status',
       type: 'switch',
       span: 24,

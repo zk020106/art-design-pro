@@ -89,6 +89,7 @@
   import { MoreFilled } from '@element-plus/icons-vue'
   import { ElSpace } from 'element-plus'
   import { FormColumnItem } from 'gi-component'
+  import { useI18n } from 'vue-i18n'
   import AddDrawer from './AddDrawer.vue'
   import DeptTree from './dept/index.vue'
   import DetailDrawer from './DetailDrawer.vue'
@@ -103,32 +104,32 @@
   const [queryForm, resetForm] = useResetReactive<UserQuery>({
     sort: ['t1.id,desc']
   })
-
+  const { t } = useI18n()
   const queryFormColumns = computed(
     () =>
       [
         {
           type: 'input',
-          label: '用户名',
+          label: t('user.field.username'),
           field: 'description',
           gridItemProps: { span: { xs: 24, sm: 12, xxl: 8 } },
           props: {
-            placeholder: '用户名/昵称/描述'
+            placeholder: t('user.placeholder.username')
           }
         },
         {
           type: 'select',
-          label: '状态',
+          label: t('common.status'),
           field: 'status',
           gridItemProps: { span: { xs: 24, sm: 6, xxl: 8 } },
           props: {
             options: DisEnableStatusList,
-            placeholder: '请选择状态'
+            placeholder: t('common.placeholder.status')
           }
         },
         {
           type: 'date-picker',
-          label: '创建时间',
+          label: t('common.createTime'),
           field: 'createTime',
           gridItemProps: { span: { xs: 24, sm: 10, xxl: 8 } },
           props: {
@@ -143,69 +144,82 @@
     { immediate: false }
   )
 
-  const columns: TableColumnItem[] = [
-    {
-      label: '序号',
-      width: 66,
-      align: 'center',
-      render: ({ $index }) =>
-        h('span', {}, $index + 1 + (pagination.current - 1) * pagination.pageSize),
-      fixed: !isMobile.value ? 'left' : false
-    },
-    {
-      label: '昵称',
-      prop: 'nickname',
-      slotName: 'nickname',
-      minWidth: 140,
-      showOverflowTooltip: true,
-      fixed: !isMobile.value ? 'left' : false
-    },
-    {
-      label: '用户名',
-      prop: 'username',
-      // slotName: 'username',
-      minWidth: 140,
-      showOverflowTooltip: true
-    },
-    { label: '状态', prop: 'status', slotName: 'status', align: 'center' },
-    { label: '性别', prop: 'gender', slotName: 'gender', align: 'center' },
-    { label: '所属部门', prop: 'deptName', minWidth: 180, showOverflowTooltip: true },
-    { label: '角色', prop: 'roleNames', slotName: 'roleNames', minWidth: 165 },
-    { label: '手机号', prop: 'phone', minWidth: 170, showOverflowTooltip: true },
-    { label: '邮箱', prop: 'email', minWidth: 170, showOverflowTooltip: true },
-    {
-      label: '系统内置',
-      prop: 'isSystem',
-      slotName: 'isSystem',
-      width: 100,
-      align: 'center'
-    },
-    { label: '描述', prop: 'description', minWidth: 130, showOverflowTooltip: true },
-    {
-      label: '创建人',
-      prop: 'createUserString',
-      width: 140,
-      showOverflowTooltip: true
-    },
-    { label: '创建时间', prop: 'createTime', width: 180 },
+  const columns = computed(
+    () =>
+      [
+        {
+          label: t('common.index'),
+          width: 66,
+          align: 'center',
+          render: ({ $index }) =>
+            h('span', {}, $index + 1 + (pagination.current - 1) * pagination.pageSize),
+          fixed: !isMobile.value ? 'left' : false
+        },
+        {
+          label: t('user.field.nickname'),
+          prop: 'nickname',
+          slotName: 'nickname',
+          minWidth: 140,
+          showOverflowTooltip: true,
+          fixed: !isMobile.value ? 'left' : false
+        },
+        {
+          label: t('user.field.username'),
+          prop: 'username',
+          // slotName: 'username',
+          minWidth: 140,
+          showOverflowTooltip: true
+        },
+        { label: t('user.field.status'), prop: 'status', slotName: 'status', align: 'center' },
+        { label: t('user.field.gender'), prop: 'gender', slotName: 'gender', align: 'center' },
+        {
+          label: t('user.field.dept'),
+          prop: 'deptName',
+          minWidth: 180,
+          showOverflowTooltip: true
+        },
+        { label: t('user.field.role'), prop: 'roleNames', slotName: 'roleNames', minWidth: 165 },
+        { label: t('user.field.phone'), prop: 'phone', minWidth: 170, showOverflowTooltip: true },
+        { label: t('user.field.email'), prop: 'email', minWidth: 170, showOverflowTooltip: true },
+        {
+          label: t('user.field.isSystem'),
+          prop: 'isSystem',
+          slotName: 'isSystem',
+          width: 100,
+          align: 'center'
+        },
+        {
+          label: t('user.field.description'),
+          prop: 'description',
+          minWidth: 130,
+          showOverflowTooltip: true
+        },
+        {
+          label: t('user.field.createUser'),
+          prop: 'createUserString',
+          width: 140,
+          showOverflowTooltip: true
+        },
+        { label: t('user.field.createTime'), prop: 'createTime', width: 180 },
 
-    // {
-    //   label: '修改人',
-    //   prop: 'updateUserString',
-    //   width: 140,
-    //   showOverflowTooltip: true,
-    //   show: false
-    // },
-    // { label: '修改时间', prop: 'updateTime', width: 180, show: false },
-    {
-      label: '操作',
-      prop: 'action',
-      slotName: 'action',
-      width: 160,
-      align: 'center',
-      fixed: !isMobile.value ? 'right' : false
-    }
-  ]
+        {
+          label: t('user.field.updateUser'),
+          prop: 'updateUserString',
+          width: 140,
+          showOverflowTooltip: true,
+          show: false
+        },
+        { label: '修改时间', prop: 'updateTime', width: 180, show: false },
+        {
+          label: t('common.action'),
+          prop: 'action',
+          slotName: 'action',
+          width: 160,
+          align: 'center',
+          fixed: !isMobile.value ? 'right' : false
+        }
+      ] as TableColumnItem[]
+  )
 
   // 重置
   const reset = () => {

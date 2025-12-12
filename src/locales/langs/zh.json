@@ -1,5 +1,29 @@
 {
+  "button": {
+    "add": "新增",
+    "assign": "分配",
+    "assignRole": "分配角色",
+    "calcFolderSize": "计算文件夹大小",
+    "clearCache": "清除缓存",
+    "createFolder": "创建文件夹",
+    "delete": "删除",
+    "detail": "详情",
+    "download": "下载",
+    "edit": "修改",
+    "editPermission": "修改权限",
+    "export": "导出",
+    "import": "导入",
+    "list": "列表",
+    "recycleClear": "清空回收站",
+    "recycleDelete": "删除回收站文件",
+    "recycleList": "回收站文件列表",
+    "recycleRestore": "还原回收站文件",
+    "resetPassword": "重置密码",
+    "unassign": "取消分配",
+    "upload": "上传"
+  },
   "common": {
+    "action": "操作",
     "button": {
       "add": "新增",
       "delete": "删除",
@@ -14,17 +38,31 @@
     },
     "cancel": "取消",
     "confirm": "确定",
+    "createTime": "创建时间",
+    "empty": "暂无",
+    "error": "错误",
+    "false": "否",
+    "index": "序号",
+    "info": "信息",
+    "loading": "加载中",
     "logOutTips": "您是否要退出登录?",
-    "tips": "提示"
+    "placeholder": {
+      "status": "请选择状态"
+    },
+    "status": "状态",
+    "success": "成功",
+    "tips": "提示",
+    "true": "是",
+    "warning": "警告"
   },
   "components": {
     "form": {
-      "expand": "展开",
       "collapse": "收起",
+      "expand": "展开",
       "placeholder": {
+        "date": "请选择日期",
         "input": "请输入{label}",
         "select": "请选择{label}",
-        "date": "请选择日期",
         "time": "请选择时间"
       },
       "validate": {
@@ -164,6 +202,11 @@
       "console": "工作台",
       "title": "仪表盘"
     },
+    "dev": {
+      "gen": "代码生成",
+      "index": "开发工具",
+      "terminal": "终端管理"
+    },
     "exception": {
       "forbidden": "403",
       "notFound": "404",
@@ -176,6 +219,17 @@
     "login": {
       "title": "登录"
     },
+    "monitor": {
+      "index": "系统监控",
+      "onlineUser": "在线用户",
+      "smsLog": "短信日志",
+      "systemLog": "系统日志"
+    },
+    "open": {
+      "api": "API管理",
+      "app": "应用管理",
+      "index": "能力开放"
+    },
     "outside": {
       "title": "内嵌页面"
     },
@@ -184,75 +238,50 @@
       "success": "成功页",
       "title": "结果页面"
     },
+    "scheduler": {
+      "index": "任务调度",
+      "log": "任务日志",
+      "task": "任务管理"
+    },
     "system": {
-      "index": "系统管理",
-      "user": "用户管理",
-      "role": "角色管理",
-      "menu": "菜单管理",
-      "dept": "部门管理",
-      "notice": "通知公告",
-      "file": "文件管理",
-      "dict": "字典管理",
-      "dictItem": "字典项管理",
       "config": {
-        "website": "网站配置",
-        "security": "安全配置",
-        "login": "登录配置",
+        "client": "客户端配置",
         "email": "邮件配置",
+        "login": "登录配置",
+        "security": "安全配置",
         "sms": "短信配置",
         "storage": "存储配置",
-        "client": "客户端配置"
-      }
-    },
-    "monitor": {
-      "index": "系统监控",
-      "onlineUser": "在线用户",
-      "systemLog": "系统日志",
-      "smsLog": "短信日志"
+        "website": "网站配置"
+      },
+      "dept": "部门管理",
+      "dict": "字典管理",
+      "dictItem": "字典项管理",
+      "file": "文件管理",
+      "index": "系统管理",
+      "menu": "菜单管理",
+      "notice": "通知公告",
+      "role": "角色管理",
+      "user": "用户管理"
     },
     "tenant": {
       "index": "租户管理",
       "manage": "租户管理",
       "package": "套餐管理"
-    },
-    "open": {
-      "index": "能力开放",
-      "api": "API管理",
-      "app": "应用管理"
-    },
-    "scheduler": {
-      "index": "任务调度",
-      "task": "任务管理",
-      "log": "任务日志"
-    },
-    "dev": {
-      "index": "开发工具",
-      "gen": "代码生成",
-      "terminal": "终端管理"
     }
   },
-  "button": {
-    "list": "列表",
-    "detail": "详情",
-    "add": "新增",
-    "edit": "修改",
-    "delete": "删除",
-    "export": "导出",
-    "import": "导入",
-    "resetPassword": "重置密码",
-    "assignRole": "分配角色",
-    "editPermission": "修改权限",
-    "assign": "分配",
-    "unassign": "取消分配",
-    "clearCache": "清除缓存",
-    "upload": "上传",
-    "download": "下载",
-    "createFolder": "创建文件夹",
-    "calcFolderSize": "计算文件夹大小",
-    "recycleList": "回收站文件列表",
-    "recycleRestore": "还原回收站文件",
-    "recycleDelete": "删除回收站文件",
-    "recycleClear": "清空回收站"
+  "message": {
+    "batchDelete": "批量删除",
+    "batchDeleteSuccess": "批量删除成功",
+    "cancel": "取消",
+    "confirm": "确认",
+    "confirmDelete": "确定要删除吗？",
+    "deleteFailed": "删除失败",
+    "deleteSuccess": "删除成功",
+    "items": "个项目",
+    "loadFailed": "加载失败",
+    "prompt": "提示",
+    "selectDeleteData": "请选择要删除的数据",
+    "selected": "已选择"
   },
   "notice": {
     "bar": ["通知", "消息", "代办"],
@@ -461,6 +490,40 @@
       "userCenter": "个人中心"
     }
   },
+  "user": {
+    "field": {
+      "createTime": "创建时间",
+      "createUser": "创建人",
+      "dept": "所属部门",
+      "description": "描述",
+      "email": "邮箱",
+      "gender": "性别",
+      "id": "ID",
+      "isSystem": "是否系统内置",
+      "nickname": "昵称",
+      "password": "密码",
+      "phone": "手机号",
+      "role": "角色",
+      "status": "状态",
+      "title": "用户详情",
+      "updateTime": "修改时间",
+      "updateUser": "修改人",
+      "username": "用户名"
+    },
+    "page": {
+      "title": {
+        "detail": "用户详情",
+        "edit": "编辑用户",
+        "resetPwd": "重置密码",
+        "roles": "分配角色"
+      }
+    },
+    "placeholder": {
+      "password": "请输入密码",
+      "role": "请选择角色",
+      "username": "请输入用户名"
+    }
+  },
   "worktab": {
     "btn": {
       "closeAll": "关闭全部",
@@ -471,17 +534,5 @@
       "refresh": "刷新",
       "unfixed": "取消固定"
     }
-  },
-  "message": {
-    "prompt": "提示",
-    "confirmDelete": "确定要删除吗？",
-    "deleteSuccess": "删除成功",
-    "deleteFailed": "删除失败",
-    "selected": "已选择",
-    "items": "个项目",
-    "selectDeleteData": "请选择要删除的数据",
-    "loadFailed": "加载失败",
-    "batchDelete": "批量删除",
-    "batchDeleteSuccess": "批量删除成功"
   }
 }

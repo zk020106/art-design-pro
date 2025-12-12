@@ -1,5 +1,29 @@
 {
+  "button": {
+    "add": "New",
+    "assign": "distribute",
+    "assignRole": "Assign roles",
+    "calcFolderSize": "Calculate folder size",
+    "clearCache": "clear cache",
+    "createFolder": "Create folder",
+    "delete": "delete",
+    "detail": "Details",
+    "download": "download",
+    "edit": "Revise",
+    "editPermission": "Modify permissions",
+    "export": "Export",
+    "import": "import",
+    "list": "list",
+    "recycleClear": "Empty Recycle Bin",
+    "recycleDelete": "Delete recycle bin files",
+    "recycleList": "Recycle bin file list",
+    "recycleRestore": "Restore Recycle Bin files",
+    "resetPassword": "reset password",
+    "unassign": "deallocate",
+    "upload": "upload"
+  },
   "common": {
+    "action": "operate",
     "button": {
       "add": "New",
       "delete": "delete",
@@ -14,17 +38,31 @@
     },
     "cancel": "Cancel",
     "confirm": "Sure",
+    "createTime": "creation time",
+    "empty": "None yet",
+    "error": "mistake",
+    "false": "no",
+    "index": "serial number",
+    "info": "information",
+    "loading": "loading",
     "logOutTips": "Do you want to log out?",
-    "tips": "hint"
+    "placeholder": {
+      "status": "Please select a status"
+    },
+    "status": "state",
+    "success": "success",
+    "tips": "hint",
+    "true": "yes",
+    "warning": "warn"
   },
   "components": {
     "form": {
-      "expand": "Expand",
       "collapse": "close",
+      "expand": "Expand",
       "placeholder": {
+        "date": "Please select a date",
         "input": "Please enter {label}",
         "select": "Please select {label}",
-        "date": "Please select a date",
         "time": "Please select a time"
       },
       "validate": {
@@ -164,6 +202,11 @@
       "console": "workbench",
       "title": "Dashboard"
     },
+    "dev": {
+      "gen": "code generation",
+      "index": "development tools",
+      "terminal": "Terminal management"
+    },
     "exception": {
       "forbidden": "403",
       "notFound": "404",
@@ -176,6 +219,17 @@
     "login": {
       "title": "Log in"
     },
+    "monitor": {
+      "index": "System monitoring",
+      "onlineUser": "Online users",
+      "smsLog": "SMS log",
+      "systemLog": "System log"
+    },
+    "open": {
+      "api": "API management",
+      "app": "Application management",
+      "index": "Capability opening"
+    },
     "outside": {
       "title": "embedded page"
     },
@@ -184,75 +238,50 @@
       "success": "success page",
       "title": "Results page"
     },
+    "scheduler": {
+      "index": "Task scheduling",
+      "log": "Mission log",
+      "task": "task management"
+    },
     "system": {
-      "index": "System management",
-      "user": "User management",
-      "role": "role management",
-      "menu": "Menu management",
-      "dept": "Department management",
-      "notice": "Notices and Announcements",
-      "file": "File management",
-      "dict": "Dictionary management",
-      "dictItem": "Dictionary item management",
       "config": {
-        "website": "Website configuration",
-        "security": "Security configuration",
-        "login": "Login configuration",
+        "client": "Client configuration",
         "email": "Email configuration",
+        "login": "Login configuration",
+        "security": "Security configuration",
         "sms": "SMS configuration",
         "storage": "Storage configuration",
-        "client": "Client configuration"
-      }
-    },
-    "monitor": {
-      "index": "System monitoring",
-      "onlineUser": "Online users",
-      "systemLog": "System log",
-      "smsLog": "SMS log"
+        "website": "Website configuration"
+      },
+      "dept": "Department management",
+      "dict": "Dictionary management",
+      "dictItem": "Dictionary item management",
+      "file": "File management",
+      "index": "System management",
+      "menu": "Menu management",
+      "notice": "Notices and Announcements",
+      "role": "role management",
+      "user": "User management"
     },
     "tenant": {
       "index": "Tenant management",
       "manage": "Tenant management",
       "package": "Package management"
-    },
-    "open": {
-      "index": "Capability opening",
-      "api": "API management",
-      "app": "Application management"
-    },
-    "scheduler": {
-      "index": "Task scheduling",
-      "task": "task management",
-      "log": "Mission log"
-    },
-    "dev": {
-      "index": "development tools",
-      "gen": "code generation",
-      "terminal": "Terminal management"
     }
   },
-  "button": {
-    "list": "list",
-    "detail": "Details",
-    "add": "New",
-    "edit": "Revise",
-    "delete": "delete",
-    "export": "Export",
-    "import": "import",
-    "resetPassword": "reset password",
-    "assignRole": "Assign roles",
-    "editPermission": "Modify permissions",
-    "assign": "distribute",
-    "unassign": "deallocate",
-    "clearCache": "clear cache",
-    "upload": "upload",
-    "download": "download",
-    "createFolder": "Create folder",
-    "calcFolderSize": "Calculate folder size",
-    "recycleList": "Recycle bin file list",
-    "recycleRestore": "Restore Recycle Bin files",
-    "recycleDelete": "Delete recycle bin files",
-    "recycleClear": "Empty Recycle Bin"
+  "message": {
+    "batchDelete": "Batch delete",
+    "batchDeleteSuccess": "Batch deletion successful",
+    "cancel": "Cancel",
+    "confirm": "confirm",
+    "confirmDelete": "Are you sure you want to delete it?",
+    "deleteFailed": "Delete failed",
+    "deleteSuccess": "Delete successfully",
+    "items": "items",
+    "loadFailed": "Loading failed",
+    "prompt": "hint",
+    "selectDeleteData": "Please select the data you want to delete",
+    "selected": "Selected"
   },
   "notice": {
     "bar": ["notify", "information", "Agent"],
@@ -461,6 +490,40 @@
       "userCenter": "Personal center"
     }
   },
+  "user": {
+    "field": {
+      "createTime": "creation time",
+      "createUser": "Creator",
+      "dept": "Department",
+      "description": "describe",
+      "email": "Mail",
+      "gender": "gender",
+      "id": "ID",
+      "isSystem": "Whether the system has built-in",
+      "nickname": "Nick name",
+      "password": "password",
+      "phone": "Phone number",
+      "role": "Role",
+      "status": "state",
+      "title": "User details",
+      "updateTime": "modification time",
+      "updateUser": "Modifier",
+      "username": "username"
+    },
+    "page": {
+      "title": {
+        "detail": "User details",
+        "edit": "Edit user",
+        "resetPwd": "reset password",
+        "roles": "Assign roles"
+      }
+    },
+    "placeholder": {
+      "password": "Please enter password",
+      "role": "Please select a role",
+      "username": "Please enter username"
+    }
+  },
   "worktab": {
     "btn": {
       "closeAll": "Close all",
@@ -471,17 +534,5 @@
       "refresh": "refresh",
       "unfixed": "Unpin"
     }
-  },
-  "message": {
-    "prompt": "hint",
-    "confirmDelete": "Are you sure you want to delete it?",
-    "deleteSuccess": "Delete successfully",
-    "deleteFailed": "Delete failed",
-    "selected": "Selected",
-    "items": "items",
-    "selectDeleteData": "Please select the data you want to delete",
-    "loadFailed": "Loading failed",
-    "batchDelete": "Batch delete",
-    "batchDeleteSuccess": "Batch deletion successful"
   }
 }

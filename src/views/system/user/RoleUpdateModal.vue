@@ -1,7 +1,7 @@
 <template>
   <ElDialog
     v-model="visible"
-    title="分配角色"
+    :title="$t('user.page.title.roles')"
     :close-on-click-modal="false"
     :close-on-press-escape="false"
     :width="width >= 500 ? 500 : '100%'"
@@ -24,6 +24,7 @@
   import { useRole } from '@/hooks/business'
   import { useWindowSize } from '@vueuse/core'
   import { ElMessage } from 'element-plus'
+  import { useI18n } from 'vue-i18n'
 
   const emit = defineEmits<{
     (e: 'save-success'): void
@@ -34,14 +35,14 @@
   const visible = ref(false)
   const formRef = useTemplateRef('formRef')
   const { roleList, getRoleList } = useRole()
-
+  const { t } = useI18n()
   const [form, resetForm] = useResetReactive({})
 
   const columns = computed(
     () =>
       [
         {
-          label: '角色',
+          label: t('user.field.role'),
           field: 'roleIds',
           type: 'select',
           span: 24,
@@ -50,7 +51,7 @@
             options: roleList.value,
             multiple: true,
             clearable: true,
-            placeholder: '请选择角色'
+            placeholder: t('user.placeholder.role')
           }
         }
       ] as FormColumnItem[]

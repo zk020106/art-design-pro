@@ -1,7 +1,7 @@
 <template>
   <ElDialog
     v-model="visible"
-    title="重置密码"
+    :title="$t('user.page.title.resetPwd')"
     :close-on-click-modal="false"
     :close-on-press-escape="false"
     :width="width >= 500 ? 500 : '100%'"
@@ -24,6 +24,7 @@
   import { encryptByRsa } from '@/utils/encrypt'
   import { useWindowSize } from '@vueuse/core'
   import { ElMessage } from 'element-plus'
+  import { useI18n } from 'vue-i18n'
 
   const emit = defineEmits<{
     (e: 'save-success'): void
@@ -36,9 +37,10 @@
 
   const [form, resetForm] = useResetReactive({})
 
+  const { t } = useI18n()
   const columns = reactive([
     {
-      label: '密码',
+      label: t('user.field.password'),
       field: 'newPassword',
       type: 'input',
       span: 24,

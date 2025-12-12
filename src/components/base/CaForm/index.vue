@@ -87,6 +87,7 @@
 
       <!-- 按钮区域 - 使用内联样式强制显示 -->
       <GridItem
+        v-if="props.search"
         :span="100"
         style="display: flex !important; align-items: flex-start; justify-content: flex-end"
       >
