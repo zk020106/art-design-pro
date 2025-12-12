@@ -1,7 +1,7 @@
 <template>
   <ElForm ref="formRef" :class="getClass" v-bind="formProps" :model="props.modelValue">
     <Grid
-      class="w-full"
+      class="w-full ca-form-grid"
       :col-gap="12"
       v-bind="props.gridProps"
       :collapsed="collapsed"
@@ -85,24 +85,32 @@
         </template>
       </template>
 
-      <GridItem v-if="props.search" :suffix="props.search" :span="props?.gridItemProps?.span">
-        <ElSpace class="ca-form__search-btns">
-          <ElButton type="primary" @click="emit('search')">
-            {{ searchText }}
-          </ElButton>
-          <ElButton @click="emit('reset')">{{ t('common.button.reset') }}</ElButton>
-          <ElButton
-            v-if="!props.hideFoldBtn"
-            class="form__fold-btn"
-            type="primary"
-            :icon="collapsed ? ArrowDown : ArrowUp"
-            text
-            size="small"
-            @click="collapsed = !collapsed"
-          >
-            {{ collapsed ? t('components.form.expand') : t('components.form.collapse') }}
-          </ElButton>
-        </ElSpace>
+      <!-- 按钮区域 - 使用内联样式强制显示 -->
+      <GridItem
+        :span="100"
+        style="display: flex !important; align-items: flex-start; justify-content: flex-end"
+      >
+        <ElFormItem label-width="0">
+          <div class="ca-form-buttons-container">
+            <ElSpace class="ca-form__search-btns">
+              <ElButton type="primary" @click="emit('search')">
+                {{ searchText }}
+              </ElButton>
+              <ElButton @click="emit('reset')">{{ t('common.button.reset') }}</ElButton>
+              <ElButton
+                v-if="!props.hideFoldBtn"
+                class="form__fold-btn"
+                type="primary"
+                :icon="collapsed ? ArrowDown : ArrowUp"
+                text
+                size="small"
+                @click="collapsed = !collapsed"
+              >
+                {{ collapsed ? t('components.form.expand') : t('components.form.collapse') }}
+              </ElButton>
+            </ElSpace>
+          </div>
+        </ElFormItem>
       </GridItem>
     </Grid>
   </ElForm>
@@ -409,6 +417,12 @@
     &__search-btns {
       margin-bottom: 8px;
     }
+  }
+
+  // 搜索表单 Grid 布局样式
+  .ca-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 
   .ca-form--search {
