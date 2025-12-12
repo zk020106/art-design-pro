@@ -158,7 +158,7 @@
   const fullscreenHeight = ref(0)
 
   // 表格尺寸
-  const tableSize = ref<'default' | 'large' | 'small'>('default')
+  const tableSize = ref<'default' | 'large' | 'small'>('small')
 
   // 密度选项
   const sizeOptions = computed(() => {
